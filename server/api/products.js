@@ -66,7 +66,7 @@ router.post(
   '/', //add function here to check admin status
   async (req, res, next) => {
     try {
-      const newProduct = Product.create(req.body)
+      const newProduct = await Product.create(req.body)
       res.json(newProduct)
     } catch (error) {
       next(error)

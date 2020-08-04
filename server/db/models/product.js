@@ -39,13 +39,6 @@ const Product = db.define('product', {
     type: Sequelize.BOOLEAN,
     defaultValue: true
   },
-  items: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
-  }
 })
 
 //is this right? Or before Validate?
