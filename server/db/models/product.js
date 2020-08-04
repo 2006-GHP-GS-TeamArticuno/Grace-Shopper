@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Package = db.define('package', {
+const Product = db.define('product', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -38,11 +38,11 @@ const Package = db.define('package', {
   inStock: {
     type: Sequelize.BOOLEAN,
     defaultValue: true
-  }
+  },
 })
 
 //is this right? Or before Validate?
-Package.beforeUpdate(function({quantity, inStock}) {
+Product.beforeUpdate(function({quantity, inStock}) {
   if (quantity > 0) {
     inStock = true
   } else {
@@ -50,4 +50,4 @@ Package.beforeUpdate(function({quantity, inStock}) {
   }
 })
 
-module.exports = Package
+module.exports = Product
