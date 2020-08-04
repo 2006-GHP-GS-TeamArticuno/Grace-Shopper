@@ -34,15 +34,20 @@ const Package = db.define('package', {
     validate: {
       notEmpty: true
     }
+  },
+  inStock: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: true
   }
 })
 
-Package.prototype.inStock = () => {
-  if (Package.quantity > 0) {
-    return true
+//is this right? Or before Validate?
+Package.beforeUpdate(function({quantity, inStock}) {
+  if (quantity > 0) {
+    inStock = true
   } else {
-    return false
+    inStock = false
   }
-}
+})
 
 module.exports = Package

@@ -9,20 +9,10 @@ const Item = db.define('item', {
       notEmpty: true
     }
   },
-  price: {
-    type: Sequelize.INTEGER
-  },
   imageUrl: {
     type: Sequelize.TEXT,
     defaultValue:
       'https://www.partiesbymartins.com/image/cache/data/Floral/Balloons-600x600.jpg'
-  },
-  quantity: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
   },
   description: {
     type: Sequelize.TEXT,
