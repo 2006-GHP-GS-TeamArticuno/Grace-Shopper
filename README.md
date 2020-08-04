@@ -218,7 +218,7 @@ using Boilermaker's handy deployment script:
 Now, you should be deployed!
 
 Why do all of these steps? The big reason is because we don't want our
-production server to be cluttered up with dev dependencies like
+production server to be cluttered up with dev dependencies lik
 `webpack`, but at the same time we don't want our development
 git-tracking to be cluttered with production build files like
 `bundle.js`! By doing these steps, we make sure our development and
