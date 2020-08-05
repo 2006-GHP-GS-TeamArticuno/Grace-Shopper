@@ -27,9 +27,12 @@ class AllProducts extends React.Component {
                 </div>
                 <div> {product.description} </div>
                 <div> Price: {product.price} </div>
-                <div> In stock: </div>
-                <div> In cart: 0 </div>
-                <button>Add to Cart</button>
+                <button
+                  type="submit"
+                  onClick={() => console.log('I am clicked!')}
+                >
+                  Add to Cart
+                </button>
               </div>
             )
           })}
