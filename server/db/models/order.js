@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Cart = db.define('cart',{
+const Order = db.define('order',{
   date: {
     type: Sequelize.DATEONLY
   },
@@ -13,8 +13,12 @@ const Cart = db.define('cart',{
   },
   orderTotal: {
     type: Sequelize.INTEGER
+  },
+  isPurchased: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 
 })
 
-module.exports = Cart
+module.exports = Order
