@@ -13,12 +13,16 @@ class SingleProduct extends React.Component {
     return (
       <div className="singleProduct">
         <h1>Its single product</h1>
+
         <div>{product.name}</div>
-        <div>{product.description}</div>
-        <div>{product.price}</div>
         <div>
           <img src={product.imageUrl} />
         </div>
+        <div>{product.description}</div>
+        <div>{product.price}</div>
+        <div> In stock: </div>
+        <div> In cart: 0 </div>
+        <button>Add to Cart</button>
       </div>
     )
   }

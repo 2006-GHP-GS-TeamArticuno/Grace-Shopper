@@ -21,12 +21,15 @@ class AllProducts extends React.Component {
                 <div>
                   <Link to={`/products/${product.id}`}>{product.name}</Link>{' '}
                 </div>
-                <div> {product.description} </div>
-                <div> Price: {product.price} </div>
                 <div>
                   {' '}
                   <img src={product.imageUrl} />
                 </div>
+                <div> {product.description} </div>
+                <div> Price: {product.price} </div>
+                <div> In stock: </div>
+                <div> In cart: 0 </div>
+                <button>Add to Cart</button>
               </div>
             )
           })}
