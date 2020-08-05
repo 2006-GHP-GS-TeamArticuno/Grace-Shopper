@@ -3,13 +3,25 @@ import {connect} from 'react-redux'
 import {getSingleProductThunk} from '../store/singleProduct'
 
 class SingleProduct extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      count: 1
+    }
+    this.increment = this.increment.bind(this)
+  }
+  increment() {
+    this.setState(prevState => ({
+      count: prevState.count + 1
+    }))
+  }
   componentDidMount() {
     const id = this.props.match.params.id
     this.props.getSingleProduct(id)
   }
   render() {
+    const cart = document.getElementById('cart')
     const product = this.props.product
-    console.log('the single product', product)
     return (
       <div className="singleProduct">
         <h1>Its single product</h1>
@@ -20,9 +32,15 @@ class SingleProduct extends React.Component {
         </div>
         <div>{product.description}</div>
         <div>{product.price}</div>
-        <div> In stock: </div>
-        <div> In cart: 0 </div>
-        <button>Add to Cart</button>
+        <button
+          type="submit"
+          onClick={() => {
+            this.increment()
+            cart.innerHTML = this.state.count
+          }}
+        >
+          Add to Cart
+        </button>
       </div>
     )
   }
