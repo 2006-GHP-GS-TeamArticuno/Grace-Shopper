@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
     if (findCart) res.json(findCart)
     else {
       //will this redirect to cart/:id?
-      const newCart = Cart.create()
+      const newCart = await Cart.create()
       res.json(newCart)
     }
   } catch (error) {
