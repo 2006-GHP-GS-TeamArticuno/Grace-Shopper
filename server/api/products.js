@@ -1,34 +1,33 @@
 const router = require('express').Router()
-const {Product, Item} = require('../db/models')
+const {Product} = require('../db/models')
 module.exports = router
 
-//get all products
+//get all Products
 router.get('/', async (req, res, next) => {
   try {
-    const products = await Product.findAll({
+    const allProducts = await Product.findAll({
       where: {inStock: true}
     })
-    if (products) res.json(products)
+    if (allProducts) res.json(allProducts)
     else res.sendStatus(404)
   } catch (error) {
     next(error)
   }
 })
 
-//get single package by id include items
+//get single Product by id include items
 router.get('/:id', async (req, res, next) => {
   try {
-    const singlePackage = await Product.findOne({
-      where: {id: req.params.id},
-      include: {model: Item}
+    const singleProduct = await Product.findOne({
+      where: {id: req.params.id}
     })
-    res.json(singlePackage)
+    res.json(singleProduct)
   } catch (error) {
     next(error)
   }
 })
 
-//delete single package -- admin view only
+//delete single Product -- admin view only
 router.delete(
   '/:id', //add function here to check admin status
   async (req, res, next) => {
@@ -41,19 +40,19 @@ router.delete(
   }
 )
 
-//put/update single package -- admin view only
+//put/update single Product -- admin view only
 router.put(
   '/:id', //add function here to check admin status
   async (req, res, next) => {
     try {
-      const selectedPackage = await Product.findOne({
+      const selectedProduct = await Product.findOne({
         where: {id: req.params.id}
       })
-      if (selectedPackage) {
+      if (selectedProduct) {
         const updated = await Product.update(req.body)
         res.json(updated)
       } else {
-        res.status(404).send('package not found')
+        res.status(404).send('Product not found')
       }
     } catch (error) {
       next(error)
@@ -61,14 +60,14 @@ router.put(
   }
 )
 
-//post/add single package -- admin view only
+//post/add single Product -- admin view only
 
 router.post(
   '/', //add function here to check admin status
   async (req, res, next) => {
     try {
-      const newPackage = await Product.create(req.body)
-      res.json(newPackage)
+      const newProduct = await Product.create(req.body)
+      res.json(newProduct)
     } catch (error) {
       next(error)
     }

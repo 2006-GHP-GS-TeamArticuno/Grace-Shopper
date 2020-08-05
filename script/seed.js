@@ -2,7 +2,7 @@
 
 const db = require('../server/db')
 const {User} = require('../server/db/models')
-const {Package} = require('../server/db/models')
+const {Product} = require('../server/db/models')
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
@@ -23,7 +23,7 @@ async function seed() {
   ])
 
   const products = await Promise.all([
-    Package.create({
+    Product.create({
       name: 'Baby Shower',
       price: 110,
       description: 'BS',
@@ -31,7 +31,7 @@ async function seed() {
         'https://i.pinimg.com/originals/4e/aa/0c/4eaa0cb5ffd0ca26fa938493c264a1d8.jpg',
       quantity: 1000
     }),
-    Package.create({
+    Product.create({
       name: 'Birthday Party',
       price: 110,
       description: 'BP',
@@ -39,9 +39,9 @@ async function seed() {
         'https://www.sgvtribune.com/wp-content/uploads/2019/03/iStock-999985068-1.jpg',
       quantity: 1000
     })
-    // Package.create({name: '', price: 110, description: '', imageUrl: '', quantity: 1000 }),
-    // Package.create({name: '', price: 110, description: '', imageUrl: '', quantity: 1000 }),
-    // Package.create({name: '', price: 110, description: '', imageUrl: '', quantity: 1000 }),
+    // Product.create({name: '', price: 110, description: '', imageUrl: '', quantity: 1000 }),
+    // Product.create({name: '', price: 110, description: '', imageUrl: '', quantity: 1000 }),
+    // Product.create({name: '', price: 110, description: '', imageUrl: '', quantity: 1000 }),
   ])
 
   console.log(`seeded ${users.length} users`)

@@ -1,15 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getAllProductsThunk} from '../store/allProducts'
+import {Link} from 'react-router-dom'
 
 class AllProducts extends React.Component {
-  constructor() {
-    super()
-  }
   componentDidMount() {
     this.props.getAllProducts()
+    console.log('the props1 are', this.props)
   }
   render() {
+    console.log('the preops are', this.props)
     const products = this.props.products
     return (
       <div>
@@ -18,9 +18,15 @@ class AllProducts extends React.Component {
           products.map(product => {
             return (
               <div key={product.id}>
-                {product.name}
-                {product.price}
-                {product.imageUrl}
+                <div>
+                  <Link to={`/products/${product.id}`}>{product.name}</Link>{' '}
+                </div>
+                <div> {product.description} </div>
+                <div> Price: {product.price} </div>
+                <div>
+                  {' '}
+                  <img src={product.imageUrl} />
+                </div>
               </div>
             )
           })}
@@ -28,10 +34,15 @@ class AllProducts extends React.Component {
     )
   }
 }
-const mapStateToProps = state => ({
-  products: state.products
-})
-const mapDispatchToProps = dispatch => ({
-  getAllProducts: () => dispatch(getAllProductsThunk())
-})
+const mapStateToProps = state => {
+  console.log('the state', state)
+  return {
+    products: state.products
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    getAllProducts: () => dispatch(getAllProductsThunk())
+  }
+}
 export default connect(mapStateToProps, mapDispatchToProps)(AllProducts)
