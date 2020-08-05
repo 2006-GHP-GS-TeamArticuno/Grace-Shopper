@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order} = require('../db/models')
+const {Order,orderDetail} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -27,12 +27,29 @@ router.put('/', async (req, res, next) => {
         }
       })
 
-      const updatedOrder = await findOrder.update(req.body)
+        if(req.body.productId){
+          const {productId, orderId, productPrice} = req.body
+          const updatedOrder = findOrder.increase(productPrice)
+          orderDetail.addProduct(productId, orderId, productPrice)
+          res.json(updatedOrder)
+        }
 
-      res.json(updatedOrder)
-
-  } catch (error) {
+      }
+   catch (error) {
     next(error)
+  }
+})
+
+router.delete('/', async (req, res, next)=>{
+  try {
+     await orderDetail.destroy({
+      where: {
+        productId: req.body.productId
+      }
+    })
+    res.send('deleted')
+  } catch (error) {
+    console.error(error)
   }
 })
 

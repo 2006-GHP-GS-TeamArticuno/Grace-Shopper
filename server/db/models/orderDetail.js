@@ -7,4 +7,8 @@ const orderDetail = db.define('orderDetail', {
   }
 })
 
+orderDetail.addProduct = function (productId, orderId, productPrice) {
+  orderDetail.create(productId, orderId, productPrice)
+}
+
 module.exports = orderDetail

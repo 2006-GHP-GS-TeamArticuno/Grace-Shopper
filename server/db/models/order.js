@@ -9,10 +9,12 @@ const Order = db.define('order',{
     type: Sequelize.INTEGER
   },
   totalQuantity: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   },
   orderTotal: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   },
   isPurchased: {
     type: Sequelize.BOOLEAN,
@@ -20,5 +22,11 @@ const Order = db.define('order',{
   }
 
 })
+
+//increase qty
+Order.increase = function (productPrice){
+  totalQuantity++
+  orderTotal += productPrice
+}
 
 module.exports = Order
