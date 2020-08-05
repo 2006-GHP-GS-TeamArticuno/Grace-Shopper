@@ -5,8 +5,7 @@ const Cart = db.define('cart',{
   date: {
     type: Sequelize.DATEONLY
   },
-
-  orderNumber:{
+  orderNumber: {
     type: Sequelize.INTEGER
   }
 

@@ -8,7 +8,11 @@ const orderDetail = require('./orderDetail')
  *
  *    BlogPost.belongsTo(User)
  */
+User.hasOne(Cart)
+Cart.belongsTo(User)
 
+Cart.hasMany(Product)
+Product.belongsToMany(Cart, {through: 'orderDetail'})
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
