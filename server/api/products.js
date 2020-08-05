@@ -1,14 +1,14 @@
 const router = require('express').Router()
-const {Package, Item} = require('../db/models')
+const {Product, Item} = require('../db/models')
 module.exports = router
 
-//get all packages
+//get all products
 router.get('/', async (req, res, next) => {
   try {
-    const allPackages = await Package.findAll({
+    const products = await Product.findAll({
       where: {inStock: true}
     })
-    if (packages) res.json(packages)
+    if (products) res.json(products)
     else res.sendStatus(404)
   } catch (error) {
     next(error)
@@ -18,7 +18,7 @@ router.get('/', async (req, res, next) => {
 //get single package by id include items
 router.get('/:id', async (req, res, next) => {
   try {
-    const singlePackage = await Package.findOne({
+    const singlePackage = await Product.findOne({
       where: {id: req.params.id},
       include: {model: Item}
     })
@@ -33,7 +33,7 @@ router.delete(
   '/:id', //add function here to check admin status
   async (req, res, next) => {
     try {
-      await Package.destroy({where: {id: req.params.id}})
+      await Product.destroy({where: {id: req.params.id}})
       res.sendStatus(204)
     } catch (error) {
       next(error)
@@ -46,11 +46,11 @@ router.put(
   '/:id', //add function here to check admin status
   async (req, res, next) => {
     try {
-      const selectedPackage = await Package.findOne({
+      const selectedPackage = await Product.findOne({
         where: {id: req.params.id}
       })
       if (selectedPackage) {
-        const updated = await Package.update(req.body)
+        const updated = await Product.update(req.body)
         res.json(updated)
       } else {
         res.status(404).send('package not found')
@@ -67,7 +67,7 @@ router.post(
   '/', //add function here to check admin status
   async (req, res, next) => {
     try {
-      const newPackage = Package.create(req.body)
+      const newPackage = await Product.create(req.body)
       res.json(newPackage)
     } catch (error) {
       next(error)

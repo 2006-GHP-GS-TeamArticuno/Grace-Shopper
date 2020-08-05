@@ -1,15 +1,7 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
 module.exports = router
-router.param('id', async (req, res, next, id) => {
-  try {
-    const user = await User.findById(id)
-    if (!user) throw HttpError(404)
-    req.requestedUser = user
-  } catch (error) {
-    next(error)
-  }
-})
+
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
@@ -23,6 +15,7 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
 router.post('/', async (req, res, next) => {
   try {
     const newUser = await User.create(req.body)
@@ -33,13 +26,10 @@ router.post('/', async (req, res, next) => {
 })
 router.get('/:id', async (req, res, next) => {
   try {
-    const userById = await req.requestedUser.reload({
-      include: [
-        {
-          model: Package, //need to change
-          attributes: {exclude: ['paragraphs']}
-        }
-      ]
+    const userById = await User.findOne({
+      where: {
+        id: req.params.id
+      }
     })
     res.json(userById)
   } catch (error) {
@@ -48,15 +38,17 @@ router.get('/:id', async (req, res, next) => {
 })
 router.put('/:id', async (req, res, next) => {
   try {
-    const updatedUser = await req.requestedUser.update(req.body)
+    const userById = await User.findByPk(req.params.id)
+    const updatedUser = await userById.update(req.body)
     res.json(updatedUser)
   } catch (error) {
     next(error)
   }
 })
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   try {
-    req.requestedUser.destroy()
+    const userById = await User.findByPk(req.params.id)
+    userById.destroy()
     res.status(204).end()
   } catch (error) {
     next(error)
