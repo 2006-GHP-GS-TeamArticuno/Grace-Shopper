@@ -2,14 +2,13 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const orderDetail = db.define('orderDetail', {
-  orderProductTotal: {
+  productPrice: {
     type: Sequelize.INTEGER
-  },
-
-  isPurchased: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
   }
 })
+
+orderDetail.addProduct = function(productId, orderId, productPrice) {
+  orderDetail.create(productId, orderId, productPrice)
+}
 
 module.exports = orderDetail
