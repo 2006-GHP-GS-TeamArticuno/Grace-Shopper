@@ -2,7 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {getAllProductsThunk} from '../store/allProducts'
 import {Link} from 'react-router-dom'
-import Navbar from './navbar'
+// import Navbar from './navbar'
+import {getTotalCountThunk} from '../store/increment'
 
 class AllProducts extends React.Component {
   constructor() {
@@ -19,10 +20,12 @@ class AllProducts extends React.Component {
   }
   componentDidMount() {
     this.props.getAllProducts()
+    this.props.getCart()
   }
   render() {
     const products = this.props.products
     const cart = document.getElementById('cart')
+    console.log('the all products cart', this.props.count)
     return (
       <div>
         <h1>All packages</h1>
@@ -44,8 +47,8 @@ class AllProducts extends React.Component {
                   onClick={() => {
                     this.increment()
                     cart.innerHTML = this.state.count
-                    console.log('value', cart.value)
-                    console.log('COUNT', this.state.count)
+                    // console.log('value', cart.value)
+                    // console.log('COUNT', this.state.count)
                   }}
                 >
                   Add to Cart
@@ -58,14 +61,16 @@ class AllProducts extends React.Component {
   }
 }
 const mapStateToProps = state => {
-  console.log('the state', state)
+  console.log('the state from all products', state)
   return {
-    products: state.products
+    products: state.products,
+    count: state.cart.totalQuantity
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    getAllProducts: () => dispatch(getAllProductsThunk())
+    getAllProducts: () => dispatch(getAllProductsThunk()),
+    getCart: () => dispatch(getTotalCountThunk())
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(AllProducts)
