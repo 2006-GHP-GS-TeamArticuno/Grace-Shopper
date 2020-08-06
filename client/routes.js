@@ -6,6 +6,7 @@ import {
   Login,
   Signup,
   UserHome,
+  Home,
   AllProducts,
   SingleProduct,
   CheckoutConfirmation
@@ -31,11 +32,12 @@ class Routes extends Component {
         <Route path="/checkout" component={CheckoutConfirmation} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route exact path="/home" component={Home} />
 
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
+            <Route path="/welcome" component={UserHome} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
