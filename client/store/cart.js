@@ -7,10 +7,10 @@ import axios from 'axios'
 const GET_CART = 'GET_CART'
 
 //INITIAL STATE
-const initialState = []
+const initialState = {}
 
 //ACTION CREATOR
-export const getCart = cart => {
+const getCart = cart => {
   return {
     type: GET_CART,
     cart
@@ -36,7 +36,6 @@ export const getCartThunk = () => {
   return async dispatch => {
     try {
       const {data} = await axios.get('/api/cart')
-      console.log('data in thunk', data)
       dispatch(getCart(data))
     } catch (error) {
       console.error(error)
@@ -44,12 +43,11 @@ export const getCartThunk = () => {
   }
 }
 
-// export const addProductThunk = (productId, productPrice) => {
+// export const addProductThunk = (productId, orderId, productPrice) => {
 //   return async dispatch => {
 //     try {
-//       const{data} = await axios.put('/api/cart', (productId, productPrice))
-//       dispatch(addProduct(data))
-
+//       const{data} = await axios.put('/api/cart', (productId, orderId, productPrice))
+//       dispatch(addProduct(updatedOrder))
 //     } catch (error) {
 //       console.error(error)
 //     }
@@ -73,12 +71,15 @@ export default function(state = initialState, action) {
     case GET_CART:
       return action.cart
 
+    // case ADD_PRODUCT:
+    //   return {...initialState,
+    //     action.updatedOrde
+    //     }
+
+    // case DELETE_PRODUCT:
+    //   return
+
     default:
       return state
   }
 }
-
-// case ADD_PRODUCT:
-//   return [...state, action.updatedOrder]
-// case DELETE_PRODUCT:
-//   return
