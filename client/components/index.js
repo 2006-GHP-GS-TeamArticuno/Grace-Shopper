@@ -10,5 +10,6 @@ export {default as SingleProduct} from './SingleProduct'
 export {default as CheckoutConfirmation} from './CheckoutConfirmation'
 export {default as Home} from './Home'
 export {default as AllUsers} from './AllUsers'
+export {default as SingleUser} from './SingleUser'
 
 export {Login, Signup} from './auth-form'

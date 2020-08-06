@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getAllUsersThunk} from '../store/users'
+import {Link} from 'react-router-dom'
 
 class AllUsers extends React.Component {
   componentDidMount() {
@@ -18,7 +19,9 @@ class AllUsers extends React.Component {
             return (
               <div key={user.id}>
                 <div>
-                  {user.firstName} {user.lastName}
+                  <Link to={`/users/${user.id}`}>
+                    {user.firstName} {user.lastName}
+                  </Link>
                   <br />
                 </div>
                 <div>{user.email}</div>

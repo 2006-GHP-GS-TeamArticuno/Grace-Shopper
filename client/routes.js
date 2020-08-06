@@ -10,7 +10,8 @@ import {
   AllProducts,
   SingleProduct,
   CheckoutConfirmation,
-  AllUsers
+  AllUsers,
+  SingleUser
 } from './components'
 import {me} from './store'
 
@@ -34,8 +35,8 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/home" component={Home} />
-        <Route path="/users" component={AllUsers} />
-
+        <Route exact path="/users" component={AllUsers} />
+        <Route path="/users/:id" component={SingleUser} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
