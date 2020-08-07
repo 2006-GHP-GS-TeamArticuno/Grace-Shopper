@@ -54,7 +54,7 @@ router.put('/:id', isAdminMiddleware, async (req, res, next) => {
       where: {id: req.params.id}
     })
     if (selectedProduct) {
-      const updated = await Product.update(req.body)
+      const updated = await selectedProduct.update(req.body)
       res.json(updated)
     } else {
       res.status(404).send('Product not found')

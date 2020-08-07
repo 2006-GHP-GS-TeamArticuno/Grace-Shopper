@@ -1,18 +1,6 @@
 import React from 'react'
-
-class Button extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      count: 1
-    }
-    this.increment = this.increment.bind(this)
-  }
-  increment() {
-    this.setState(prevState => ({
-      count: prevState.count + 1
-    }))
-  }
+import {deleteProductThunk} from '../store/allProducts'
+class RemoveProductButton extends React.Component {
   render() {
     const cart = document.getElementById('cart')
     return (
@@ -31,5 +19,15 @@ class Button extends React.Component {
     )
   }
 }
+const mapStateToProps = state => {
+  return {
+    users: state.users
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    getAllUsers: () => dispatch(getAllUsersThunk())
+  }
+}
 
-export default Button
+export default RemoveProductButton
