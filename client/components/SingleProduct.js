@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getSingleProductThunk} from '../store/singleProduct'
-
+import Button from './Button'
 class SingleProduct extends React.Component {
   constructor() {
     super()
@@ -32,15 +32,13 @@ class SingleProduct extends React.Component {
         </div>
         <div>{product.description}</div>
         <div>{product.price}</div>
-        <button
-          type="submit"
-          onClick={() => {
-            this.increment()
-            cart.innerHTML = this.state.count
-          }}
-        >
-          Add to Cart
-        </button>
+        <Button
+        // type="submit"
+        // onClick={() => {
+        //   this.increment()
+        //   cart.innerHTML = this.state.count
+        // }}
+        />
       </div>
     )
   }

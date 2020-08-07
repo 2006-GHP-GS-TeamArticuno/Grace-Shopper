@@ -25,10 +25,6 @@ const User = db.define('user', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   },
-  isLoggedIn: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
-  },
   // shippingAddress: {
   //   //any other fields to include
   //   type: Sequelize.TEXT,

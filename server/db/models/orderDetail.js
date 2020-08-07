@@ -7,6 +7,7 @@ const orderDetail = db.define('orderDetail', {
   }
 })
 
+
 orderDetail.addProduct = async function(productId, orderId, productPrice) {
   await orderDetail.create(productId, orderId, productPrice)
 }
