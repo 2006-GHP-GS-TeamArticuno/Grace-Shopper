@@ -11,7 +11,7 @@ label {
 }
 
 nav a {
-  display: inline-block;
+  /* display: inline-block; */
   margin: 1em;
 }
 #cart {
@@ -29,4 +29,12 @@ img {
 .cartImage {
   width: 40px;
   height: 40px;
+}
+
+.margin {
+  padding-top: 5%;
+}
+
+.navbar-brand {
+  background-color: rgb(247, 198, 158);
 }

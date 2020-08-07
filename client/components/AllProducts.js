@@ -27,35 +27,40 @@ class AllProducts extends React.Component {
     const cart = document.getElementById('cart')
     console.log('the all products cart', this.props.count)
     return (
-      <div>
-        <h1>All packages</h1>
-        {products &&
-          products.map(product => {
-            return (
-              <div key={product.id}>
-                <div>
-                  <Link to={`/products/${product.id}`}>{product.name}</Link>{' '}
+      <div className="margin">
+        <h1 className="subtitle is-size-3 has-text-centered">All packages</h1>
+        <div className="columns is-multiline is-centered">
+          {products &&
+            products.map(product => {
+              return (
+                <div className="column is-one-quarter" key={product.id}>
+                  <div className="has-text-centered">
+                    <Link to={`/products/${product.id}`}>{product.name}</Link>{' '}
+                  </div>
+                  <div>
+                    {' '}
+                    <img src={product.imageUrl} />
+                  </div>
+                  <div className="has-text-centered"> {product.description} </div>
+                  <div className="has-text-centered"> Price: {product.price} </div>
+                  <div className=" has-text-centered">
+                    <button
+                      className="button is-primary"
+                      type="submit"
+                      onClick={() => {
+                        this.increment()
+                        cart.innerHTML = this.state.count
+                        // console.log('value', cart.value)
+                        // console.log('COUNT', this.state.count)
+                      }}
+                    >
+                      Add to Cart
+                    </button>
+                  </div>
                 </div>
-                <div>
-                  {' '}
-                  <img src={product.imageUrl} />
-                </div>
-                <div> {product.description} </div>
-                <div> Price: {product.price} </div>
-                <button
-                  type="submit"
-                  onClick={() => {
-                    this.increment()
-                    cart.innerHTML = this.state.count
-                    // console.log('value', cart.value)
-                    // console.log('COUNT', this.state.count)
-                  }}
-                >
-                  Add to Cart
-                </button>
-              </div>
-            )
-          })}
+              )
+            })}
+        </div>
       </div>
     )
   }

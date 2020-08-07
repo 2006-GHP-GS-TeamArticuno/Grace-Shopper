@@ -18,8 +18,11 @@ class Navbar extends React.Component {
   }
   render() {
     return (
-      <div>
-        <h1>BOILERMAKER</h1>
+      <div className="navbar-brand">
+        <div className="navbar-item">
+          {' '}
+          <img src="../public/PARTYBOX.png" />{' '}
+        </div>
         <nav>
           {this.isLoggedIn ? (
             <div>
