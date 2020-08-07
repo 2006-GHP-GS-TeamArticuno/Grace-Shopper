@@ -2,7 +2,17 @@ const router = require('express').Router()
 const {User} = require('../db/models')
 module.exports = router
 
-router.get('/', async (req, res, next) => {
+const isAdminMiddleware = (req, res, next) => {
+  if (!req.user || !req.user.isAdmin) {
+    const error = new Error('You are not an admin')
+    error.status = 401
+    next(error)
+  } else {
+    next()
+  }
+}
+
+router.get('/', isAdminMiddleware, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and email fields - even though
@@ -16,7 +26,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', isAdminMiddleware, async (req, res, next) => {
   try {
     const newUser = await User.create(req.body)
     res.status(201).json(newUser)
@@ -24,7 +34,7 @@ router.post('/', async (req, res, next) => {
     next(error)
   }
 })
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', isAdminMiddleware, async (req, res, next) => {
   try {
     const userById = await User.findOne({
       where: {
@@ -36,7 +46,7 @@ router.get('/:id', async (req, res, next) => {
     next(error)
   }
 })
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isAdminMiddleware, async (req, res, next) => {
   try {
     const userById = await User.findByPk(req.params.id)
     const updatedUser = await userById.update(req.body)
@@ -45,7 +55,7 @@ router.put('/:id', async (req, res, next) => {
     next(error)
   }
 })
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isAdminMiddleware, async (req, res, next) => {
   try {
     const userById = await User.findByPk(req.params.id)
     userById.destroy()
