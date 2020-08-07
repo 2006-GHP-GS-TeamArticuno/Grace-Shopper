@@ -76,7 +76,7 @@ export default function(state = initialState, action) {
         ...action.updatedOrder
       }
     case DELETE_PRODUCT:
-      return [...state].filter(product => product.id !== action.id)
+    // return [...state].filter(product => product.id !== action.id)
     default:
       return state
   }

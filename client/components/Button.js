@@ -25,10 +25,9 @@ class Button extends React.Component {
           onClick={() => {
             this.props.text === 'delete'
               ? this.props.deleteProduct(productId)
-              : this.props.addProduct(productId, productPrice)(
-                  // this.increment()
-                  (cart.innerHTML = this.state.count)
-                )
+              : this.props.addProduct(productId, productPrice)
+            cart.innerHTML = this.state.count
+            this.increment()
           }}
         >
           {this.props.text}
