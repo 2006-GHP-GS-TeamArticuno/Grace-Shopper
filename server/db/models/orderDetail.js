@@ -7,8 +7,9 @@ const orderDetail = db.define('orderDetail', {
   }
 })
 
-orderDetail.addProduct = function(productId, orderId, productPrice) {
-  orderDetail.create(productId, orderId, productPrice)
+
+orderDetail.addProduct = async function(productId, orderId, productPrice) {
+  await orderDetail.create(productId, orderId, productPrice)
 }
 
 module.exports = orderDetail

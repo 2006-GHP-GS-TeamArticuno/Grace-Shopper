@@ -1,37 +1,39 @@
 const router = require('express').Router()
-const {Order, orderDetail} = require('../db/models')
+const {Order, orderDetail, Product} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const findOrder = await Order.findOrCreate({
+    const findOrder = await Order.findAll({
       where: {
         userId: req.user.id,
         isPurchased: false
+      },
+      include: {
+        model: Product
       }
     })
 
     if (findOrder) res.json(findOrder)
+    else res.send('You have not added any items to your cart yet!')
   } catch (error) {
     next(error)
   }
 })
 
-router.put('/', async (req, res, next) => {
+///ROUTE to ADD a product to the cart
+router.post('/', async (req, res, next) => {
   try {
-    const findOrder = await Order.findOne({
+    const [findOrder, created] = await Order.findOrCreate({
       where: {
         userId: req.user.id,
         isPurchased: false
-      }
+      },
+      include: {model: Product}
     })
 
-    if (req.body.productId) {
-      const {productId, orderId, productPrice} = req.body
-      const updatedOrder = findOrder.increase(productPrice)
-      orderDetail.addProduct(productId, orderId, productPrice)
-      res.json(updatedOrder)
-    }
+    orderDetail.create(req.body.productId, findOrder.id, req.body.productPrice)
+    res.json(findOrder)
   } catch (error) {
     next(error)
   }
