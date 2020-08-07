@@ -37,12 +37,18 @@ class AllProducts extends React.Component {
                   <div className="has-text-centered">
                     <Link to={`/products/${product.id}`}>{product.name}</Link>{' '}
                   </div>
-                  <div>
+                  <div className="has-text-centered">
                     {' '}
                     <img src={product.imageUrl} />
                   </div>
-                  <div className="has-text-centered"> {product.description} </div>
-                  <div className="has-text-centered"> Price: {product.price} </div>
+                  <div className="has-text-centered">
+                    {' '}
+                    {product.description}{' '}
+                  </div>
+                  <div className="has-text-centered">
+                    {' '}
+                    Price: {product.price}{' '}
+                  </div>
                   <div className=" has-text-centered">
                     <button
                       className="button is-primary"

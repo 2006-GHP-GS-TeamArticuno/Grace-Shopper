@@ -19,9 +19,11 @@ class Navbar extends React.Component {
   render() {
     return (
       <div className="navbar-brand">
-        <div className="navbar-item">
-          {' '}
-          <img src="../public/PARTYBOX.png" />{' '}
+        <div>
+          <Link to="/home">
+            {' '}
+            <img id="logo" src="logo_transparent.png" />{' '}
+          </Link>
         </div>
         <nav>
           {this.isLoggedIn ? (

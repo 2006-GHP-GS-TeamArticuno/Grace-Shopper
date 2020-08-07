@@ -11,7 +11,7 @@ const Home = props => {
     <div>
       <h1>Welcome to PartyBox!</h1>
       <h2>Your social distancing party solution</h2>
-      <img src="https://blog.viablossom.com/wp-content/uploads/2015/08/Carousel-Party-3.jpg" />
+      <img src="PARTYBOX.png" />
       <div>
         <h4>WE BRING THE PARTY TO YOU VIRTUALLY!</h4>
         <div>
