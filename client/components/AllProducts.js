@@ -56,8 +56,6 @@ class AllProducts extends React.Component {
                       onClick={() => {
                         this.increment()
                         cart.innerHTML = this.state.count
-                        // console.log('value', cart.value)
-                        // console.log('COUNT', this.state.count)
                       }}
                     >
                       Add to Cart

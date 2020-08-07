@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getCartThunk} from '../store/cart'
+import Button from './Button'
 
 class Cart extends React.Component {
   constructor(props) {
@@ -22,7 +23,11 @@ class Cart extends React.Component {
             <div>Total Quantity:0</div>
             <div>Price: {product.price}</div>
             <button>delete</button>
-            <button>increase</button>
+            <Button
+              productId={product.id}
+              productPrice={product.price}
+              text="increase"
+            />
           </div>
         </div>
       )
@@ -31,13 +36,14 @@ class Cart extends React.Component {
 
   render() {
     if (this.props.order[0] === undefined) {
-      return <div> Cart Loading! </div>
+      return <div> You don't have any items in your cart yet! </div>
     } else {
       const products = this.props.order[0].products
       return (
         <div>
           <h1> My Cart </h1>
           <div>{this.getProducts(products)}</div>
+          <button>Checkout</button>
         </div>
       )
     }
@@ -46,13 +52,15 @@ class Cart extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    order: state.order
+    order: state.order,
+    updatedOrder: state.order
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     getCart: () => dispatch(getCartThunk())
+    //increase: () => dispatch(add)
   }
 }
 

@@ -1,8 +1,10 @@
 import React from 'react'
+import {addProductThunk} from '../store/cart'
+import {connect} from 'react-redux'
 
 class Button extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       count: 1
     }
@@ -15,20 +17,30 @@ class Button extends React.Component {
   }
   render() {
     const cart = document.getElementById('cart')
+    const {productId, productPrice} = this.props
+    console.log('WHAT ARE PROPS IN THE BUTTON', this.props)
     return (
       <div>
         <button
           type="submit"
           onClick={() => {
             this.increment()
+            this.props.addProduct(productId, productPrice)
             cart.innerHTML = this.state.count
           }}
         >
-          Add to Cart
+          {this.props.text}
         </button>
       </div>
     )
   }
 }
 
-export default Button
+const mapDispatchToProps = dispatch => {
+  return {
+    addProduct: (productId, productPrice) =>
+      dispatch(addProductThunk(productId, productPrice))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Button)
