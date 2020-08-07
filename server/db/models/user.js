@@ -29,15 +29,15 @@ const User = db.define('user', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   },
-  shippingAddress: {
-    //any other fields to include
-    type: Sequelize.TEXT,
-    allowNull: false
-  },
-  creditCardInfo: {
-    //any other fields to include
-    type: Sequelize.INTEGER
-  },
+  // shippingAddress: {
+  //   //any other fields to include
+  //   type: Sequelize.TEXT,
+  //   allowNull: false
+  // },
+  // creditCardInfo: {
+  //   //any other fields to include
+  //   type: Sequelize.INTEGER
+  // },
   password: {
     type: Sequelize.STRING,
     // Making `.password` act like a func hides it when serializing to JSON.

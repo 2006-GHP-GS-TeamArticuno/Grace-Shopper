@@ -11,11 +11,37 @@ label {
 }
 
 nav a {
-  display: inline-block;
+  /* display: inline-block; */
   margin: 1em;
 }
-
+#cart {
+  display: inline-block;
+  margin: left;
+}
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+#logo {
+  width: 100px;
+  height: 50px;
+}
+
+img {
+  width: 200px;
+  height: 150px;
+}
+
+.cartImage {
+  width: 40px;
+  height: 40px;
+}
+
+.margin {
+  padding-top: 5%;
+}
+
+.navbar-brand {
+  background-color: rgb(247, 198, 158);
 }

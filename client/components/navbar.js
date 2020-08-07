@@ -3,30 +3,59 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
-
-const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1>BOILERMAKER</h1>
-    <nav>
-      {isLoggedIn ? (
+class Navbar extends React.Component {
+  constructor({handleClick, isLoggedIn}) {
+    super({handleClick, isLoggedIn})
+    this.state = {
+      count: 0
+    }
+    this.increment = this.increment.bind(this)
+  }
+  increment() {
+    this.setState(prevState => ({
+      count: prevState.count + 1
+    }))
+  }
+  render() {
+    return (
+      <div className="navbar-brand">
         <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
+          <Link to="/home">
+            {' '}
+            <img id="logo" src="logo_transparent.png" />{' '}
+          </Link>
         </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
-      )}
-    </nav>
-    <hr />
-  </div>
-)
+        <nav>
+          {this.isLoggedIn ? (
+            <div>
+              {/* The navbar will show these links after you log in */}
+              <Link to="/welcome">Home</Link>
+              <a href="#" onClick={this.handleClick}>
+                Logout
+              </a>
+            </div>
+          ) : (
+            <div>
+              {/* The navbar will show these links before you log in */}
+              <Link to="/home">Home</Link>
+              <Link to="/login">Login</Link>
+              <Link to="/signup">Sign Up</Link>
+              <Link to="/products">Products</Link>
+              <Link to="/cart">
+                <img
+                  src="https://www.pngmart.com/files/7/Cart-PNG-Clipart.png"
+                  className="cartImage"
+                />
+              </Link>
+              <div id="cart">0</div>
+            </div>
+          )}
+        </nav>
+        <hr />
+      </div>
+    )
+  }
+}
 
 /**
  * CONTAINER
