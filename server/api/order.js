@@ -23,7 +23,6 @@ router.get('/', async (req, res, next) => {
 
 ///ROUTE to ADD a product to the cart
 router.post('/', async (req, res, next) => {
-  console.log(req.body)
   try {
     const [findOrder, created] = await Order.findOrCreate({
       where: {
@@ -43,11 +42,14 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.delete('/', async (req, res, next) => {
+//this delete route deletes all of a certain product inside the cart
+router.delete('/:productId', async (req, res, next) => {
+  console.log('WHAT IS REQ.BODY', req.body)
+  console.log('WHAT IS REQ.PARAMS', req.params)
   try {
     await orderDetail.destroy({
       where: {
-        productId: req.body.productId
+        productId: req.params.productId
       }
     })
     res.send('deleted')

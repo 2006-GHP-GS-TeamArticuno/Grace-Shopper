@@ -1,5 +1,5 @@
 import React from 'react'
-import {addProductThunk} from '../store/cart'
+import {addProductThunk, deleteProductThunk} from '../store/cart'
 import {connect} from 'react-redux'
 
 class Button extends React.Component {
@@ -23,9 +23,12 @@ class Button extends React.Component {
         <button
           type="submit"
           onClick={() => {
-            this.increment()
-            this.props.addProduct(productId, productPrice)
-            cart.innerHTML = this.state.count
+            this.props.text === 'delete'
+              ? this.props.deleteProduct(productId)
+              : this.props.addProduct(productId, productPrice)(
+                  // this.increment()
+                  (cart.innerHTML = this.state.count)
+                )
           }}
         >
           {this.props.text}
@@ -38,7 +41,8 @@ class Button extends React.Component {
 const mapDispatchToProps = dispatch => {
   return {
     addProduct: (productId, productPrice) =>
-      dispatch(addProductThunk(productId, productPrice))
+      dispatch(addProductThunk(productId, productPrice)),
+    deleteProduct: productId => dispatch(deleteProductThunk(productId))
   }
 }
 

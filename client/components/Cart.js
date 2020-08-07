@@ -22,7 +22,7 @@ class Cart extends React.Component {
             <img src={product.imageUrl} />
             <div>Total Quantity:0</div>
             <div>Price: {product.price}</div>
-            <button>delete</button>
+            <Button productId={product.id} text="delete" />
             <Button
               productId={product.id}
               productPrice={product.price}
@@ -60,7 +60,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getCart: () => dispatch(getCartThunk())
-    //increase: () => dispatch(add)
   }
 }
 
