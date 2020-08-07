@@ -18,7 +18,6 @@ class Button extends React.Component {
   render() {
     const cart = document.getElementById('cart')
     const {productId, productPrice} = this.props
-    console.log('WHAT ARE PROPS IN THE BUTTON', this.props)
     return (
       <div>
         <button

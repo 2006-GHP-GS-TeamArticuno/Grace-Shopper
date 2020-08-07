@@ -48,10 +48,7 @@ export const addProductThunk = (productId, productPrice) => {
     console.log('productId', productId)
     console.log('productPrice', productPrice)
     try {
-      const {data} = await axios.post('/api/cart', {
-        productId: productId,
-        productPrice: productPrice
-      })
+      const {data} = await axios.post('/api/cart', {productId, productPrice})
       console.log(data)
       dispatch(addProduct(data))
     } catch (error) {

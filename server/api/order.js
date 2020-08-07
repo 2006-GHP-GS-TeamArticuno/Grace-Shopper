@@ -23,6 +23,7 @@ router.get('/', async (req, res, next) => {
 
 ///ROUTE to ADD a product to the cart
 router.post('/', async (req, res, next) => {
+  console.log(req.body)
   try {
     const [findOrder, created] = await Order.findOrCreate({
       where: {
