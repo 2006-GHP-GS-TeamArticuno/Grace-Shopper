@@ -32,8 +32,11 @@ router.post('/', async (req, res, next) => {
       },
       include: {model: Product}
     })
+    const orderId = findOrder.id
+    const productId = req.body.productId
+    const productPrice = req.body.productPrice
 
-    orderDetail.create(req.body.productId, req.body.productPrice, findOrder.id)
+    orderDetail.create({productId, productPrice, orderId})
     res.json(findOrder)
   } catch (error) {
     next(error)
