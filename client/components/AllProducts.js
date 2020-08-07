@@ -4,7 +4,7 @@ import {getAllProductsThunk} from '../store/allProducts'
 import {Link} from 'react-router-dom'
 // import Navbar from './navbar'
 import {getTotalCountThunk} from '../store/increment'
-
+import Button from './Button'
 class AllProducts extends React.Component {
   constructor() {
     super()
@@ -42,17 +42,15 @@ class AllProducts extends React.Component {
                 </div>
                 <div> {product.description} </div>
                 <div> Price: {product.price} </div>
-                <button
-                  type="submit"
-                  onClick={() => {
-                    this.increment()
-                    cart.innerHTML = this.state.count
-                    // console.log('value', cart.value)
-                    // console.log('COUNT', this.state.count)
-                  }}
-                >
-                  Add to Cart
-                </button>
+                <Button
+                // type="submit"
+                // onClick={() => {
+                //   this.increment()
+                //   cart.innerHTML = this.state.count
+                //   // console.log('value', cart.value)
+                //   // console.log('COUNT', this.state.count)
+                // }}
+                />
               </div>
             )
           })}

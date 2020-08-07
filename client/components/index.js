@@ -11,5 +11,5 @@ export {default as CheckoutConfirmation} from './CheckoutConfirmation'
 export {default as Home} from './Home'
 export {default as AllUsers} from './AllUsers'
 export {default as SingleUser} from './SingleUser'
-
+export {default as Button} from './Button'
 export {Login, Signup} from './auth-form'
