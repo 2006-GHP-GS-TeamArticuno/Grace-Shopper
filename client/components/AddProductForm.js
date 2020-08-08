@@ -80,7 +80,7 @@ export default class AddProductForm extends Component {
           </div>
           <br />
 
-          <button className="button is-primary" type="submit">
+          <button className="button is-success is-light" type="submit">
             Submit
           </button>
         </form>
