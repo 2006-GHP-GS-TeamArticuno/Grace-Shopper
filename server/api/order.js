@@ -31,19 +31,25 @@ router.post('/', async (req, res, next) => {
       },
       include: {model: Product}
     })
+    const orderId = findOrder.id
+    const productId = req.body.productId
+    const productPrice = req.body.productPrice
 
-    orderDetail.create(req.body.productId, findOrder.id, req.body.productPrice)
+    orderDetail.create({productId, productPrice, orderId})
     res.json(findOrder)
   } catch (error) {
     next(error)
   }
 })
 
-router.delete('/', async (req, res, next) => {
+//this delete route deletes all of a certain product inside the cart
+router.delete('/:productId', async (req, res, next) => {
+  console.log('WHAT IS REQ.BODY', req.body)
+  console.log('WHAT IS REQ.PARAMS', req.params)
   try {
     await orderDetail.destroy({
       where: {
-        productId: req.body.productId
+        productId: req.params.productId
       }
     })
     res.send('deleted')
