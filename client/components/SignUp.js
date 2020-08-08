@@ -10,38 +10,57 @@ const SignUp = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
+    <div className="has-text-centered">
+      <img id="allBanner" src="FormBanner.png" />
       <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="firstName">
+        <div className="field">
+          <label className="label" htmlFor="firstName">
             <small>First Name</small>
           </label>
-          <input name="firstName" type="text" />
+          <input name="firstName" type="text" className="input" />
         </div>
+
+        <br />
+
         <div>
-          <label htmlFor="lastName">
+          <label className="label" htmlFor="lastName">
             <small>Last Name</small>
           </label>
-          <input name="lastName" type="text" />
+          <input name="lastName" type="text" className="input" />
         </div>
+
+        <br />
+
         <div>
-          <label htmlFor="email">
+          <label className="label" htmlFor="email">
             <small>Email</small>
           </label>
-          <input name="email" type="text" />
+          <input name="email" type="text" className="input" />
         </div>
+
+        <br />
+
         <div>
-          <label htmlFor="password">
+          <label className="label" htmlFor="password">
             <small>Password</small>
           </label>
-          <input name="password" type="password" />
+          <input name="password" type="password" className="input" />
         </div>
+
+        <br />
+
         <div>
-          <button type="submit">{displayName}</button>
+          <button type="submit" className="button is-primary">
+            {displayName}
+          </button>
         </div>
+
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
+
+      <a href="/auth/google" className="button is-primary">
+        {displayName} with Google
+      </a>
     </div>
   )
 }
