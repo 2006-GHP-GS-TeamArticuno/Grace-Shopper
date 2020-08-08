@@ -27,7 +27,14 @@ form div {
   width: 100px;
   height: 50px;
 }
-
+#homeImg {
+  width: 375px;
+  height: 250px;
+}
+#homeImg2 {
+  width: 450px;
+  height: 250px;
+}
 img {
   width: 200px;
   height: 150px;
