@@ -16,8 +16,10 @@ class AllProducts extends React.Component {
     const products = this.props.products
     console.log('the all products props', this.props)
     return (
-      <div className="margin">
-        <h1 className="subtitle is-size-3 has-text-centered">All packages</h1>
+      <div className="has-text-centered">
+        {/* <h1 className="title is-size-3 has-text-centered has-text-primary">Pick Your Party</h1> */}
+        {/* <br/> */}
+        <img id="allBanner" src="All-Banner.png" />
         {this.props.user.isAdmin && (
           <AddProductForm addProduct={this.props.addProduct} />
         )}
@@ -26,18 +28,18 @@ class AllProducts extends React.Component {
             products.map(product => {
               return (
                 <div className="column is-one-quarter" key={product.id}>
-                  <div className="has-text-centered">
+                  <div className="has-text-centered title is-6">
                     <Link to={`/products/${product.id}`}>{product.name}</Link>{' '}
                   </div>
-                  <div className="has-text-centered">
+                  <div className="has-text-centered ">
                     {' '}
                     <img src={product.imageUrl} />
                   </div>
-                  <div className="has-text-centered">
+                  <div className="has-text-centered subtitle is-6 has-text-weight-light">
                     {' '}
                     {product.description}{' '}
                   </div>
-                  <div className="has-text-centered">
+                  <div className="has-text-centered has-text-weight-semibold">
                     {' '}
                     Price: {product.price}{' '}
                   </div>

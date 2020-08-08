@@ -10,12 +10,22 @@ class SingleUser extends React.Component {
   render() {
     const user = this.props.user
     return (
-      <div className="singleUser">
-        <h1>Its single user</h1>
+      <div className="has-text-centered">
+        <br />
+        <h1 className="title is-5">User Info</h1>
 
-        <div>{user.firstName}</div>
-        <div>{user.lastName}</div>
-        <div>{user.email}</div>
+        <div>
+          {' '}
+          <strong>First Name:</strong> {user.firstName}
+        </div>
+        <div>
+          {' '}
+          <strong>Last Name:</strong> {user.lastName}
+        </div>
+        <div>
+          {' '}
+          <strong>Email:</strong> {user.email}
+        </div>
       </div>
     )
   }

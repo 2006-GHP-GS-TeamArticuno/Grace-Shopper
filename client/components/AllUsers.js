@@ -12,22 +12,22 @@ class AllUsers extends React.Component {
 
     console.log('the all users ', this.props)
     return (
-      <div>
-        <h1>Hello users</h1>
-        {users &&
-          users.map(user => {
-            return (
-              <div key={user.id}>
-                <div>
+      <div className="has-text-centered">
+        <br />
+        <h1 className="title is-4">Registered Users</h1>
+        <ol>
+          {users &&
+            users.map(user => {
+              return (
+                <li key={user.id}>
                   <Link to={`/users/${user.id}`}>
                     {user.firstName} {user.lastName}
                   </Link>
-                  <br />
-                </div>
-                <div>{user.email}</div>
-              </div>
-            )
-          })}
+                  {''} {user.email}
+                </li>
+              )
+            })}
+        </ol>
       </div>
     )
   }

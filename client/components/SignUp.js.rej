@@ -1,0 +1,6 @@
+diff a/client/components/SignUp.js b/client/components/SignUp.js	(rejected hunks)
+@@ -59 +61,3 @@ const SignUp = props => {
+-      <a href="/auth/google" class = "button is-primary" >{displayName} with Google</a>
++      <a href="/auth/google" className="button is-primary">
++        {displayName} with Google
++      </a>
