@@ -1,34 +1,26 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getAllProductsThunk} from '../store/allProducts'
+import {
+  getAllProductsThunk,
+  deleteProductThunk,
+  addProductThunk
+} from '../store/allProducts'
 import {Link} from 'react-router-dom'
+import AddProductForm from './AddProductForm'
 // import Navbar from './navbar'
-import {getTotalCountThunk} from '../store/increment'
-
 class AllProducts extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      count: 1
-    }
-    this.increment = this.increment.bind(this)
-  }
-  increment() {
-    this.setState(prevState => ({
-      count: prevState.count + 1
-    }))
-  }
   componentDidMount() {
     this.props.getAllProducts()
-    this.props.getCart()
   }
   render() {
     const products = this.props.products
-    const cart = document.getElementById('cart')
-    console.log('the all products cart', this.props.count)
+    console.log('the all products props', this.props)
     return (
       <div className="margin">
         <h1 className="subtitle is-size-3 has-text-centered">All packages</h1>
+        {this.props.user.isAdmin && (
+          <AddProductForm addProduct={this.props.addProduct} />
+        )}
         <div className="columns is-multiline is-centered">
           {products &&
             products.map(product => {
@@ -49,18 +41,14 @@ class AllProducts extends React.Component {
                     {' '}
                     Price: {product.price}{' '}
                   </div>
-                  <div className=" has-text-centered">
+                  {this.props.user.isAdmin && (
                     <button
-                      className="button is-primary"
                       type="submit"
-                      onClick={() => {
-                        this.increment()
-                        cart.innerHTML = this.state.count
-                      }}
+                      onClick={() => this.props.removeProduct(product.id)}
                     >
-                      Add to Cart
+                      Remove Product
                     </button>
-                  </div>
+                  )}
                 </div>
               )
             })}
@@ -73,13 +61,14 @@ const mapStateToProps = state => {
   console.log('the state from all products', state)
   return {
     products: state.products,
-    count: state.cart.totalQuantity
+    user: state.user
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
     getAllProducts: () => dispatch(getAllProductsThunk()),
-    getCart: () => dispatch(getTotalCountThunk())
+    removeProduct: id => dispatch(deleteProductThunk(id)),
+    addProduct: product => dispatch(addProductThunk(product))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(AllProducts)
