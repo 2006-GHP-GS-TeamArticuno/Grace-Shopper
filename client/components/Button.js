@@ -23,18 +23,18 @@ class Button extends React.Component {
     const cart = document.getElementById('cart')
     const {productId, productPrice} = this.props
     return (
-      <div className=" has-text-centered">
+      <div>
         <button
           className="button is-primary"
           type="submit"
           onClick={() => {
             if (this.props.text === 'delete') {
               this.props.deleteProduct(productId)
-            } else if (this.props.text === 'increase') {
+            } else if (this.props.text === '+') {
               this.props.addProduct(productId, productPrice)
             } else if (this.props.text === 'Add to Cart') {
               this.props.addProduct(productId, productPrice)
-            } else if (this.props.text === 'decrease') {
+            } else if (this.props.text === '-') {
               this.props.decreaseProduct(productId)
             } else {
               return undefined
