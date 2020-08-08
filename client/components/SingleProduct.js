@@ -1,7 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getSingleProductThunk} from '../store/singleProduct'
+import {
+  getSingleProductThunk,
+  updateSingleProductThunk
+} from '../store/singleProduct'
 import Button from './Button'
+import EditProduct from './EditProduct'
 class SingleProduct extends React.Component {
   constructor() {
     super()
@@ -25,6 +29,12 @@ class SingleProduct extends React.Component {
     return (
       <div className="singleProduct">
         <h1>Its single product</h1>
+        {this.props.user.isAdmin && (
+          <EditProduct
+            productId={product.id}
+            editProduct={this.props.editProduct}
+          />
+        )}
 
         <div>{product.name}</div>
         <div>
@@ -33,11 +43,14 @@ class SingleProduct extends React.Component {
         <div>{product.description}</div>
         <div>{product.price}</div>
         <Button
-        // type="submit"
-        // onClick={() => {
-        //   this.increment()
-        //   cart.innerHTML = this.state.count
-        // }}
+          productId={product.id}
+          productPrice={product.price}
+          text="Add To Cart"
+          // type="submit"
+          // onClick={() => {
+          //   this.increment()
+          //   cart.innerHTML = this.state.count
+          // }}
         />
       </div>
     )
@@ -45,12 +58,15 @@ class SingleProduct extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-    product: state.product
+    product: state.product,
+    user: state.user
   }
 }
 const mapDispatchToProps = dispatch => {
   return {
-    getSingleProduct: id => dispatch(getSingleProductThunk(id))
+    getSingleProduct: id => dispatch(getSingleProductThunk(id)),
+    editProduct: (id, product) =>
+      dispatch(updateSingleProductThunk(id, product))
   }
 }
 

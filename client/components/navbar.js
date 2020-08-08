@@ -18,8 +18,13 @@ class Navbar extends React.Component {
   }
   render() {
     return (
-      <div>
-        <h1>BOILERMAKER</h1>
+      <div className="navbar-brand">
+        <div>
+          <Link to="/home">
+            {' '}
+            <img id="logo" src="logo_transparent.png" />{' '}
+          </Link>
+        </div>
         <nav>
           {this.isLoggedIn ? (
             <div>
@@ -33,9 +38,10 @@ class Navbar extends React.Component {
             <div>
               {/* The navbar will show these links before you log in */}
               <Link to="/home">Home</Link>
+              <Link to="/products">Products</Link>
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
-              <Link to="/products">Products</Link>
+              {this.props.isLoggedIn && <Link to="/logout">Log Out</Link>}
               <Link to="/cart">
                 <img
                   src="https://www.pngmart.com/files/7/Cart-PNG-Clipart.png"
