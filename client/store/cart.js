@@ -4,6 +4,7 @@ import axios from 'axios'
 const DELETE_PRODUCT = 'DELETE_PRODUCT'
 const ADD_PRODUCT = 'ADD_PRODUCT'
 const GET_CART = 'GET_CART'
+const DECREASE_PRODUCT = 'DECREASE_PRODUCT'
 
 //INITIAL STATE
 const initialState = []
@@ -26,6 +27,13 @@ const addProduct = updatedOrder => {
 const deleteProduct = id => {
   return {
     type: DELETE_PRODUCT,
+    id
+  }
+}
+
+const decreaseProduct = id => {
+  return {
+    type: DECREASE_PRODUCT,
     id
   }
 }
@@ -56,8 +64,19 @@ export const addProductThunk = (productId, productPrice) => {
 export const deleteProductThunk = productId => {
   return async dispatch => {
     try {
-      await axios.delete(`/api/cart/${productId}`)
+      await axios.delete(`/api/cart/delete/${productId}`)
       dispatch(deleteProduct(productId))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+export const decreaseProductThunk = productId => {
+  return async dispatch => {
+    try {
+      await axios.delete(`/api/cart/decrease/${productId}`)
+      dispatch(decreaseProduct(productId))
     } catch (error) {
       console.error(error)
     }
@@ -76,6 +95,8 @@ export default function(state = initialState, action) {
         ...action.updatedOrder
       }
     case DELETE_PRODUCT:
+    // return [...state].filter(product => product.id !== action.id)
+    case DECREASE_PRODUCT:
     // return [...state].filter(product => product.id !== action.id)
     default:
       return state

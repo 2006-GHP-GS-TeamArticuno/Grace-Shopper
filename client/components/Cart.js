@@ -23,6 +23,7 @@ class Cart extends React.Component {
             <div>Total Quantity:0</div>
             <div>Price: {product.price}</div>
             <Button productId={product.id} text="delete" />
+            <Button productId={product.id} text="decrease" />
             <Button
               productId={product.id}
               productPrice={product.price}
