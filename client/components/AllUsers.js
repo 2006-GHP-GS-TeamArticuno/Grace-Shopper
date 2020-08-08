@@ -14,7 +14,6 @@ class AllUsers extends React.Component {
     console.log('the all users ', this.props)
     return (
       <div>
-        <h1>Hello users</h1>
         {users &&
           users.map(user => {
             return (

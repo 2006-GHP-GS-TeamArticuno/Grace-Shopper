@@ -18,7 +18,7 @@ class AllProducts extends React.Component {
     return (
       <div className="margin">
         <h1 className="subtitle is-size-3 has-text-centered">All packages</h1>
-        {this.props.user.isAdmin && (
+        {!!this.props.user.isAdmin && (
           <AddProductForm addProduct={this.props.addProduct} />
         )}
         <div className="columns is-multiline is-centered">
@@ -41,7 +41,7 @@ class AllProducts extends React.Component {
                     {' '}
                     Price: {product.price}{' '}
                   </div>
-                  {this.props.user.isAdmin && (
+                  {!!this.props.user.isAdmin && (
                     <button
                       type="submit"
                       onClick={() => this.props.removeProduct(product.id)}

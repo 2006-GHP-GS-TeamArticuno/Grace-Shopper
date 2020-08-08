@@ -1,6 +1,5 @@
 import React from 'react'
 import {Redirect} from 'react-router-dom'
-import AllProducts from './AllProducts'
 
 class Home extends React.Component {
   constructor() {
@@ -14,12 +13,12 @@ class Home extends React.Component {
     })
   }
 
-  render(){
-  return (
-     <div>
-      <h1>Welcome to PartyBox!</h1>
-      <h2>Your social distancing party solution</h2>
-      <img src="PARTYBOX.png" />
+  render() {
+    return (
+      <div align="center">
+        <h1>Welcome to PartyBox!</h1>
+        <h2>Your social distancing party solution</h2>
+        <img src="PARTYBOX.png" />
         <div>
           <h4>WE BRING THE PARTY TO YOU VIRTUALLY!</h4>
           <div>

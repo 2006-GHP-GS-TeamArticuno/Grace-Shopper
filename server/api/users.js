@@ -36,11 +36,6 @@ router.post('/', isAdminMiddleware, async (req, res, next) => {
 })
 router.get('/:id', isAdminMiddleware, async (req, res, next) => {
   try {
-    // const userById = await User.findOne({
-    //   where: {
-    //     id: req.params.id
-    //   }
-    // })
     const userById = await User.findByPk(req.params.id)
     res.json(userById)
   } catch (error) {

@@ -3,7 +3,7 @@ const {Product} = require('../db/models')
 module.exports = router
 
 const isAdminMiddleware = (req, res, next) => {
-  if (!req.user || !req.user.isAdmin) {
+  if (!req.user.isAdmin) {
     const error = new Error('You are not an admin')
     error.status = 401
     next(error)
@@ -40,7 +40,7 @@ router.get('/:id', async (req, res, next) => {
 //delete single Product -- admin view only
 router.delete('/:id', isAdminMiddleware, async (req, res, next) => {
   try {
-    await Product.destroy({where: {id: req.params.id}})
+    if (req.user) await Product.destroy({where: {id: req.params.id}})
     res.sendStatus(204)
   } catch (error) {
     next(error)
