@@ -28,44 +28,63 @@ export default class AddProductForm extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="box">
         <form onSubmit={this.handleSubmit}>
-          Add new product
+          <h1 className="title is-5">Add new product</h1>
+
+          <div>
+            <input
+              className="input"
+              placeholder="Package Name"
+              type="text"
+              name="name"
+              onChange={this.handleChange}
+              value={this.state.name}
+            />
+          </div>
           <br />
-          <input
-            className="input"
-            placeholder="enter product name"
-            type="text"
-            name="name"
-            onChange={this.handleChange}
-            value={this.state.name}
-          />
-          <input
-            className="input"
-            placeholder="enter product price"
-            type="text"
-            name="price"
-            onChange={this.handleChange}
-            value={this.state.price}
-          />
-          <input
-            className="input"
-            placeholder="enter product quantity"
-            type="text"
-            name="quantity"
-            onChange={this.handleChange}
-            value={this.state.quantity}
-          />
-          <input
-            className="input"
-            placeholder="enter product description"
-            type="text"
-            name="description"
-            onChange={this.handleChange}
-            value={this.state.description}
-          />
-          <button type="submit">Submit</button>
+
+          <div>
+            <input
+              className="input"
+              placeholder="Product Price"
+              type="text"
+              name="price"
+              onChange={this.handleChange}
+              value={this.state.price}
+            />
+          </div>
+          <br />
+
+          <div>
+            <input
+              className="input"
+              placeholder="Product Qty"
+              type="text"
+              name="quantity"
+              onChange={this.handleChange}
+              value={this.state.quantity}
+            />
+          </div>
+          <br />
+
+          <div>
+            <input
+              className="input"
+              placeholder="enter product description"
+              type="text"
+              name="description"
+              onChange={this.handleChange}
+              value={this.state.description}
+            />
+          </div>
+          <br />
+
+          <button className="button is-primary" type="submit">
+            Submit
+          </button>
         </form>
+        <br />
       </div>
     )
   }
