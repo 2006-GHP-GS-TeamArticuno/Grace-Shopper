@@ -35,6 +35,10 @@ form div {
   width: 450px;
   height: 250px;
 }
+#allBanner {
+  width: 800px;
+  height: 250px;
+}
 img {
   width: 200px;
   height: 150px;
@@ -45,9 +49,9 @@ img {
   height: 40px;
 }
 
-.margin {
-  padding-top: 5%;
-}
+/* .margin {
+  padding-top: 3%;
+} */
 
 .navbar-brand {
   background-color: rgb(247, 198, 158);
