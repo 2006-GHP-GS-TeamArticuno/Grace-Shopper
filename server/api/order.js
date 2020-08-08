@@ -43,15 +43,29 @@ router.post('/', async (req, res, next) => {
 })
 
 //this delete route deletes all of a certain product inside the cart
-router.delete('/:productId', async (req, res, next) => {
-  console.log('WHAT IS REQ.BODY', req.body)
-  console.log('WHAT IS REQ.PARAMS', req.params)
+router.delete('/delete/:productId', async (req, res, next) => {
   try {
     await orderDetail.destroy({
       where: {
         productId: req.params.productId
       }
     })
+    res.send('deleted')
+  } catch (error) {
+    console.error(error)
+  }
+})
+
+//this delete route decreases the amount of a product inside the cart
+router.delete('/decrease/:productId', async (req, res, next) => {
+  try {
+    const oneProduct = await orderDetail.findOne({
+      where: {
+        productId: req.params.productId
+      }
+    })
+    await oneProduct.destroy()
+
     res.send('deleted')
   } catch (error) {
     console.error(error)
