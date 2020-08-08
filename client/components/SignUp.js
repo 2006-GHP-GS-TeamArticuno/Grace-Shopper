@@ -58,9 +58,12 @@ const SignUp = props => {
         {error && error.response && <div> {error.response.data} </div>}
       </form>
 
-      <a href="/auth/google" className="button is-primary">
+      <a href="/auth/google" className="button is-info">
         {displayName} with Google
       </a>
+
+      <br />
+      <br />
     </div>
   )
 }
