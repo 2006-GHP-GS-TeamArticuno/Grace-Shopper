@@ -39,7 +39,6 @@ const Product = db.define('product', {
     type: Sequelize.BOOLEAN,
     defaultValue: true
   }
-
 })
 
 //is this right? Or before Validate?

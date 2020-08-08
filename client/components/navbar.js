@@ -41,7 +41,7 @@ class Navbar extends React.Component {
               <Link to="/products">Products</Link>
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
-              {this.props.isLoggedIn && <Link to="/logout">Log Out</Link>}
+              {/* {this.props.isLoggedIn && <Link to="/logout">Log Out</Link>} */}
               <Link to="/cart">
                 <img
                   src="https://www.pngmart.com/files/7/Cart-PNG-Clipart.png"
