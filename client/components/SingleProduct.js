@@ -43,11 +43,14 @@ class SingleProduct extends React.Component {
         <div>{product.description}</div>
         <div>{product.price}</div>
         <Button
-        // type="submit"
-        // onClick={() => {
-        //   this.increment()
-        //   cart.innerHTML = this.state.count
-        // }}
+          productId={product.id}
+          productPrice={product.price}
+          text="Add To Cart"
+          // type="submit"
+          // onClick={() => {
+          //   this.increment()
+          //   cart.innerHTML = this.state.count
+          // }}
         />
       </div>
     )
