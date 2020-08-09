@@ -29,35 +29,10 @@ export const me = () => async dispatch => {
     console.error(err)
   }
 }
-export const auth = (
-  // firstName,
-  // lastName,
-  email,
-  password,
-  method
-) => async dispatch => {
-  let res
-  try {
-    res = await axios.post(`/auth/${method}`, {
-      // firstName,
-      // lastName,
-      email,
-      password
-    })
-  } catch (authError) {
-    return dispatch(getUser({error: authError}))
-  }
 
-  try {
-    dispatch(getUser(res.data))
-    history.push('/welcome')
-  } catch (dispatchOrHistoryErr) {
-    console.error(dispatchOrHistoryErr)
-  }
-}
 export const auth = (
-  // firstName,
-  // lastName,
+  firstName,
+  lastName,
   email,
   password,
   method
@@ -65,8 +40,8 @@ export const auth = (
   let res
   try {
     res = await axios.post(`/auth/${method}`, {
-      // firstName,
-      // lastName,
+      firstName,
+      lastName,
       email,
       password
     })
