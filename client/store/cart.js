@@ -5,7 +5,7 @@ const DELETE_PRODUCT = 'DELETE_PRODUCT'
 const ADD_PRODUCT = 'ADD_PRODUCT'
 const GET_CART = 'GET_CART'
 const DECREASE_PRODUCT = 'DECREASE_PRODUCT'
-
+const CHANGE_QUANTITY = 'CHANGE_QUANTITY'
 //INITIAL STATE
 const initialState = []
 
@@ -16,20 +16,18 @@ const getCart = cart => {
     cart
   }
 }
-
+const changeQuantity = cart => {
+  return {
+    type: GET_CART,
+    cart
+  }
+}
 const addProduct = updatedOrder => {
   return {
     type: ADD_PRODUCT,
     updatedOrder
   }
 }
-// const addProduct = updatedOrder => {
-//   return {
-//     type: ADD_PRODUCT,
-//     productId: updatedOrder.productId,
-//     productPrice: updatedOrder.productPrice
-//   }
-// }
 
 const deleteProduct = id => {
   return {
@@ -38,14 +36,24 @@ const deleteProduct = id => {
   }
 }
 
-const decreaseProduct = id => {
+const decreaseProduct = cart => {
   return {
     type: DECREASE_PRODUCT,
-    id
+    cart
   }
 }
 
 //THUNK CREATOR
+export const changeQuantityThunk = id => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/cart/quantity/${id}`)
+      dispatch(changeQuantity(data))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
 export const getCartThunk = () => {
   return async dispatch => {
     try {
@@ -79,11 +87,13 @@ export const deleteProductThunk = productId => {
   }
 }
 
-export const decreaseProductThunk = productId => {
+export const decreaseProductThunk = id => {
   return async dispatch => {
     try {
-      await axios.delete(`/api/cart/decrease/${productId}`)
-      dispatch(decreaseProduct(productId))
+      await axios.delete(`/api/cart/decrease/${id}`)
+      const {data} = await axios.get('/api/cart')
+      dispatch(decreaseProduct(id))
+      dispatch(getCart(data))
     } catch (error) {
       console.error(error)
     }
@@ -104,7 +114,12 @@ export default function(state = initialState, action) {
     case DELETE_PRODUCT:
     // return [...state].filter(product => product.id !== action.id)
     case DECREASE_PRODUCT:
-    // return [...state].filter(product => product.id !== action.id)
+      return {
+        ...state,
+        ...action.cart
+      }
+    case CHANGE_QUANTITY:
+      return action.cart
     default:
       return state
   }
