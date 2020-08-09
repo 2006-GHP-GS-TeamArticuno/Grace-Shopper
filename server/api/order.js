@@ -64,6 +64,7 @@ router.delete('/decrease/:productId', async (req, res, next) => {
         productId: req.params.productId
       }
     })
+    console.log('AAAAAAAAA', oneProduct)
     await oneProduct.destroy()
 
     res.send('deleted')

@@ -79,11 +79,11 @@ export const deleteProductThunk = productId => {
   }
 }
 
-export const decreaseProductThunk = productId => {
+export const decreaseProductThunk = id => {
   return async dispatch => {
     try {
-      await axios.delete(`/api/cart/decrease/${productId}`)
-      dispatch(decreaseProduct(productId))
+      await axios.delete(`/api/cart/decrease/${id}`)
+      dispatch(decreaseProduct(id))
     } catch (error) {
       console.error(error)
     }
