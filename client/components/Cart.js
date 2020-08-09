@@ -23,7 +23,8 @@ class Cart extends React.Component {
   getProducts(productArray) {
     // quantity.innerHTML = this.props.changeQuantity();
     return productArray.map(product => {
-      const q = Number(this.props.changeQuantity(product.id))
+      // const q = Number(this.props.changeQuantity(product.id))
+      console.log('PROPS IN CART', this.props)
       return (
         <div>
           <tr className="level">
@@ -38,7 +39,7 @@ class Cart extends React.Component {
               <img src={product.imageUrl} />{' '}
             </td>
             <td className="level-item">
-              Total Quantity: <div id="quantity">{this.props.order.length}</div>{' '}
+              Total Quantity: <span id="quantity">1</span>{' '}
             </td>
             <td className="level-item">Price: {product.price}</td>
             {/* </div> */}
@@ -62,8 +63,7 @@ class Cart extends React.Component {
   }
 
   render() {
-    const quantity = +document.getElementById('quantity')
-    console.log('the auantuty', quantity)
+    // const quantity = +document.getElementById('quantity')
     if (this.props.order[0] === undefined) {
       return <div> You don't have any items in your cart yet! </div>
     } else {

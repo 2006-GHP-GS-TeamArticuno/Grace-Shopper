@@ -36,10 +36,10 @@ const deleteProduct = id => {
   }
 }
 
-const decreaseProduct = id => {
+const decreaseProduct = cart => {
   return {
     type: DECREASE_PRODUCT,
-    id
+    cart
   }
 }
 
@@ -114,9 +114,12 @@ export default function(state = initialState, action) {
     case DELETE_PRODUCT:
     // return [...state].filter(product => product.id !== action.id)
     case DECREASE_PRODUCT:
-    // return [...state].filter(product => product.id !== action.id)
+      return {
+        ...state,
+        ...action.cart
+      }
     case CHANGE_QUANTITY:
-      return [...state, action.cart]
+      return action.cart
     default:
       return state
   }

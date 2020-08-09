@@ -21,20 +21,20 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-// router.get('/quantity/:productId', async (req, res, next) => {
-//   try {
-//     const findOrders = await orderDetail.findAll({
-//       where: {
-//         productId: req.params.productId
-//       }
-//     })
+router.get('/quantity/:productId', async (req, res, next) => {
+  try {
+    const findOrders = await orderDetail.findAll({
+      where: {
+        productId: req.params.productId
+      }
+    })
 
-//     if (findOrders) res.json(findOrders.length)
-//     else res.send('You have not added any items to your cart yet!')
-//   } catch (error) {
-//     next(error)
-//   }
-// })
+    if (findOrders) res.json(findOrders.length)
+    else res.send('You have not added any items to your cart yet!')
+  } catch (error) {
+    next(error)
+  }
+})
 
 ///ROUTE to ADD a product to the cart
 router.post('/', async (req, res, next) => {
