@@ -30,9 +30,10 @@ class Button extends React.Component {
           onClick={() => {
             if (this.props.text === 'delete') {
               this.props.deleteProduct(productId)
-            } else if (this.props.text === '+') {
-              this.props.addProduct(productId, productPrice)
-            } else if (this.props.text === 'Add to Cart') {
+            } else if (
+              this.props.text === '+' ||
+              this.props.text === 'Add To Cart'
+            ) {
               this.props.addProduct(productId, productPrice)
             } else if (this.props.text === '-') {
               this.props.decreaseProduct(productId)
