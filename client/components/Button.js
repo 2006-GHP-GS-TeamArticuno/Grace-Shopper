@@ -22,24 +22,78 @@ class Button extends React.Component {
   render() {
     const cart = document.getElementById('cart')
     const {productId, productPrice} = this.props
+    // if (text === 'delete') {
+    //   return (
+    //     <div className=" has-text-centered">
+    //     <button
+    //       className="button is-primary"
+    //       type="submit"
+    //       onClick={() => this.props.deleteProduct(productId)
+    //       }
+    //       >
+    //         {text}
+    //       </button>
+    //     </div>
+    //   )
+    // } else if (text === 'increase') {
+    //   return (
+    //     <div className=" has-text-centered">
+    //     <button
+    //       className="button is-primary"
+    //       type="submit"
+    //       onClick={() => this.props.addProduct(productId, productPrice)
+    //       }
+    //       >
+    //         {text}
+    //       </button>
+    //     </div>
+    //   )
+    // } else if (text === 'Add to Cart') {
+    //   return (
+    //     <div className=" has-text-centered">
+    //     <button
+    //       className="button is-primary"
+    //       type="submit"
+    //       onClick={() => this.props.addProduct(productId, productPrice)
+    //       }
+    //       >
+    //         {text}
+    //       </button>
+    //     </div>
+    //   )
+    // } else {
+    //   return (
+    //     <div className=" has-text-centered">
+    //     <button
+    //       className="button is-primary"
+    //       type="submit"
+    //       onClick={() => this.props.decreaseProduct(productId)
+    //       }
+    //       >
+    //         {text}
+    //       </button>
+    //     </div>
+    //   )
+    // }
     return (
       <div className=" has-text-centered">
         <button
           className="button is-primary"
           type="submit"
           onClick={() => {
-            if (this.props.text === 'delete') {
-              this.props.deleteProduct(productId)
-            } else if (this.props.text === 'increase') {
-              this.props.addProduct(productId, productPrice)
-            } else if (this.props.text === 'Add to Cart') {
-              this.props.addProduct(productId, productPrice)
-            } else if (this.props.text === 'decrease') {
-              this.props.decreaseProduct(productId)
-            } else {
-              return undefined
-            }
-            cart.innerHTML = this.state.count
+            this.props.addProduct(productId, productPrice)
+            // if (this.props.text === 'delete') {
+            //   this.props.deleteProduct(productId)
+            // } else if (this.props.text === 'increase') {
+            //   this.props.addProduct(productId, productPrice)
+            // } else if (this.props.text === 'Add to Cart') {
+            //   this.props.addProduct(productId, productPrice)
+            // } else if (this.props.text === 'decrease') {
+            //   this.props.decreaseProduct(productId)
+            // } else {
+            //   return undefined
+            // }
+            // cart.innerHTML = this.state.count
             this.increment()
           }}
         >

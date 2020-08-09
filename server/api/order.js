@@ -26,7 +26,7 @@ router.post('/', async (req, res, next) => {
   try {
     const [findOrder, created] = await Order.findOrCreate({
       where: {
-        userId: req.user.id,
+        userId: req.user.id || req.sesssion.id,
         isPurchased: false
       },
       include: {model: Product}
@@ -35,7 +35,7 @@ router.post('/', async (req, res, next) => {
     const productId = req.body.productId
     const productPrice = req.body.productPrice
 
-    orderDetail.create({productId, productPrice, orderId})
+    await orderDetail.create({productId, productPrice, orderId})
     res.json(findOrder)
   } catch (error) {
     next(error)
