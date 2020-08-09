@@ -75,6 +75,7 @@ class Button extends React.Component {
     //     </div>
     //   )
     // }
+    console.log('button props are', this.props)
     return (
       <div className=" has-text-centered">
         <button

@@ -6,7 +6,7 @@ router.get('/', async (req, res, next) => {
   try {
     const findOrder = await Order.findAll({
       where: {
-        userId: req.user.id,
+        userId: req.user.id || req.session.id,
         isPurchased: false
       },
       include: {
@@ -26,7 +26,7 @@ router.post('/', async (req, res, next) => {
   try {
     const [findOrder, created] = await Order.findOrCreate({
       where: {
-        userId: req.user.id || req.sesssion.id,
+        userId: req.user.id || req.session.id,
         isPurchased: false
       },
       include: {model: Product}
