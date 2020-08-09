@@ -41,7 +41,7 @@ class AllProducts extends React.Component {
                   </div>
                   <div className="has-text-centered has-text-weight-semibold">
                     {' '}
-                    Price: {product.price}{' '}
+                    Price: ${(product.price / 100).toFixed(2)}{' '}
                   </div>
                   {this.props.user.isAdmin && (
                     <button

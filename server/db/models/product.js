@@ -39,7 +39,6 @@ const Product = db.define('product', {
     type: Sequelize.BOOLEAN,
     defaultValue: true
   }
-
 })
 
 //is this right? Or before Validate?
@@ -50,5 +49,10 @@ Product.beforeUpdate(function({quantity, inStock}) {
     inStock = false
   }
 })
+
+// not firing, use components instead
+// Product.beforeSave( product => {
+//   product.price = product.price*100
+// })
 
 module.exports = Product

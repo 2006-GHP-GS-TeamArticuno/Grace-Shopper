@@ -47,7 +47,9 @@ class SingleProduct extends React.Component {
         <div className="subtitle is-6 has-text-weight-light">
           {product.description}
           <br />
-          <h1 className="has-text-weight-semibold">Price: {product.price}</h1>
+          <h1 className="has-text-weight-semibold">
+            Price: ${(product.price / 100).toFixed(2)}
+          </h1>
         </div>
         {/* <div> Price: {product.price}</div> */}
         <Button
