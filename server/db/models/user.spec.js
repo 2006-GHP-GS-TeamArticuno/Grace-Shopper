@@ -29,4 +29,47 @@ describe('User model', () => {
       })
     }) // end describe('correctPassword')
   }) // end describe('instanceMethods')
+  describe('column definitions and validations', () => {
+    it('has a `firstName`, `lastName`, `email` and `isAdmin`', async () => {
+      const user = await User.create({
+        firstName: 'Cody',
+        lastName: 'Pug',
+        email: 'cody@email.com',
+        isAdmin: false
+      })
+
+      expect(user.firstName).to.equal('Cody')
+      expect(user.lastName).to.equal('Pug')
+      expect(user.email).to.equal('cody@email.com')
+      expect(user.isAdmin).to.equal(false)
+    })
+
+    it('`fistName` is required', () => {
+      const user = User.build()
+      return user.validate().then(
+        () => {
+          throw new Error('Validation should have failed!')
+        },
+        err => {
+          expect(err).to.be.an('error')
+        }
+      )
+    })
+
+    it('`lastName` is required', () => {
+      const user = User.build()
+      return user.validate().then(
+        () => {
+          throw new Error('Validation should have failed!')
+        },
+        err => {
+          expect(err).to.be.an('error')
+        }
+      )
+    })
+    it('`isAdmin` has a default value of false', async () => {
+      const user = await User.create({firstName: 'Cody'})
+      expect(user.isAdmin).to.equal(false)
+    })
+  })
 }) // end describe('User model')

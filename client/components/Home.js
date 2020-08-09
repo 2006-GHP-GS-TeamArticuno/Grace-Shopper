@@ -1,6 +1,5 @@
 import React from 'react'
 import {Redirect} from 'react-router-dom'
-import AllProducts from './AllProducts'
 
 class Home extends React.Component {
   constructor() {

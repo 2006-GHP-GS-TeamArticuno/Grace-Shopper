@@ -43,7 +43,7 @@ class AllProducts extends React.Component {
                     {' '}
                     Price: {product.price}{' '}
                   </div>
-                  {this.props.user.isAdmin && (
+                  {!!this.props.user.isAdmin && (
                     <button
                       className="button is-danger"
                       type="submit"

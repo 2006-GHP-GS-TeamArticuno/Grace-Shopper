@@ -9,25 +9,91 @@ import {connect} from 'react-redux'
 class Button extends React.Component {
   constructor(props) {
     super(props)
+    // const decrease1 = this.state.count
     this.state = {
-      count: 1
+      count: 1,
+      decrease: 1
     }
+
     this.increment = this.increment.bind(this)
+    this.decrement = this.decrement.bind(this)
   }
   increment() {
     this.setState(prevState => ({
       count: prevState.count + 1
     }))
   }
+  decrement() {
+    this.setState(prevState => ({
+      decrease: prevState.count - 1
+    }))
+  }
   render() {
     const cart = document.getElementById('cart')
+    // const quantity = document.getElementById('quantity')
+    // console.log('the auantuty',quantity)
     const {productId, productPrice} = this.props
+    // if (text === 'delete') {
+    //   return (
+    //     <div className=" has-text-centered">
+    //     <button
+    //       className="button is-primary"
+    //       type="submit"
+    //       onClick={() => this.props.deleteProduct(productId)
+    //       }
+    //       >
+    //         {text}
+    //       </button>
+    //     </div>
+    //   )
+    // } else if (text === 'increase') {
+    //   return (
+    //     <div className=" has-text-centered">
+    //     <button
+    //       className="button is-primary"
+    //       type="submit"
+    //       onClick={() => this.props.addProduct(productId, productPrice)
+    //       }
+    //       >
+    //         {text}
+    //       </button>
+    //     </div>
+    //   )
+    // } else if (text === 'Add to Cart') {
+    //   return (
+    //     <div className=" has-text-centered">
+    //     <button
+    //       className="button is-primary"
+    //       type="submit"
+    //       onClick={() => this.props.addProduct(productId, productPrice)
+    //       }
+    //       >
+    //         {text}
+    //       </button>
+    //     </div>
+    //   )
+    // } else {
+    //   return (
+    //     <div className=" has-text-centered">
+    //     <button
+    //       className="button is-primary"
+    //       type="submit"
+    //       onClick={() => this.props.decreaseProduct(productId)
+    //       }
+    //       >
+    //         {text}
+    //       </button>
+    //     </div>
+    //   )
+    // }
+    console.log('button props are', this.props)
     return (
       <div>
         <button
           className="button is-primary"
           type="submit"
           onClick={() => {
+            // this.props.addProduct(productId, productPrice)
             if (this.props.text === 'delete') {
               this.props.deleteProduct(productId)
             } else if (
@@ -40,8 +106,8 @@ class Button extends React.Component {
             } else {
               return undefined
             }
-            cart.innerHTML = this.state.count
-            this.increment()
+            // cart.innerHTML = this.state.count
+            // this.increment()
           }}
         >
           {this.props.text}
