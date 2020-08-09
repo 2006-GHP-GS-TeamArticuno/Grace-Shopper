@@ -29,14 +29,6 @@ export const me = () => async dispatch => {
     console.error(err)
   }
 }
-export const getSingleUserThunk = id => async dispatch => {
-  try {
-    const {data} = await axios.get(`/api/users/${id}`)
-    dispatch(getSingleUser(data))
-  } catch (err) {
-    console.error(err)
-  }
-}
 export const auth = (
   // firstName,
   // lastName,
@@ -63,12 +55,47 @@ export const auth = (
     console.error(dispatchOrHistoryErr)
   }
 }
+export const authSignUp = (
+  firstName,
+  lastName,
+  email,
+  password,
+  method
+) => async dispatch => {
+  let res
+  try {
+    res = await axios.post(`/auth/${method}`, {
+      firstName,
+      lastName,
+      email,
+      password
+    })
+  } catch (authError) {
+    return dispatch(getUser({error: authError}))
+  }
+
+  try {
+    dispatch(getUser(res.data))
+    history.push('/welcome')
+  } catch (dispatchOrHistoryErr) {
+    console.error(dispatchOrHistoryErr)
+  }
+}
 
 export const logout = () => async dispatch => {
   try {
     await axios.post('/auth/logout')
     dispatch(removeUser())
     history.push('/login')
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const getSingleUserThunk = id => async dispatch => {
+  try {
+    const {data} = await axios.get(`/api/users/${id}`)
+    dispatch(getSingleUser(data))
   } catch (err) {
     console.error(err)
   }

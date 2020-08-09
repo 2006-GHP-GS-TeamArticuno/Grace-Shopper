@@ -39,15 +39,16 @@ const Product = db.define('product', {
     type: Sequelize.BOOLEAN,
     defaultValue: true
   }
-
 })
 
 //is this right? Or before Validate?
 Product.beforeUpdate(function({quantity, inStock}) {
   if (quantity > 0) {
     inStock = true
+    //Anna: maybe this.inStock = true   ???
   } else {
     inStock = false
+    //Anna: maybe this.inStock =false   ???
   }
 })
 
