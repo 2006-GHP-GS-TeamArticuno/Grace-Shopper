@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import user from '../store/users'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -10,7 +12,14 @@ export const UserHome = props => {
 
   return (
     <div>
-      <h3>Welcome, {email}</h3>
+      {props.user.isAdmin ? (
+        <div>
+          <h3>Welcome, {email}</h3>
+          <Link to="/users"> View all Users</Link>
+        </div>
+      ) : (
+        <h3>Welcome, {email}</h3>
+      )}
     </div>
   )
 }
@@ -20,7 +29,8 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    email: state.user.email
+    email: state.user.email,
+    user: state.user
   }
 }
 

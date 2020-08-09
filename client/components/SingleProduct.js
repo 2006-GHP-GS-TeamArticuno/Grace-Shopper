@@ -41,7 +41,7 @@ class SingleProduct extends React.Component {
           <img src={product.imageUrl} />
         </div>
         <div>{product.description}</div>
-        <div>{product.price}</div>
+        <div>Price: {product.price} $</div>
         <Button
           productId={product.id}
           productPrice={product.price}
