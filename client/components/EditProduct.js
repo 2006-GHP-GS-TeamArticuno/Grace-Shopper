@@ -27,44 +27,61 @@ class EditProduct extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className="box">
         <form onSubmit={this.handleSubmit}>
-          Edit product <br />
+          <h1 className="title is-5">Update Product</h1>
+
+          <div>
+            <input
+              className="input"
+              placeholder="Update Name"
+              type="text"
+              name="name"
+              onChange={this.handleChange}
+              value={this.state.name}
+            />
+          </div>
           <br />
-          <input
-            className="input"
-            placeholder="enter new name here"
-            type="text"
-            name="name"
-            onChange={this.handleChange}
-            value={this.state.name}
-          />
+
+          <div>
+            <input
+              className="input"
+              placeholder="Update Price"
+              type="text"
+              name="price"
+              onChange={this.handleChange}
+              value={this.state.price}
+            />
+          </div>
           <br />
-          <input
-            className="input"
-            placeholder="enter new price here"
-            type="text"
-            name="price"
-            onChange={this.handleChange}
-            value={this.state.price}
-          />
-          <input
-            className="input"
-            placeholder="enter new quantity here"
-            type="text"
-            name="quantity"
-            onChange={this.handleChange}
-            value={this.state.quantity}
-          />
-          <input
-            className="input"
-            placeholder="enter new descriprion here"
-            type="text"
-            name="description"
-            onChange={this.handleChange}
-            value={this.state.description}
-          />
-          <button type="submit">Submit</button>
+
+          <div>
+            <input
+              className="input"
+              placeholder="Update Qty"
+              type="text"
+              name="quantity"
+              onChange={this.handleChange}
+              value={this.state.quantity}
+            />
+          </div>
+          <br />
+
+          <div>
+            <input
+              className="input"
+              placeholder="Update Description"
+              type="text"
+              name="description"
+              onChange={this.handleChange}
+              value={this.state.description}
+            />
+          </div>
+          <br />
+
+          <button className="button is-success is-light" type="submit">
+            Submit
+          </button>
         </form>
       </div>
     )

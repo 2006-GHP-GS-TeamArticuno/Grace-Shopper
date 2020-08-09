@@ -45,6 +45,7 @@ class AllProducts extends React.Component {
                   </div>
                   {this.props.user.isAdmin && (
                     <button
+                      className="button is-danger"
                       type="submit"
                       onClick={() => this.props.removeProduct(product.id)}
                     >
