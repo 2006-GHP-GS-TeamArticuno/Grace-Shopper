@@ -55,9 +55,9 @@ export const auth = (
     console.error(dispatchOrHistoryErr)
   }
 }
-export const authSignUp = (
-  firstName,
-  lastName,
+export const auth = (
+  // firstName,
+  // lastName,
   email,
   password,
   method
@@ -65,8 +65,8 @@ export const authSignUp = (
   let res
   try {
     res = await axios.post(`/auth/${method}`, {
-      firstName,
-      lastName,
+      // firstName,
+      // lastName,
       email,
       password
     })
