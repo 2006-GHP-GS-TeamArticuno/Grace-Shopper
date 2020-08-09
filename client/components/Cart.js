@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {getCartThunk} from '../store/cart'
 import Button from './Button'
 import {Redirect} from 'react-router-dom'
-import {changeQuantityThunk} from '../store/cart'
+// import {changeQuantityThunk} from '../store/cart'
 class Cart extends React.Component {
   constructor(props) {
     super(props)
@@ -23,7 +23,8 @@ class Cart extends React.Component {
   getProducts(productArray) {
     // quantity.innerHTML = this.props.changeQuantity();
     return productArray.map(product => {
-      // const q = Number(this.props.changeQuantity(product.id))
+      // const q = this.props.changeQuantity(product.id)
+      // console.log('QQQQQQQ', q)
       console.log('PROPS IN CART', this.props)
       return (
         <div>
@@ -98,8 +99,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getCart: () => dispatch(getCartThunk()),
-    changeQuantity: id => dispatch(changeQuantityThunk(id))
+    getCart: () => dispatch(getCartThunk())
+    // changeQuantity: id => dispatch(changeQuantityThunk(id))
   }
 }
 
