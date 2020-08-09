@@ -52,4 +52,9 @@ Product.beforeUpdate(function({quantity, inStock}) {
   }
 })
 
+// not firing, use components instead
+// Product.beforeSave( product => {
+//   product.price = product.price*100
+// })
+
 module.exports = Product

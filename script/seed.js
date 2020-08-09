@@ -219,7 +219,7 @@ async function seed() {
   const productData = [
     {
       name: 'Virtual Birthday Bash',
-      price: 110,
+      price: 11000,
       description:
         'Birthdays are not cancelled. Stay safe, and still celebrate with all your friends! Our Birthday package includes drinks, food, virtual backgrounds, decor, and games to enjoy with friends and family',
       imageUrl:
@@ -228,7 +228,7 @@ async function seed() {
     },
     {
       name: 'Remote Baby Shower',
-      price: 110,
+      price: 11000,
       description:
         'The world may be changing, but babies are still being born and we are here for it! But, maybe without the baby food guessing game. Our Baby Shower package includes non-alcoholic drinks, snacks, virtual backgrounds, cute gender (or gender neutral!) decor so all you have to do is receive the gifts on your registry!',
       imageUrl:
@@ -237,7 +237,7 @@ async function seed() {
     },
     {
       name: 'Cyber Graduation Celebration',
-      price: 76,
+      price: 7600,
       description:
         'The class of 2020 has been through a lot. Celebrate their accomplishments with our Graduation package. Includes themed cap and gown, a cake with their face on it, and all the tools you need to make an embarrassing virtual slideshow to celebrate how far your new grad has come',
       imageUrl:
@@ -247,7 +247,7 @@ async function seed() {
     },
     {
       name: 'Distanced Wedding',
-      price: 150,
+      price: 15000,
       description:
         'A Wedding package so cute, it makes not getting your deposits back *almost* bearable. Your guests can have a customized video background, a favor, and some confetti, while you celebrate with your loved one, a mini cake for two, and personalized decor',
       imageUrl:
@@ -257,7 +257,7 @@ async function seed() {
     },
     {
       name: 'Bachelorette From Afar',
-      price: 242,
+      price: 24200,
       description:
         'Drink and be merry with your friends, from the comfort and safety of your respective living rooms. These are weird times. But you can still make the most of them with our fun, slightly inappropriate, slightly embarrassing games, backgrounds, and decor for your virtual Bachelorette party',
       imageUrl:
@@ -267,7 +267,7 @@ async function seed() {
     },
     {
       name: 'Cocktail Date Night At Home',
-      price: 194,
+      price: 19400,
       description:
         'Avoiding a crowded bar during a pandemic is probably a good idea. Our Cocktail Date Night package has everything you need to make delicious cocktails together, remotely.',
       imageUrl:
@@ -277,7 +277,7 @@ async function seed() {
     },
     {
       name: 'Family Reunion From The Couch',
-      price: 175,
+      price: 17500,
       description:
         "Hang out with your grandma virtually! Host a family get-together via video chat. We've got all the supplies you need to make it a memorable party with fun and memories. Plus, a virtual talking feature is provided to mute all other attendees when someone is speaking, so your aunties might stop interrupting everyone else!",
       imageUrl:
@@ -287,7 +287,7 @@ async function seed() {
     },
     {
       name: 'DIY Distanced Olympics',
-      price: 174,
+      price: 17400,
       description:
         'We were bummed the Olympics were called off: they make election years a little less stressful. But you can still have your own "Olympic" competition in your apartment or backyard. Our Olympics package includes sporty and non-sporty games, medals, and trivia to keep your team spirit alive in 2020.',
       imageUrl:
@@ -297,7 +297,7 @@ async function seed() {
     },
     {
       name: 'Stay At Home Italian Vacation',
-      price: 49,
+      price: 4900,
       description:
         "Maybe you cancelled your Italian vacation this year, but you can still enjoy la bella vita at home. Package includes ingredients for Aperol Spritz, instructions and ingredients to make your own pasta, an Italian music playlist, and some cute kitchen accessories. Throw a coin in your bathtub and maybe you'll end up in Rome next year?",
       imageUrl:
@@ -307,7 +307,7 @@ async function seed() {
     },
     {
       name: 'Properly Distanced Picnic',
-      price: 197,
+      price: 19700,
       description:
         "Enjoy our picnic package with 2 blankets so you can sit 6 feet apart and keep partying with your friends responsibly outdoors. We'll provide the materials, the decor, and activities, you provide the food and friends!",
       imageUrl:
@@ -317,7 +317,7 @@ async function seed() {
     },
     {
       name: 'Yoga Remote Retreat',
-      price: 183,
+      price: 18300,
       description:
         "Now is the perfect time to focus on your wellness! Even if you're taking a staycation and not going anywhere besides your living room, we'll help you focus on your wellness with our Yoga pack. Our pack includes a new mat, soothing candles, healthy recipes, bubble bath, and a few books on meditation to calm pandemic-induced anxiety",
       imageUrl:
@@ -327,7 +327,7 @@ async function seed() {
     },
     {
       name: 'Cheese Tasting Without Contact',
-      price: 94,
+      price: 9400,
       description:
         'If you are running out of ideas for how to keep virtual friend meetups interesting, consider our Cheese Tasting package. Read about different cheeses, sample, pair with wine, and watch our cheesemaster videos so you eat tasty things and learn something new!',
       imageUrl:
@@ -337,7 +337,7 @@ async function seed() {
     },
     {
       name: 'Movie Night Together, While Apart',
-      price: 140,
+      price: 14000,
       description:
         "Instead of staring at your friend or parent's face for hours on a video chat, why not watch a movie together? This box includes everything you need to make a virtual movie night a cinematic success, with snacks, movie trivia, movie drinking (or snacking) game ideas, and a timer to help you synchronize your scenes",
       imageUrl:
@@ -347,7 +347,7 @@ async function seed() {
     },
     {
       name: 'Virtual Vegas',
-      price: 94,
+      price: 9400,
       description:
         'What do casinos, the Backstreet Boys, and giant alcoholic slushies all have in common? Your living room! Bringing Vegas to you with a game of virtual poker, a recorded live Backstreet Boys concert and a tshirt (you can pick a different band or show, but why would you?), and ingredients for the famous giant slushies from the Strip.',
       imageUrl:
@@ -357,7 +357,7 @@ async function seed() {
     },
     {
       name: 'The Quarantine Cooking Show',
-      price: 173,
+      price: 17300,
       description:
         'File this under: things to do with your sourdough starter. If you picked up a few cooking skills over the last couple months, share your skills with your friends! Box includes chefs hat, virtual recipe cards and shopping lists, and also a recipe and ingredients you can cook together with your friends if you are still a little shy about your own skills',
       imageUrl:
@@ -367,7 +367,7 @@ async function seed() {
     },
     {
       name: 'Everyone Needs A Care Package',
-      price: 106,
+      price: 10600,
       description:
         'If you know someone that could use a pick-me-up - aka, basically everyone - this is the right box for them. Customize your box with items to make your friend, your family, or your loved one smile.',
       imageUrl:
@@ -377,7 +377,7 @@ async function seed() {
     },
     {
       name: 'Dogs Are the Real Winners',
-      price: 247,
+      price: 24700,
       description:
         'We all know dogs are the real winners right now. Need to distract your pup while you take meetings from home? Check out this box with fun toys, puzzles, and treats to keep your furry friend occupied.',
       imageUrl: 'https://petsuites.com/wp-content/uploads/lost-and-found.jpeg',
