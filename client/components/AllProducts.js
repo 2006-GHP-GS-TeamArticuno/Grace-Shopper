@@ -43,7 +43,7 @@ class AllProducts extends React.Component {
                     {' '}
                     Price: ${(product.price / 100).toFixed(2)}{' '}
                   </div>
-                  {this.props.user.isAdmin && (
+                  {!!this.props.user.isAdmin && (
                     <button
                       className="button is-danger"
                       type="submit"

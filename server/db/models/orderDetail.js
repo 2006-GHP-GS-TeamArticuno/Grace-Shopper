@@ -2,6 +2,7 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const orderDetail = db.define('orderDetail', {
+  //why do we need define id like that?
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,

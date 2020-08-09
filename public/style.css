@@ -63,3 +63,8 @@ img {
 .navbar-brand {
   background-color: rgb(247, 198, 158);
 }
+#thanksfororderimg {
+  margin-top: 30px;
+  width: 500px;
+  height: 300px;
+}

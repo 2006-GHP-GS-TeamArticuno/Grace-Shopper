@@ -51,7 +51,7 @@ class SingleProduct extends React.Component {
             Price: ${(product.price / 100).toFixed(2)}
           </h1>
         </div>
-        {/* <div> Price: {product.price}</div> */}
+        <div> Price: {product.price}</div>
         <Button
           class="button is-primary"
           productId={product.id}

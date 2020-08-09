@@ -23,6 +23,13 @@ const addProduct = updatedOrder => {
     updatedOrder
   }
 }
+// const addProduct = updatedOrder => {
+//   return {
+//     type: ADD_PRODUCT,
+//     productId: updatedOrder.productId,
+//     productPrice: updatedOrder.productPrice
+//   }
+// }
 
 const deleteProduct = id => {
   return {

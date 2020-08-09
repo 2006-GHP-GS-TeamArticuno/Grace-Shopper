@@ -45,8 +45,10 @@ const Product = db.define('product', {
 Product.beforeUpdate(function({quantity, inStock}) {
   if (quantity > 0) {
     inStock = true
+    //Anna: maybe this.inStock = true   ???
   } else {
     inStock = false
+    //Anna: maybe this.inStock =false   ???
   }
 })
 

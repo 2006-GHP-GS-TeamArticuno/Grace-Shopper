@@ -3,7 +3,7 @@ const {User} = require('../db/models')
 module.exports = router
 
 const isAdminMiddleware = (req, res, next) => {
-  if (!req.user || !req.user.isAdmin) {
+  if (!req.user.isAdmin) {
     const error = new Error('You are not an admin')
     error.status = 401
     next(error)
@@ -36,11 +36,7 @@ router.post('/', isAdminMiddleware, async (req, res, next) => {
 })
 router.get('/:id', isAdminMiddleware, async (req, res, next) => {
   try {
-    const userById = await User.findOne({
-      where: {
-        id: req.params.id
-      }
-    })
+    const userById = await User.findByPk(req.params.id)
     res.json(userById)
   } catch (error) {
     next(error)

@@ -2,17 +2,24 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {getCartThunk} from '../store/cart'
 import Button from './Button'
+import {Redirect} from 'react-router-dom'
 
 class Cart extends React.Component {
   constructor(props) {
     super(props)
     this.getProducts = this.getProducts.bind(this)
+    this.state = {isClicked: false}
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
     this.props.getCart()
   }
-
+  handleClick = () => {
+    this.setState({
+      isClicked: true
+    })
+  }
   getProducts(productArray) {
     return productArray.map(product => {
       return (
@@ -52,15 +59,30 @@ class Cart extends React.Component {
   }
 
   render() {
+    const quantity = document.getElementById('quantity')
+    console.log('the auantuty', quantity)
     if (this.props.order[0] === undefined) {
       return <div> You don't have any items in your cart yet! </div>
     } else {
       const products = this.props.order[0].products
       return (
         <div className="has-text-centered">
+          <h1> My Cart </h1>
+          <div>
+            Total Quantity: <div id="quantity">1</div>
+          </div>
           <img id="allBanner" src="CART.png" className="has-text-centered" />
           <table className="table">{this.getProducts(products)}</table>
-          <button className="button is-success">Checkout</button>
+          <button
+            className="button is-success"
+            type="submit"
+            onClick={this.handleClick}
+          >
+            Checkout
+          </button>
+          {this.state.isClicked ? (
+            <Redirect from="/home" to="/checkout" />
+          ) : null}
         </div>
       )
     }
