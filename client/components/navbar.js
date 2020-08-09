@@ -18,7 +18,6 @@ class Navbar extends React.Component {
     }))
   }
   render() {
-    // console.log('the navbar props is',this.props)
     return (
       <div className="navbar-brand">
         <div>
