@@ -46,7 +46,7 @@ class EditProduct extends React.Component {
           <div>
             <input
               className="input"
-              placeholder="Update Price"
+              placeholder="Update Price (*100)"
               type="text"
               name="price"
               onChange={this.handleChange}

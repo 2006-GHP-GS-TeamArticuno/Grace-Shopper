@@ -47,7 +47,7 @@ export default class AddProductForm extends Component {
           <div>
             <input
               className="input"
-              placeholder="Product Price"
+              placeholder="Product Price (*100)"
               type="text"
               name="price"
               onChange={this.handleChange}

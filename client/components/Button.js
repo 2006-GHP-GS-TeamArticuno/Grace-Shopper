@@ -2,8 +2,7 @@ import React from 'react'
 import {
   addProductThunk,
   deleteProductThunk,
-  decreaseProductThunk,
-  changeQuantityThunk
+  decreaseProductThunk
 } from '../store/cart'
 import {connect} from 'react-redux'
 class Button extends React.Component {
