@@ -27,8 +27,8 @@ class Cart extends React.Component {
           <div>
             <div>{product.name}</div>
             <img src={product.imageUrl} />
-            <div>Total Quantity:0</div>
             <div>Price: {product.price}</div>
+            {/* <div>Total Quantity: <div id="quantity">1</div> */}
             <Button productId={product.id} text="delete" />
             <Button productId={product.id} text="decrease" />
             <Button
@@ -36,6 +36,7 @@ class Cart extends React.Component {
               productPrice={product.price}
               text="increase"
             />
+            {/* </div> */}
           </div>
         </div>
       )
@@ -43,6 +44,8 @@ class Cart extends React.Component {
   }
 
   render() {
+    const quantity = document.getElementById('quantity')
+    console.log('the auantuty', quantity)
     if (this.props.order[0] === undefined) {
       return <div> You don't have any items in your cart yet! </div>
     } else {
@@ -50,6 +53,9 @@ class Cart extends React.Component {
       return (
         <div>
           <h1> My Cart </h1>
+          <div>
+            Total Quantity: <div id="quantity">1</div>
+          </div>
           <div>{this.getProducts(products)}</div>
           <button type="submit" onClick={this.handleClick}>
             Checkout
