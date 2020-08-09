@@ -27,7 +27,22 @@ form div {
   width: 100px;
   height: 50px;
 }
-
+#homeImg {
+  width: 375px;
+  height: 250px;
+}
+#homeImg2 {
+  width: 450px;
+  height: 250px;
+}
+#welcomeIMG {
+  width: auto;
+  height: auto;
+}
+#allBanner {
+  width: 800px;
+  height: 250px;
+}
 img {
   width: 200px;
   height: 150px;
@@ -38,9 +53,12 @@ img {
   height: 40px;
 }
 
-.margin {
-  padding-top: 5%;
+#singleTitle {
+  color: #8e67ba;
 }
+/* .margin {
+  padding-top: 3%;
+} */
 
 .navbar-brand {
   background-color: rgb(247, 198, 158);

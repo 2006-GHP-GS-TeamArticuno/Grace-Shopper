@@ -88,7 +88,7 @@ class Button extends React.Component {
     // }
     console.log('button props are', this.props)
     return (
-      <div className=" has-text-centered">
+      <div>
         <button
           className="button is-primary"
           type="submit"
@@ -96,16 +96,13 @@ class Button extends React.Component {
             // this.props.addProduct(productId, productPrice)
             if (this.props.text === 'delete') {
               this.props.deleteProduct(productId)
-            } else if (this.props.text === 'increase') {
-              // this.props.addProduct(productId, productPrice)
-              quantity.innerHTML = this.state.count
-              this.increment()
-            } else if (this.props.text === 'Add To Cart') {
+            } else if (
+              this.props.text === '+' ||
+              this.props.text === 'Add To Cart'
+            ) {
               this.props.addProduct(productId, productPrice)
-            } else if (this.props.text === 'decrease') {
-              // this.props.decreaseProduct(productId)
-              quantity.innerHTML = this.state.decrease
-              this.decrement()
+            } else if (this.props.text === '-') {
+              this.props.decreaseProduct(productId)
             } else {
               return undefined
             }

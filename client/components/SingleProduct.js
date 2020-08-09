@@ -6,6 +6,7 @@ import {
 } from '../store/singleProduct'
 import Button from './Button'
 import EditProduct from './EditProduct'
+
 class SingleProduct extends React.Component {
   constructor() {
     super()
@@ -27,8 +28,9 @@ class SingleProduct extends React.Component {
     const cart = document.getElementById('cart')
     const product = this.props.product
     return (
-      <div className="singleProduct">
-        <h1>Its single product</h1>
+      <div className="has-text-centered">
+        {/* <h1>Its single product</h1> */}
+        <br />
         {this.props.user.isAdmin && (
           <EditProduct
             productId={product.id}
@@ -36,13 +38,20 @@ class SingleProduct extends React.Component {
           />
         )}
 
-        <div>{product.name}</div>
+        <div className="title" id="singleTitle">
+          {product.name}
+        </div>
         <div>
           <img src={product.imageUrl} />
         </div>
-        <div>{product.description}</div>
-        <div>Price: {product.price} $</div>
+        <div className="subtitle is-6 has-text-weight-light">
+          {product.description}
+          <br />
+          <h1 className="has-text-weight-semibold">Price: {product.price}</h1>
+        </div>
+        <div> Price: {product.price}</div>
         <Button
+          class="button is-primary"
           productId={product.id}
           productPrice={product.price}
           text="Add To Cart"

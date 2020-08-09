@@ -11,15 +11,16 @@ export const UserHome = props => {
   const {email} = props
 
   return (
-    <div>
-      {props.user.isAdmin ? (
-        <div>
-          <h3>Welcome, {email}</h3>
-          <Link to="/users"> View all Users</Link>
-        </div>
-      ) : (
-        <h3>Welcome, {email}</h3>
-      )}
+    <div className="has-text-centered">
+      <br />
+      <h3 className="title" id="singleTitle">
+        Welcome, {email} !
+      </h3>
+      <Link to="/users"> View all Users</Link>
+      <img
+        id="welcomeIMG"
+        src="https://media3.giphy.com/media/3o6fJ0mUt4WWF1qox2/giphy.gif?cid=ecf05e47iq8ohvy8ghhvlb3e9tvum6rw76172vxpac1rw8dp&rid=giphy.gif"
+      />
     </div>
   )
 }
