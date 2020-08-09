@@ -82,18 +82,17 @@ class Button extends React.Component {
           className="button is-primary"
           type="submit"
           onClick={() => {
-            this.props.addProduct(productId, productPrice)
-            // if (this.props.text === 'delete') {
-            //   this.props.deleteProduct(productId)
-            // } else if (this.props.text === 'increase') {
-            //   this.props.addProduct(productId, productPrice)
-            // } else if (this.props.text === 'Add to Cart') {
-            //   this.props.addProduct(productId, productPrice)
-            // } else if (this.props.text === 'decrease') {
-            //   this.props.decreaseProduct(productId)
-            // } else {
-            //   return undefined
-            // }
+            if (this.props.text === 'delete') {
+              this.props.deleteProduct(productId)
+            } else if (this.props.text === 'increase') {
+              // this.props.addProduct(productId, productPrice)
+            } else if (this.props.text === 'Add To Cart') {
+              this.props.addProduct(productId, productPrice)
+            } else if (this.props.text === 'decrease') {
+              // this.props.decreaseProduct(productId)
+            } else {
+              return undefined
+            }
             // cart.innerHTML = this.state.count
             this.increment()
           }}
