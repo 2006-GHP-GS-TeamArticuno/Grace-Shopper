@@ -36,14 +36,24 @@ router.get('/quantity/:productId', async (req, res, next) => {
   }
 })
 
+// localStorage.setItem(key, value)
+// key = cart
+// value = {cart object from the database}
+
 ///ROUTE to ADD a product to the cart
 router.post('/', async (req, res, next) => {
   let consumerId
   if (!req.user) {
-    consumerId = null //will replace with the hash function for session id
+    consumerId = 1 //will replace with the hash function for session id
   } else {
     consumerId = req.user.id
   }
+
+  ///have a cart object on state for only NON REGISTERED USERS
+  //cart object --> product
+  /// key ---> session Id
+  //just the product sent up from the backend
+
   try {
     const [findOrder, created] = await Order.findOrCreate({
       where: {
