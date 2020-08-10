@@ -38,6 +38,12 @@ router.get('/quantity/:productId', async (req, res, next) => {
 
 ///ROUTE to ADD a product to the cart
 router.post('/', async (req, res, next) => {
+  let consumerId
+  if (!req.user) {
+    consumerId = null //will replace with the hash function for session id
+  } else {
+    consumerId = req.user.id
+  }
   try {
     const [findOrder, created] = await Order.findOrCreate({
       where: {
