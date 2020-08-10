@@ -49,7 +49,7 @@ class SingleProduct extends React.Component {
           <br />
           <h1 className="has-text-weight-semibold">Price: {product.price}</h1>
         </div>
-        <div> Price: {product.price}</div>
+        {/* <div> Price: {product.price}</div> */}
         <Button
           class="button is-primary"
           productId={product.id}
