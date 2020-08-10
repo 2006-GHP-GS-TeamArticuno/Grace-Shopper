@@ -4,18 +4,31 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const findOrder = await Order.findAll({
-      where: {
-        userId: consumerId,
-        isPurchased: false
-      },
-      include: {
-        model: Product
-      }
-    })
-
-    if (findOrder) res.json(findOrder)
-    else res.send('You have not added any items to your cart yet!')
+    if (req.user) {
+      const findOrder = await Order.findAll({
+        where: {
+          userId: req.user.id,
+          isPurchased: false
+        },
+        include: {
+          model: Product
+        }
+      })
+      if (findOrder) res.json(findOrder)
+    } else if (!req.user) {
+      console.log(req.session.id)
+      const findOrder = await Order.findAll({
+        where: {
+          sessionId: req.session.id,
+          isPurchased: false
+        },
+        include: {
+          model: Product
+        }
+      })
+      console.log('what is findOrder', findOrder)
+      if (findOrder) res.json(findOrder)
+    } else res.send('You have not added any items to your cart yet!')
   } catch (error) {
     next(error)
   }
@@ -36,38 +49,37 @@ router.get('/quantity/:productId', async (req, res, next) => {
   }
 })
 
-// localStorage.setItem(key, value)
-// key = cart
-// value = {cart object from the database}
-
 ///ROUTE to ADD a product to the cart
 router.post('/', async (req, res, next) => {
-  let consumerId
-  if (!req.user) {
-    consumerId = 1 //will replace with the hash function for session id
-  } else {
-    consumerId = req.user.id
-  }
-
-  ///have a cart object on state for only NON REGISTERED USERS
-  //cart object --> product
-  /// key ---> session Id
-  //just the product sent up from the backend
-
   try {
-    const [findOrder, created] = await Order.findOrCreate({
-      where: {
-        userId: consumerId,
-        isPurchased: false
-      },
-      include: {model: Product}
-    })
-    const orderId = findOrder.id
-    const productId = req.body.productId
-    const productPrice = req.body.productPrice
-
-    await orderDetail.create({productId, productPrice, orderId})
-    res.json(findOrder)
+    if (!req.user) {
+      const [findOrder, created] = await Order.findOrCreate({
+        where: {
+          sessionId: req.session.id,
+          userId: null,
+          isPurchased: false
+        },
+        include: {model: Product}
+      })
+      const orderId = findOrder.id
+      const productId = req.body.productId
+      const productPrice = req.body.productPrice
+      await orderDetail.create({productId, productPrice, orderId})
+      res.json(findOrder)
+    } else {
+      const [findOrder, created] = await Order.findOrCreate({
+        where: {
+          userId: req.user.id,
+          isPurchased: false
+        },
+        include: {model: Product}
+      })
+      const orderId = findOrder.id
+      const productId = req.body.productId
+      const productPrice = req.body.productPrice
+      await orderDetail.create({productId, productPrice, orderId})
+      res.json(findOrder)
+    }
   } catch (error) {
     next(error)
   }
@@ -95,7 +107,6 @@ router.delete('/decrease/:productId', async (req, res, next) => {
         productId: req.params.productId
       }
     })
-    console.log('AAAAAAAAA', oneProduct)
     await oneProduct.destroy()
 
     res.send('deleted')

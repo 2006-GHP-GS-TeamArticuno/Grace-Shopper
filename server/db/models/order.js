@@ -5,6 +5,9 @@ const Order = db.define('order', {
   isPurchased: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  sessionId: {
+    type: Sequelize.TEXT
   }
 })
 

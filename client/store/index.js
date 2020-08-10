@@ -19,7 +19,9 @@ const persistedState = loadState()
 const store = createStore(reducer, persistedState, middleware)
 
 store.subscribe(() => {
-  saveState(store.getState())
+  saveState({
+    cart: store.getState().cart
+  })
 })
 
 export default store
