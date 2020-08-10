@@ -5,63 +5,45 @@ import {
   deleteProductThunk,
   addProductThunk
 } from '../store/allProducts'
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
+import Product from './Product'
 import AddProductForm from './AddProductForm'
-// import Navbar from './navbar'
 class AllProducts extends React.Component {
   componentDidMount() {
     this.props.getAllProducts()
   }
   render() {
     const products = this.props.products
-    console.log('the all products props', this.props)
+    console.log('AAAAA products props', products)
     return (
       <div className="has-text-centered">
-        {/* <h1 className="title is-size-3 has-text-centered has-text-primary">Pick Your Party</h1> */}
-        {/* <br/> */}
         <img id="allBanner" src="All-Banner.png" />
         {this.props.user.isAdmin && (
           <AddProductForm addProduct={this.props.addProduct} />
         )}
         <div className="columns is-multiline is-centered">
-          {products &&
-            products.map(product => {
-              return (
-                <div className="column is-one-quarter" key={product.id}>
-                  <div className="has-text-centered title is-6">
-                    <Link to={`/products/${product.id}`}>{product.name}</Link>{' '}
+          {this.props.products || this.props.products !== undefined
+            ? this.props.products.map(product => {
+                return (
+                  <div key={product.id}>
+                    {product ? (
+                      <Product
+                        key={product.id}
+                        product={product}
+                        user={this.props.user}
+                        removeProduct={this.props.removeProduct}
+                      />
+                    ) : null}
                   </div>
-                  <div className="has-text-centered ">
-                    {' '}
-                    <img src={product.imageUrl} />
-                  </div>
-                  <div className="has-text-centered subtitle is-6 has-text-weight-light">
-                    {' '}
-                    {product.description}{' '}
-                  </div>
-                  <div className="has-text-centered has-text-weight-semibold">
-                    {' '}
-                    Price: {product.price}{' '}
-                  </div>
-                  {!!this.props.user.isAdmin && (
-                    <button
-                      className="button is-danger"
-                      type="submit"
-                      onClick={() => this.props.removeProduct(product.id)}
-                    >
-                      Remove Product
-                    </button>
-                  )}
-                </div>
-              )
-            })}
+                )
+              })
+            : null}
         </div>
       </div>
     )
   }
 }
 const mapStateToProps = state => {
-  console.log('the state from all products', state)
   return {
     products: state.products,
     user: state.user

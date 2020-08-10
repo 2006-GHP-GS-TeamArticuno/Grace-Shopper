@@ -5,7 +5,8 @@ const DELETE_PRODUCT = 'DELETE_PRODUCT'
 const ADD_PRODUCT = 'ADD_PRODUCT'
 const GET_CART = 'GET_CART'
 const DECREASE_PRODUCT = 'DECREASE_PRODUCT'
-const CHANGE_QUANTITY = 'CHANGE_QUANTITY'
+// const CHANGE_QUANTITY = 'CHANGE_QUANTITY'
+
 //INITIAL STATE
 const initialState = []
 
@@ -81,6 +82,8 @@ export const deleteProductThunk = productId => {
     try {
       await axios.delete(`/api/cart/delete/${productId}`)
       dispatch(deleteProduct(productId))
+      const {data} = await axios.get('/api/cart')
+      dispatch(getCart(data))
     } catch (error) {
       console.error(error)
     }
@@ -115,8 +118,8 @@ export default function(state = initialState, action) {
     // return [...state].filter(product => product.id !== action.id)
     case DECREASE_PRODUCT:
     // return [...state].filter(product => product.id !== action.id)
-    case CHANGE_QUANTITY:
-      return [...state, action.cart]
+    // case CHANGE_QUANTITY:
+    //   return [...state, action.cart]
     default:
       return state
   }
