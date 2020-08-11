@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Button from './Button'
 import {Redirect} from 'react-router-dom'
+import axios from 'axios'
 import {
   getCartThunk,
   addProductThunk,
@@ -9,7 +10,6 @@ import {
   decreaseProductThunk,
   increaseProductThunk
 } from '../store/cart'
-// import {changeQuantityThunk} from '../store/cart'
 class Cart extends React.Component {
   constructor(props) {
     super(props)
@@ -26,6 +26,16 @@ class Cart extends React.Component {
   componentDidMount() {
     this.props.getCart()
   }
+  handleClick = async () => {
+    try {
+      await axios.put('api/cart', {isPurchased: true})
+      this.setState({
+        isClicked: true
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
   increment() {
     this.setState(prevState => ({
       totalQuantity: prevState.totalQuantity + 1
@@ -36,11 +46,7 @@ class Cart extends React.Component {
       totalQuantity: prevState.totalQuantity - 1
     }))
   }
-  handleClick = () => {
-    this.setState({
-      isClicked: true
-    })
-  }
+
   getProducts(productArray) {
     return productArray.map(product => {
       return (
@@ -57,7 +63,6 @@ class Cart extends React.Component {
 
             <td className="level-item">
               Total Quantity: <div id="quantity">{product.quantity}</div>{' '}
-
             </td>
             <td className="level-item">
               {' '}

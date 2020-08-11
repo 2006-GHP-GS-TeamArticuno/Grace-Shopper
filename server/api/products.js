@@ -15,9 +15,7 @@ const isAdminMiddleware = (req, res, next) => {
 //get all Products
 router.get('/', async (req, res, next) => {
   try {
-    const allProducts = await Product.findAll({
-      where: {inStock: true}
-    })
+    const allProducts = await Product.findAll()
     if (allProducts) res.json(allProducts)
     else res.sendStatus(404)
   } catch (error) {

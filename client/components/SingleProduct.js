@@ -52,17 +52,25 @@ class SingleProduct extends React.Component {
           </h1>
         </div>
         {/* <div> Price: {product.price}</div> */}
-        <Button
-          class="button is-primary"
-          productId={product.id}
-          productPrice={product.price}
-          text="Add To Cart"
-          // type="submit"
-          // onClick={() => {
-          //   this.increment()
-          //   cart.innerHTML = this.state.count
-          // }}
-        />
+        <div>
+          {product.inStock ? (
+            <div>
+              <Button
+                class="button is-primary"
+                productId={product.id}
+                productPrice={product.price}
+                text="Add To Cart"
+                // type="submit"
+                // onClick={() => {
+                //   this.increment()
+                //   cart.innerHTML = this.state.count
+                // }}
+              />
+            </div>
+          ) : (
+            <div> Out of Stock! </div>
+          )}
+        </div>
       </div>
     )
   }
