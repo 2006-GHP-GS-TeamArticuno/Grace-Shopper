@@ -2,6 +2,7 @@ const router = require('express').Router()
 const {Order, orderDetail, Product} = require('../db/models')
 module.exports = router
 
+//this get route gets the cart
 router.get('/', async (req, res, next) => {
   try {
     if (req.user) {
@@ -33,6 +34,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+//this put route is updating 'isPurchased' and is run when you click the checkout button
 router.put('/', async (req, res, next) => {
   try {
     if (req.user) {
@@ -59,6 +61,7 @@ router.put('/', async (req, res, next) => {
   }
 })
 
+//this get route gets the quantity of a certain product
 router.get('/quantity/:productId', async (req, res, next) => {
   try {
     const findOrders = await orderDetail.findAll({
@@ -66,7 +69,7 @@ router.get('/quantity/:productId', async (req, res, next) => {
         productId: req.params.productId
       }
     })
-
+    //we are sending up a number in the database
     if (findOrders) res.json(findOrders.length)
     else res.send('You have not added any items to your cart yet!')
   } catch (error) {
@@ -109,31 +112,7 @@ router.post('/', async (req, res, next) => {
     next(error)
   }
 })
-router.put('/:id', async (req, res, next) => {
-  try {
-    const [findOrder, created] = await Order.findOrCreate({
-      where: {
-        userId: req.user.id,
-        isPurchased: false
-      },
-      include: {model: Product}
-    })
-    const orderId = findOrder.id
-    const productId = req.body.productId
-    const productPrice = req.body.productPrice
-    // const neededOrder = await orderDetail.findOne({
-    //   where: {
-    //     orderId: orderId,
-    //     productId: productId,
-    //     productPrice: productPrice
-    //   }
-    // })
-    // const updatedOrder = await neededOrder.update(req.body)
-    // res.json(updatedOrder)
-  } catch (error) {
-    console.error(error)
-  }
-})
+
 //this delete route deletes all of a certain product inside the cart
 router.delete('/delete/:productId', async (req, res, next) => {
   try {

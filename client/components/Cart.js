@@ -3,13 +3,7 @@ import {connect} from 'react-redux'
 import Button from './Button'
 import {Redirect} from 'react-router-dom'
 import axios from 'axios'
-import {
-  getCartThunk,
-  addProductThunk,
-  deleteProductThunk,
-  decreaseProductThunk,
-  increaseProductThunk
-} from '../store/cart'
+import {getCartThunk} from '../store/cart'
 class Cart extends React.Component {
   constructor(props) {
     super(props)
@@ -35,16 +29,6 @@ class Cart extends React.Component {
     } catch (error) {
       console.error(error)
     }
-  }
-  increment() {
-    this.setState(prevState => ({
-      totalQuantity: prevState.totalQuantity + 1
-    }))
-  }
-  decrement() {
-    this.setState(prevState => ({
-      totalQuantity: prevState.totalQuantity - 1
-    }))
   }
 
   getProducts(productArray) {
@@ -73,57 +57,25 @@ class Cart extends React.Component {
 
             {/* <div class = "level-right"> */}
             <td className="buttons are-small">
-              <button
-                type="submit"
-                onClick={() => {
-                  this.increment()
-                  this.props.changeQuantity(
-                    product.id,
-                    (product.quantity = product.quantity + 1)
-                  )
-                }}
-              >
-                +
-              </button>
-              <button
-                type="submit"
-                onClick={() => {
-                  this.props.changeQuantity(
-                    product.id,
-                    (product.quantity = product.quantity - 1)
-                  )
-                  this.decrement()
-                }}
-              >
-                -
-              </button>
-              <button
-                type="submit"
-                onClick={() => {
-                  this.props.deleteProduct(product.id)
-                }}
-              >
-                delete
-              </button>
-              {/* <Button productId={product.id} text="-" class="level-item" totalQuantity = {this.state.totalQuantity} />
               <Button
+                text="+"
                 productId={product.id}
                 productPrice={product.price}
-                text="+"
-                class="level-item"
-                totalQuantity = {this.state.totalQuantity}
               />
-              <Button productId={product.id} text="delete" class="level-item" /> */}
+              <Button
+                text="-"
+                productId={product.id}
+                productPrice={product.price}
+              />
+              <Button text="delete" productId={product.id} />
             </td>
           </tr>
-          {/* quantity.innerHTML = this.props.changeQuantity() */}
         </div>
       )
     })
   }
 
   render() {
-    // const quantity = +document.getElementById('quantity')
     if (this.props.order[0] === undefined) {
       return <div> You don't have any items in your cart yet! </div>
     } else {
@@ -158,14 +110,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getCart: () => dispatch(getCartThunk()),
-    addProduct: (productId, productPrice) =>
-      dispatch(addProductThunk(productId, productPrice)),
-    deleteProduct: productId => dispatch(deleteProductThunk(productId)),
-    decreaseProduct: productId => dispatch(decreaseProductThunk(productId)),
-    changeQuantity: (id, quantity) =>
-      dispatch(increaseProductThunk(id, quantity))
-    // changeQuantity: id => dispatch(changeQuantityThunk(id))
+    getCart: () => dispatch(getCartThunk())
   }
 }
 

@@ -5,7 +5,6 @@ const DELETE_PRODUCT = 'DELETE_PRODUCT'
 const ADD_PRODUCT = 'ADD_PRODUCT'
 const GET_CART = 'GET_CART'
 const DECREASE_PRODUCT = 'DECREASE_PRODUCT'
-const CHANGE_QUANTITY = 'CHANGE_QUANTITY'
 
 //INITIAL STATE
 const initialState = []
@@ -17,12 +16,7 @@ const getCart = cart => {
     cart
   }
 }
-const changeQuantity = product => {
-  return {
-    type: CHANGE_QUANTITY,
-    product
-  }
-}
+
 const addProduct = updatedOrder => {
   return {
     type: ADD_PRODUCT,
@@ -44,24 +38,10 @@ const decreaseProduct = cart => {
   }
 }
 
-//THUNK CREATOR
-// export const changeQuantityThunk = id => {
-//   return async dispatch => {
-//     try {
-//       const {data} = await axios.get(`/api/cart/quantity/${id}`)
-//       console.log('data in changeQuantity', data)
-//       dispatch(changeQuantity(data))
-//     } catch (error) {
-//       console.error(error)
-//     }
-//   }
-// }
 export const getCartThunk = () => {
   return async dispatch => {
     try {
       const {data} = await axios.get('/api/cart')
-      //IDEA: send up the session Id -- if data includes the session id - set it as a key
-      //on local storage
       dispatch(getCart(data))
     } catch (error) {
       console.error(error)
@@ -79,16 +59,7 @@ export const addProductThunk = (productId, productPrice) => {
     }
   }
 }
-export const increaseProductThunk = (id, quantity) => {
-  return async dispatch => {
-    try {
-      const {data} = await axios.put(`/api/cart/${id}`, {quantity})
-      dispatch(changeQuantity(data))
-    } catch (error) {
-      console.error(error)
-    }
-  }
-}
+
 export const deleteProductThunk = productId => {
   return async dispatch => {
     try {
@@ -132,11 +103,11 @@ export default function(state = initialState, action) {
     // return [...state].filter(product => product.id !== action.id)
     // case CHANGE_QUANTITY:
     //   return [...state, action.cart]
-    case CHANGE_QUANTITY:
-      return {
-        ...state,
-        ...action.product
-      }
+    // case CHANGE_QUANTITY:
+    //   return {
+    //     ...state,
+    //     ...action.product
+    //   }
     default:
       return state
   }
