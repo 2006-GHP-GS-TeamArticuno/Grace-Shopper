@@ -29,7 +29,7 @@ router.get('/quantity/:productId', async (req, res, next) => {
       }
     })
 
-    if (findOrders) res.json(findOrders.length)
+    if (findOrders) res.json(findOrders)
     else res.send('You have not added any items to your cart yet!')
   } catch (error) {
     next(error)

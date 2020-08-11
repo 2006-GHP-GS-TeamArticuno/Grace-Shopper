@@ -42,10 +42,10 @@ router.get('/:id', isAdminMiddleware, async (req, res, next) => {
     next(error)
   }
 })
-router.put('/:id', isAdminMiddleware, async (req, res, next) => {
+router.put('/:id/admin', isAdminMiddleware, async (req, res, next) => {
   try {
     const userById = await User.findByPk(req.params.id)
-    const updatedUser = await userById.update(req.body)
+    const updatedUser = await userById.update({isAdmin: true})
     res.json(updatedUser)
   } catch (error) {
     next(error)
