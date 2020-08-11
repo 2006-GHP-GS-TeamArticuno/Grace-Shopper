@@ -4,6 +4,7 @@ import {getCartThunk} from '../store/cart'
 import Button from './Button'
 import {Redirect} from 'react-router-dom'
 import {changeQuantityThunk} from '../store/cart'
+import axios from 'axios'
 class Cart extends React.Component {
   constructor(props) {
     super(props)
@@ -15,10 +16,15 @@ class Cart extends React.Component {
   componentDidMount() {
     this.props.getCart()
   }
-  handleClick = () => {
-    this.setState({
-      isClicked: true
-    })
+  handleClick = async () => {
+    try {
+      await axios.put('api/cart', {isPurchased: true})
+      this.setState({
+        isClicked: true
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
   getProducts(productArray) {
     // quantity.innerHTML = this.props.changeQuantity();

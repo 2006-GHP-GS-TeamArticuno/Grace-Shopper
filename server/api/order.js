@@ -34,6 +34,30 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.put('/', async (req, res, next) => {
+  try {
+    if (req.user) {
+      await Order.findAll({
+        where: {
+          userId: req.user.id,
+          isPurchased: false
+        }
+      }).update({isPurchased: true})
+      res.send('thanks for your purchase!')
+    } else if (!req.user) {
+      await Order.findAll({
+        where: {
+          sessionId: req.session.id,
+          isPurchased: false
+        }
+      }).update({isPurchased: true})
+      res.send('thanks for your purchase!')
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.get('/quantity/:productId', async (req, res, next) => {
   try {
     const findOrders = await orderDetail.findAll({
