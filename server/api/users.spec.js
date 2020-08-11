@@ -52,7 +52,7 @@ describe('User routes', () => {
       expect(createdUser.email).to.be.equal('dean.win@mail.ru')
     })
 
-    it('PUT /users/:id', async () => {
+    it('PUT /api/users/:id', async () => {
       const res = await request(app)
         .put(`/api/users/1`)
         .send({

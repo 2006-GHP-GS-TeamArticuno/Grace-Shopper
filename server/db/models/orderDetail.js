@@ -10,6 +10,10 @@ const orderDetail = db.define('orderDetail', {
   },
   productPrice: {
     type: Sequelize.INTEGER
+  },
+  quantity: {
+    type: Sequelize.INTEGER,
+    defaultValue: 1
   }
 })
 
