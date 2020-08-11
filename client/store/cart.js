@@ -45,17 +45,17 @@ const decreaseProduct = cart => {
 }
 
 //THUNK CREATOR
-export const changeQuantityThunk = id => {
-  return async dispatch => {
-    try {
-      const {data} = await axios.get(`/api/cart/quantity/${id}`)
-      console.log('data in changeQuantity', data)
-      dispatch(changeQuantity(data))
-    } catch (error) {
-      console.error(error)
-    }
-  }
-}
+// export const changeQuantityThunk = id => {
+//   return async dispatch => {
+//     try {
+//       const {data} = await axios.get(`/api/cart/quantity/${id}`)
+//       console.log('data in changeQuantity', data)
+//       dispatch(changeQuantity(data))
+//     } catch (error) {
+//       console.error(error)
+//     }
+//   }
+// }
 export const getCartThunk = () => {
   return async dispatch => {
     try {
