@@ -14,7 +14,6 @@ class AllProducts extends React.Component {
   }
   render() {
     const products = this.props.products
-    console.log('AAAAA products props', products)
     return (
       <div className="has-text-centered">
         <img id="allBanner" src="All-Banner.png" />

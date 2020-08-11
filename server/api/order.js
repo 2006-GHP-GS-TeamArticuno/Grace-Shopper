@@ -78,7 +78,7 @@ router.get('/quantity/:productId', async (req, res, next) => {
 })
 
 ///ROUTE to ADD a product to the cart
-router.post('/', async (req, res, next) => {
+router.put('/', async (req, res, next) => {
   try {
     if (!req.user) {
       const [findOrder, created] = await Order.findOrCreate({
@@ -92,7 +92,18 @@ router.post('/', async (req, res, next) => {
       const orderId = findOrder.id
       const productId = req.body.productId
       const productPrice = req.body.productPrice
-      await orderDetail.create({productId, productPrice, orderId})
+
+      const findOrderDetail = await orderDetail.findOne({
+        where: {
+          orderId: orderId,
+          productId: productId
+        }
+      })
+      if (findOrderDetail) {
+        findOrderDetail.update({quantity: quantity + 1})
+      } else {
+        await orderDetail.create({productId, productPrice, orderId})
+      }
       res.json(findOrder)
     } else {
       const [findOrder, created] = await Order.findOrCreate({
@@ -105,7 +116,18 @@ router.post('/', async (req, res, next) => {
       const orderId = findOrder.id
       const productId = req.body.productId
       const productPrice = req.body.productPrice
-      await orderDetail.create({productId, productPrice, orderId})
+
+      const findOrderDetail = await orderDetail.findOne({
+        where: {
+          orderId: orderId,
+          productId: productId
+        }
+      })
+      if (findOrderDetail) {
+        findOrderDetail.update({quantity: quantity + 1})
+      } else {
+        await orderDetail.create({productId, productPrice, orderId})
+      }
       res.json(findOrder)
     }
   } catch (error) {

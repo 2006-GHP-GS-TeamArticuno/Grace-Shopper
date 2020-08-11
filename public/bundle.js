@@ -297,7 +297,6 @@ function (_React$Component) {
       var _this = this;
 
       var products = this.props.products;
-      console.log('AAAAA products props', products);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "has-text-centered"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -674,8 +673,6 @@ function (_React$Component) {
       totalQuantity: 1
     };
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
-    _this.increment = _this.increment.bind(_assertThisInitialized(_this));
-    _this.decrement = _this.decrement.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -707,15 +704,15 @@ function (_React$Component) {
         }, ' ', "Price: ", (product.price / 100).toFixed(2), ' '), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
           className: "buttons are-small"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          text: '+',
+          text: "+",
           productId: product.id,
           productPrice: product.price
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          text: '-',
+          text: "-",
           productId: product.id,
           productPrice: product.price
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          text: 'delete',
+          text: "delete",
           productId: product.id
         }))));
       });
@@ -2351,7 +2348,7 @@ var addProductThunk = function addProductThunk(productId, productPrice) {
               case 0:
                 _context2.prev = 0;
                 _context2.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/cart', {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/cart', {
                   productId: productId,
                   productPrice: productPrice
                 });

@@ -13,8 +13,6 @@ class Cart extends React.Component {
       totalQuantity: 1
     }
     this.handleClick = this.handleClick.bind(this)
-    this.increment = this.increment.bind(this)
-    this.decrement = this.decrement.bind(this)
   }
 
   componentDidMount() {
