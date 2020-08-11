@@ -18,14 +18,17 @@ class AllProducts extends React.Component {
     return (
       <div className="has-text-centered">
         <img id="allBanner" src="All-Banner.png" />
+
         {this.props.user.isAdmin && (
           <AddProductForm addProduct={this.props.addProduct} />
         )}
-        <div className="columns is-multiline is-centered">
+
+        {/* <div className="columns is-multiline is-centered"> */}
+        <div className="columns is-multiline">
           {this.props.products || this.props.products !== undefined
             ? this.props.products.map(product => {
                 return (
-                  <div>
+                  <div className="column is-one-quarter">
                     {product !== undefined ? (
                       <Product
                         key={product.id}
