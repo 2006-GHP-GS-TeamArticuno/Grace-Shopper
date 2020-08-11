@@ -9,7 +9,7 @@ import {
   decreaseProductThunk,
   increaseProductThunk
 } from '../store/cart'
-import {changeQuantityThunk} from '../store/cart'
+// import {changeQuantityThunk} from '../store/cart'
 class Cart extends React.Component {
   constructor(props) {
     super(props)
@@ -25,6 +25,7 @@ class Cart extends React.Component {
 
   async componentDidMount() {
     await this.props.getCart()
+    console.log('PRops', this.props)
   }
   increment() {
     this.setState(prevState => ({
@@ -163,8 +164,8 @@ const mapDispatchToProps = dispatch => {
     deleteProduct: productId => dispatch(deleteProductThunk(productId)),
     decreaseProduct: productId => dispatch(decreaseProductThunk(productId)),
     changeQuantity: (id, quantity) =>
-      dispatch(increaseProductThunk(id, quantity)),
-    changeTotalQuantity: id => dispatch(changeQuantityThunk(id))
+      dispatch(increaseProductThunk(id, quantity))
+    // changeTotalQuantity: id => dispatch(changeQuantityThunk(id))
     // changeQuantity: id => dispatch(changeQuantityThunk(id))
   }
 }

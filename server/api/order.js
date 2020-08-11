@@ -34,13 +34,20 @@ router.get('/', async (req, res, next) => {
 
 router.get('/quantity/:productId', async (req, res, next) => {
   try {
+    const findOrderRow = await Order.findOne({
+      where: {
+        userId: req.user.id,
+        isPurchased: false
+      }
+    })
     const findOrders = await orderDetail.findAll({
       where: {
-        productId: req.params.productId
+        productId: req.params.productId,
+        orderId: findOrderRow.id
       }
     })
 
-    if (findOrders) res.json(findOrders)
+    if (findOrders) res.json(findOrders.length)
     else res.send('You have not added any items to your cart yet!')
   } catch (error) {
     next(error)
@@ -96,15 +103,15 @@ router.put('/:id', async (req, res, next) => {
     const orderId = findOrder.id
     const productId = req.body.productId
     const productPrice = req.body.productPrice
-    // const neededOrder = await orderDetail.findOne({
-    //   where: {
-    //     orderId: orderId,
-    //     productId: productId,
-    //     productPrice: productPrice
-    //   }
-    // })
-    // const updatedOrder = await neededOrder.update(req.body)
-    // res.json(updatedOrder)
+    const neededOrder = await orderDetail.findOne({
+      where: {
+        orderId: orderId,
+        productId: productId,
+        productPrice: productPrice
+      }
+    })
+    const updatedOrder = await neededOrder.update(req.body)
+    res.json(updatedOrder)
   } catch (error) {
     console.error(error)
   }
