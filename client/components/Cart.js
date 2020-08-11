@@ -28,8 +28,6 @@ class Cart extends React.Component {
       return (
         <div>
           <tr className="level">
-            {/*
-          <div key={product.id} class = 'level-left'> */}
             <td className="level-item">
               {' '}
               <strong>{product.name}</strong>
@@ -39,9 +37,14 @@ class Cart extends React.Component {
               <img src={product.imageUrl} />{' '}
             </td>
 
-            <td className="level-item">Total Quantity: <span id="quantity">1</span>{' '} </td>
-            <td className="level-item"> Price: {(product.price / 100).toFixed(2)} </td>
-                            
+            <td className="level-item">
+              Total Quantity: <span id="quantity">1</span>{' '}
+            </td>
+            <td className="level-item">
+              {' '}
+              Price: {(product.price / 100).toFixed(2)}{' '}
+            </td>
+
             {/* </div> */}
 
             {/* <div class = "level-right"> */}
