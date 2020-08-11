@@ -39,7 +39,6 @@ passport.deserializeUser(async (id, done) => {
     done(err)
   }
 })
-
 const createApp = () => {
   // logging middleware
   app.use(morgan('dev'))
@@ -57,7 +56,7 @@ const createApp = () => {
       secret: process.env.SESSION_SECRET || 'my best friend is Cody',
       store: sessionStore,
       resave: false,
-      saveUninitialized: false
+      saveUninitialized: true
     })
   )
   app.use(passport.initialize())

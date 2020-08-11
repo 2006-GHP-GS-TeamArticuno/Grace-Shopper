@@ -2,17 +2,14 @@ import React from 'react'
 import {
   addProductThunk,
   deleteProductThunk,
-  decreaseProductThunk,
-  changeQuantityThunk
+  decreaseProductThunk
 } from '../store/cart'
 import {connect} from 'react-redux'
 class Button extends React.Component {
   constructor(props) {
     super(props)
-    // const decrease1 = this.state.count
     this.state = {
-      count: 1,
-      decrease: 1
+      count: 1
     }
 
     this.increment = this.increment.bind(this)
@@ -29,65 +26,10 @@ class Button extends React.Component {
     }))
   }
   render() {
-    const cart = document.getElementById('cart')
-    // const quantity = document.getElementById('quantity')
-    // console.log('the auantuty',quantity)
+    // const cart = document.getElementById('cart')
     const {productId, productPrice} = this.props
-    // if (text === 'delete') {
-    //   return (
-    //     <div className=" has-text-centered">
-    //     <button
-    //       className="button is-primary"
-    //       type="submit"
-    //       onClick={() => this.props.deleteProduct(productId)
-    //       }
-    //       >
-    //         {text}
-    //       </button>
-    //     </div>
-    //   )
-    // } else if (text === 'increase') {
-    //   return (
-    //     <div className=" has-text-centered">
-    //     <button
-    //       className="button is-primary"
-    //       type="submit"
-    //       onClick={() => this.props.addProduct(productId, productPrice)
-    //       }
-    //       >
-    //         {text}
-    //       </button>
-    //     </div>
-    //   )
-    // } else if (text === 'Add to Cart') {
-    //   return (
-    //     <div className=" has-text-centered">
-    //     <button
-    //       className="button is-primary"
-    //       type="submit"
-    //       onClick={() => this.props.addProduct(productId, productPrice)
-    //       }
-    //       >
-    //         {text}
-    //       </button>
-    //     </div>
-    //   )
-    // } else {
-    //   return (
-    //     <div className=" has-text-centered">
-    //     <button
-    //       className="button is-primary"
-    //       type="submit"
-    //       onClick={() => this.props.decreaseProduct(productId)
-    //       }
-    //       >
-    //         {text}
-    //       </button>
-    //     </div>
-    //   )
-    // }
     console.log('button props are', this.props)
-    const quantity = +document.getElementById('quantity')
+
     return (
       <div>
         <button
@@ -102,9 +44,11 @@ class Button extends React.Component {
               this.props.text === 'Add To Cart'
             ) {
               this.props.addProduct(productId, productPrice)
+              return this.increment()
               // quantity.innerHTML = this.props.changeQuantity(productId)
             } else if (this.props.text === '-') {
               this.props.decreaseProduct(productId)
+              return this.decrement()
             } else {
               return undefined
             }

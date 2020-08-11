@@ -11,7 +11,8 @@ async function seed() {
       email: 'cody@email.com',
       password: '123',
       firstName: 'Cody',
-      lastName: 'Pug'
+      lastName: 'Pug',
+      isAdmin: true
     },
     {
       email: 'murphy@email.com',

@@ -23,7 +23,7 @@ describe('Product model', () => {
     })
 
     it('has a `name`, `price`, `description`, `imageUrl`, `quantity`, `inStock`', () => {
-      expect(babyShower.name).to.equal('Puppaccino')
+      expect(babyShower.name).to.equal('Baby Shower')
       expect(babyShower.price).to.equal(150)
       expect(babyShower.description).to.equal(
         'Everything you need to have unforgettable BS'
