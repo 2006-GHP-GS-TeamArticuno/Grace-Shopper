@@ -16,7 +16,6 @@ router.get('/', async (req, res, next) => {
       })
       if (findOrder) res.json(findOrder)
     } else if (!req.user) {
-      console.log(req.session.id)
       const findOrder = await Order.findAll({
         where: {
           sessionId: req.session.id,
@@ -26,7 +25,6 @@ router.get('/', async (req, res, next) => {
           model: Product
         }
       })
-      console.log('what is findOrder', findOrder)
       if (findOrder) res.json(findOrder)
     } else res.send('You have not added any items to your cart yet!')
   } catch (error) {
@@ -86,6 +84,8 @@ router.post('/', async (req, res, next) => {
 })
 router.put('/:id', async (req, res, next) => {
   try {
+    // const allOrderDetails = await orderDetail.findAll({where:{productId:req.params.productId})
+
     const [findOrder, created] = await Order.findOrCreate({
       where: {
         userId: req.user.id,
