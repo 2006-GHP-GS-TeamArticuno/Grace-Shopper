@@ -26,7 +26,6 @@ router.get('/', async (req, res, next) => {
           model: Product
         }
       })
-      console.log('what is findOrder', findOrder)
       if (findOrder) res.json(findOrder)
     } else res.send('You have not added any items to your cart yet!')
   } catch (error) {
@@ -37,20 +36,22 @@ router.get('/', async (req, res, next) => {
 router.put('/', async (req, res, next) => {
   try {
     if (req.user) {
-      await Order.findAll({
+      const findOrder = await Order.findOne({
         where: {
           userId: req.user.id,
           isPurchased: false
         }
-      }).update({isPurchased: true})
+      })
+      findOrder.update(req.body)
       res.send('thanks for your purchase!')
     } else if (!req.user) {
-      await Order.findAll({
+      const findOrder = await Order.findOne({
         where: {
           sessionId: req.session.id,
           isPurchased: false
         }
-      }).update({isPurchased: true})
+      })
+      findOrder.update(req.body)
       res.send('thanks for your purchase!')
     }
   } catch (error) {
