@@ -51,6 +51,7 @@ router.post('/', async (req, res, next) => {
     const productPrice = req.body.productPrice
 
     await orderDetail.create({productId, productPrice, orderId})
+
     res.json(findOrder)
   } catch (error) {
     next(error)
