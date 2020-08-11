@@ -1,5 +1,5 @@
 import React from 'react'
-import {connect} from 'react-redux'
+
 //will be rendered from Cart Component
 class Checkout extends React.Component {
   render() {
@@ -17,4 +17,4 @@ class Checkout extends React.Component {
   }
 }
 
-export default connect(null, null)(Checkout)
+export default Checkout

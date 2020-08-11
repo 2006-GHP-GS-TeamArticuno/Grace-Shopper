@@ -20,8 +20,6 @@ class Home extends React.Component {
         <h1 className="title is-3">Introducing:</h1>
         <div>
           <img id="homeImg" src="PARTYBOX.png" />
-          {/* <h2 class="subtitle is-5 has-text-weight-medium">Your social distancing party solution!</h2> */}
-          {/* <h4 class="has-text-weight-light">WE BRING THE PARTY TO YOU VIRTUALLY!</h4> */}
           <div className="has-text-weight-light">
             <h2 className="subtitle is-5 has-text-weight-medium">
               Your social distancing party solution!
@@ -42,8 +40,6 @@ class Home extends React.Component {
               />
             </div>
           </div>
-          {/* <h3>Let's get started!</h3> */}
-          {/* <Link to="/products">See all of our fabulous fun packages!</Link> */}
           <div>
             <button
               className="button is-primary"

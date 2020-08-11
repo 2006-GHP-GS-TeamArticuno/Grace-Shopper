@@ -25,11 +25,9 @@ class SingleProduct extends React.Component {
     this.props.getSingleProduct(id)
   }
   render() {
-    const cart = document.getElementById('cart')
     const product = this.props.product
     return (
       <div className="has-text-centered">
-        {/* <h1>Its single product</h1> */}
         <br />
         {this.props.user.isAdmin && (
           <EditProduct
@@ -51,7 +49,6 @@ class SingleProduct extends React.Component {
             Price: ${(product.price / 100).toFixed(2)}
           </h1>
         </div>
-        {/* <div> Price: {product.price}</div> */}
         <div>
           {product.inStock ? (
             <div>
@@ -60,11 +57,6 @@ class SingleProduct extends React.Component {
                 productId={product.id}
                 productPrice={product.price}
                 text="Add To Cart"
-                // type="submit"
-                // onClick={() => {
-                //   this.increment()
-                //   cart.innerHTML = this.state.count
-                // }}
               />
             </div>
           ) : (
@@ -75,12 +67,14 @@ class SingleProduct extends React.Component {
     )
   }
 }
+
 const mapStateToProps = state => {
   return {
     product: state.product,
     user: state.user
   }
 }
+
 const mapDispatchToProps = dispatch => {
   return {
     getSingleProduct: id => dispatch(getSingleProductThunk(id)),

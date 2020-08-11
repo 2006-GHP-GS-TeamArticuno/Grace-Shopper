@@ -7,11 +7,9 @@ class AllUsers extends React.Component {
   componentDidMount() {
     this.props.getAllUsers()
   }
-  render() {
-    console.log('all users props', this.props)
-    const users = this.props.users
 
-    console.log('the all users ', this.props)
+  render() {
+    const users = this.props.users
     return (
       <div className="has-text-centered">
         <br />
@@ -33,14 +31,17 @@ class AllUsers extends React.Component {
     )
   }
 }
+
 const mapStateToProps = state => {
   return {
     users: state.users
   }
 }
+
 const mapDispatchToProps = dispatch => {
   return {
     getAllUsers: () => dispatch(getAllUsersThunk())
   }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(AllUsers)

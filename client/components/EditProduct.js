@@ -1,4 +1,5 @@
 import React from 'react'
+
 class EditProduct extends React.Component {
   constructor() {
     super()
@@ -15,6 +16,7 @@ class EditProduct extends React.Component {
   handleChange(evt) {
     this.setState({[evt.target.name]: evt.target.value})
   }
+
   handleSubmit(evt) {
     evt.preventDefault()
     this.props.editProduct(this.props.productId, this.state)
@@ -25,6 +27,7 @@ class EditProduct extends React.Component {
       description: ''
     })
   }
+
   render() {
     return (
       <div className="box">

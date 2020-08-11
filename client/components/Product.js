@@ -1,6 +1,6 @@
 import React from 'react'
-// import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+
 const Product = props => {
   const product = props.product
   const isAdmin = props.user.isAdmin
@@ -33,4 +33,5 @@ const Product = props => {
     </div>
   )
 }
+
 export default Product
