@@ -5,7 +5,7 @@ const Product = props => {
   const product = props.product
   const isAdmin = props.user.isAdmin
   return (
-    <div className="column is-one-quarter" key={product.id}>
+    <div key={product.id}>
       <div className="has-text-centered title is-6">
         <Link to={`/products/${product.id}`}>{product.name}</Link>{' '}
       </div>
@@ -19,7 +19,7 @@ const Product = props => {
       </div>
       <div className="has-text-centered has-text-weight-semibold">
         {' '}
-        Price: {product.price}{' '}
+        Price: ${(product.price / 100).toFixed(2)}{' '}
       </div>
       {!!isAdmin && (
         <button
