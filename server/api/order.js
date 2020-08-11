@@ -26,9 +26,34 @@ router.get('/', async (req, res, next) => {
           model: Product
         }
       })
-      console.log('what is findOrder', findOrder)
       if (findOrder) res.json(findOrder)
     } else res.send('You have not added any items to your cart yet!')
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/', async (req, res, next) => {
+  try {
+    if (req.user) {
+      const findOrder = await Order.findOne({
+        where: {
+          userId: req.user.id,
+          isPurchased: false
+        }
+      })
+      findOrder.update(req.body)
+      res.send('thanks for your purchase!')
+    } else if (!req.user) {
+      const findOrder = await Order.findOne({
+        where: {
+          sessionId: req.session.id,
+          isPurchased: false
+        }
+      })
+      findOrder.update(req.body)
+      res.send('thanks for your purchase!')
+    }
   } catch (error) {
     next(error)
   }
@@ -80,7 +105,6 @@ router.post('/', async (req, res, next) => {
       await orderDetail.create({productId, productPrice, orderId})
       res.json(findOrder)
     }
-
   } catch (error) {
     next(error)
   }
