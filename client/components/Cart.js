@@ -6,7 +6,8 @@ import {
   getCartThunk,
   addProductThunk,
   deleteProductThunk,
-  decreaseProductThunk
+  decreaseProductThunk,
+  increaseProductThunk
 } from '../store/cart'
 // import {changeQuantityThunk} from '../store/cart'
 class Cart extends React.Component {
@@ -41,9 +42,7 @@ class Cart extends React.Component {
     })
   }
   getProducts(productArray) {
-    // quantity.innerHTML = this.props.changeQuantity();
     return productArray.map(product => {
-      // const q = Number(this.props.changeQuantity(product.id))
       return (
         <div key={product.id}>
           <tr className="level">
@@ -59,7 +58,7 @@ class Cart extends React.Component {
             </td>
 
             <td className="level-item">
-              Total Quantity: <div id="quantity">1</div>{' '}
+              Total Quantity: <div id="quantity">{product.quantity}</div>{' '}
             </td>
             <td className="level-item">
               {' '}
@@ -73,8 +72,11 @@ class Cart extends React.Component {
               <button
                 type="submit"
                 onClick={() => {
-                  this.props.addProduct(product.id, product.price)
                   this.increment()
+                  this.props.changeQuantity(
+                    product.id,
+                    (product.quantity = product.quantity + 1)
+                  )
                 }}
               >
                 +
@@ -82,7 +84,10 @@ class Cart extends React.Component {
               <button
                 type="submit"
                 onClick={() => {
-                  this.props.decreaseProduct(product.id)
+                  this.props.changeQuantity(
+                    product.id,
+                    (product.quantity = product.quantity - 1)
+                  )
                   this.decrement()
                 }}
               >
@@ -154,7 +159,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(addProductThunk(productId, productPrice)),
     deleteProduct: productId => dispatch(deleteProductThunk(productId)),
     decreaseProduct: productId => dispatch(decreaseProductThunk(productId)),
-    changeQuantity: id => dispatch(changeQuantityThunk(id))
+    changeQuantity: (id, quantity) =>
+      dispatch(increaseProductThunk(id, quantity))
     // changeQuantity: id => dispatch(changeQuantityThunk(id))
   }
 }
