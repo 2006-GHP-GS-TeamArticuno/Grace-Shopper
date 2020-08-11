@@ -17,7 +17,6 @@ export const UserHome = props => {
         Welcome, {email} !
       </h3>
       {props.user.isAdmin && <Link to="/users"> View all Users</Link>}
-
       <img
         id="welcomeIMG"
         src="https://media3.giphy.com/media/3o6fJ0mUt4WWF1qox2/giphy.gif?cid=ecf05e47iq8ohvy8ghhvlb3e9tvum6rw76172vxpac1rw8dp&rid=giphy.gif"

@@ -46,8 +46,6 @@ class Cart extends React.Component {
       return (
         <div key={product.id}>
           <tr className="level">
-            {/*
-          <div key={product.id} class = 'level-left'> */}
             <td className="level-item">
               {' '}
               <strong>{product.name}</strong>
@@ -59,6 +57,7 @@ class Cart extends React.Component {
 
             <td className="level-item">
               Total Quantity: <div id="quantity">{product.quantity}</div>{' '}
+
             </td>
             <td className="level-item">
               {' '}

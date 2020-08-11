@@ -29,6 +29,7 @@ export const me = () => async dispatch => {
     console.error(err)
   }
 }
+
 export const auth = (email, password, method) => async dispatch => {
   let res
   try {
