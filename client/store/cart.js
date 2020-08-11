@@ -60,6 +60,8 @@ export const getCartThunk = () => {
   return async dispatch => {
     try {
       const {data} = await axios.get('/api/cart')
+      //IDEA: send up the session Id -- if data includes the session id - set it as a key
+      //on local storage
       dispatch(getCart(data))
     } catch (error) {
       console.error(error)
