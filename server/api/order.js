@@ -80,11 +80,36 @@ router.post('/', async (req, res, next) => {
       await orderDetail.create({productId, productPrice, orderId})
       res.json(findOrder)
     }
+
   } catch (error) {
     next(error)
   }
 })
-
+router.put('/:id', async (req, res, next) => {
+  try {
+    const [findOrder, created] = await Order.findOrCreate({
+      where: {
+        userId: req.user.id,
+        isPurchased: false
+      },
+      include: {model: Product}
+    })
+    const orderId = findOrder.id
+    const productId = req.body.productId
+    const productPrice = req.body.productPrice
+    // const neededOrder = await orderDetail.findOne({
+    //   where: {
+    //     orderId: orderId,
+    //     productId: productId,
+    //     productPrice: productPrice
+    //   }
+    // })
+    // const updatedOrder = await neededOrder.update(req.body)
+    // res.json(updatedOrder)
+  } catch (error) {
+    console.error(error)
+  }
+})
 //this delete route deletes all of a certain product inside the cart
 router.delete('/delete/:productId', async (req, res, next) => {
   try {
