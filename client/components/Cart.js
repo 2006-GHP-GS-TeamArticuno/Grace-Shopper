@@ -42,8 +42,11 @@ class Cart extends React.Component {
       isClicked: true
     })
   }
+
   getProducts(productArray) {
     return productArray.map(product => {
+      console.log('cart props', this.props)
+      console.log('product is', product)
       // const q = this.props.changeTotalQuantity(product.id).length
       return (
         <div key={product.id}>
@@ -58,7 +61,8 @@ class Cart extends React.Component {
             </td>
 
             <td className="level-item">
-              Total Quantity: <div id="quantity">{product.quantity}</div>{' '}
+              Total Quantity:{' '}
+              <div id="quantity">{product.orderDetail.quantity}</div>{' '}
             </td>
             <td className="level-item">
               {' '}
@@ -73,9 +77,11 @@ class Cart extends React.Component {
                 type="submit"
                 onClick={() => {
                   this.increment()
-                  this.props.changeQuantity(
+                  this.props.increaseQuantity(
+                    (product.orderDetail.quantity =
+                      product.orderDetail.quantity + 1),
                     product.id,
-                    (product.quantity = product.quantity + 1)
+                    product.price
                   )
                 }}
               >
@@ -84,11 +90,16 @@ class Cart extends React.Component {
               <button
                 type="submit"
                 onClick={() => {
-                  this.props.changeQuantity(
-                    product.id,
-                    (product.quantity = product.quantity - 1)
-                  )
-                  this.decrement()
+                  {
+                    product.orderDetail.quantity > 1
+                      ? this.props.increaseQuantity(
+                          (product.orderDetail.quantity =
+                            product.orderDetail.quantity - 1),
+                          product.id,
+                          product.price
+                        )
+                      : this.props.deleteProduct(product.id)
+                  }
                 }}
               >
                 -
@@ -152,7 +163,8 @@ class Cart extends React.Component {
 const mapStateToProps = state => {
   return {
     order: state.order,
-    updatedOrder: state.order
+    updatedOrder: state.order,
+    quantity: state.quantity
   }
 }
 
@@ -163,8 +175,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(addProductThunk(productId, productPrice)),
     deleteProduct: productId => dispatch(deleteProductThunk(productId)),
     decreaseProduct: productId => dispatch(decreaseProductThunk(productId)),
-    changeQuantity: (id, quantity) =>
-      dispatch(increaseProductThunk(id, quantity))
+    increaseQuantity: (quantity, id, price) =>
+      dispatch(increaseProductThunk(quantity, id, price))
     // changeTotalQuantity: id => dispatch(changeQuantityThunk(id))
     // changeQuantity: id => dispatch(changeQuantityThunk(id))
   }

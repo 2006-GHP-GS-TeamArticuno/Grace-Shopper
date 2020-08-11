@@ -1,8 +1,8 @@
 import React from 'react'
 import {
-  addProductThunk,
   deleteProductThunk,
-  decreaseProductThunk
+  decreaseProductThunk,
+  increaseProductThunk
 } from '../store/cart'
 import {connect} from 'react-redux'
 class Button extends React.Component {
@@ -44,6 +44,7 @@ class Button extends React.Component {
               this.props.text === 'Add To Cart'
             ) {
               this.props.addProduct(productId, productPrice)
+
               return this.increment()
               // quantity.innerHTML = this.props.changeQuantity(productId)
             } else if (this.props.text === '-') {
@@ -65,11 +66,10 @@ class Button extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addProduct: (productId, productPrice) =>
-      dispatch(addProductThunk(productId, productPrice)),
     deleteProduct: productId => dispatch(deleteProductThunk(productId)),
     decreaseProduct: productId => dispatch(decreaseProductThunk(productId)),
-    changeQuantity: id => dispatch(changeQuantityThunk(id))
+    changeQuantity: (id, quantity) =>
+      dispatch(increaseProductThunk(id, quantity))
   }
 }
 

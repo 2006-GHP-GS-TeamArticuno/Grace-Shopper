@@ -17,10 +17,10 @@ const getCart = cart => {
     cart
   }
 }
-const changeQuantity = product => {
+const changeQuantity = quantity => {
   return {
     type: CHANGE_QUANTITY,
-    product
+    quantity
   }
 }
 const addProduct = updatedOrder => {
@@ -45,17 +45,6 @@ const decreaseProduct = cart => {
 }
 
 //THUNK CREATOR
-// export const changeQuantityThunk = id => {
-//   return async dispatch => {
-//     try {
-//       const {data} = await axios.get(`/api/cart/quantity/${id}`)
-//       console.log('data in changeQuantity', data)
-//       dispatch(changeQuantity(data))
-//     } catch (error) {
-//       console.error(error)
-//     }
-//   }
-// }
 export const getCartThunk = () => {
   return async dispatch => {
     try {
@@ -69,20 +58,25 @@ export const getCartThunk = () => {
   }
 }
 
-export const addProductThunk = (productId, productPrice) => {
+// export const addProductThunk = (productId, productPrice) => {
+//   return async dispatch => {
+//     try {
+//       const {data} = await axios.put('/api/cart', {productId, productPrice})
+//       dispatch(addProduct(data))
+//     } catch (error) {
+//       console.error(error)
+//     }
+//   }
+// }
+export const increaseProductThunk = (quantity, productId, productPrice) => {
   return async dispatch => {
     try {
-      const {data} = await axios.post('/api/cart', {productId, productPrice})
-      dispatch(addProduct(data))
-    } catch (error) {
-      console.error(error)
-    }
-  }
-}
-export const increaseProductThunk = (id, quantity) => {
-  return async dispatch => {
-    try {
-      const {data} = await axios.put(`/api/cart/${id}`, {quantity})
+      const {data} = await axios.put(`/api/cart/${productId}`, {
+        quantity,
+        productId,
+        productPrice
+      })
+      console.log('the updated order', data)
       dispatch(changeQuantity(data))
     } catch (error) {
       console.error(error)
@@ -135,7 +129,7 @@ export default function(state = initialState, action) {
     case CHANGE_QUANTITY:
       return {
         ...state,
-        ...action.product
+        ...action.quantity
       }
     default:
       return state
