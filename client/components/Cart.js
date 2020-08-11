@@ -9,7 +9,7 @@ import {
   decreaseProductThunk,
   increaseProductThunk
 } from '../store/cart'
-// import {changeQuantityThunk} from '../store/cart'
+import {changeQuantityThunk} from '../store/cart'
 class Cart extends React.Component {
   constructor(props) {
     super(props)
@@ -23,8 +23,8 @@ class Cart extends React.Component {
     this.decrement = this.decrement.bind(this)
   }
 
-  componentDidMount() {
-    this.props.getCart()
+  async componentDidMount() {
+    await this.props.getCart()
   }
   increment() {
     this.setState(prevState => ({
@@ -43,6 +43,7 @@ class Cart extends React.Component {
   }
   getProducts(productArray) {
     return productArray.map(product => {
+      // const q = this.props.changeTotalQuantity(product.id).length
       return (
         <div key={product.id}>
           <tr className="level">
@@ -57,7 +58,6 @@ class Cart extends React.Component {
 
             <td className="level-item">
               Total Quantity: <div id="quantity">{product.quantity}</div>{' '}
-
             </td>
             <td className="level-item">
               {' '}
@@ -137,6 +137,10 @@ class Cart extends React.Component {
           {this.state.isClicked ? (
             <Redirect from="/home" to="/checkout" />
           ) : null}
+          <div>
+            Total order quantity:
+            <div>{products.length}</div>
+          </div>
         </div>
       )
     }
@@ -159,7 +163,8 @@ const mapDispatchToProps = dispatch => {
     deleteProduct: productId => dispatch(deleteProductThunk(productId)),
     decreaseProduct: productId => dispatch(decreaseProductThunk(productId)),
     changeQuantity: (id, quantity) =>
-      dispatch(increaseProductThunk(id, quantity))
+      dispatch(increaseProductThunk(id, quantity)),
+    changeTotalQuantity: id => dispatch(changeQuantityThunk(id))
     // changeQuantity: id => dispatch(changeQuantityThunk(id))
   }
 }
