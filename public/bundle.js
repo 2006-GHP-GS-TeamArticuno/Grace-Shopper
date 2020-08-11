@@ -1351,7 +1351,7 @@ function (_React$Component) {
         className: "subtitle is-6 has-text-weight-light"
       }, product.description, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "has-text-weight-semibold"
-      }, "Price: $", (product.price / 100).toFixed(2))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      }, "Price: $", (product.price / 100).toFixed(2))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, product.inStock ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Button__WEBPACK_IMPORTED_MODULE_3__["default"], {
         "class": "button is-primary",
         productId: product.id,
         productPrice: product.price,
@@ -1361,7 +1361,7 @@ function (_React$Component) {
         //   cart.innerHTML = this.state.count
         // }}
 
-      }));
+      })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " Out of Stock! ")));
     }
   }]);
 
