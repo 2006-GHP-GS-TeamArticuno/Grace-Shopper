@@ -49,8 +49,10 @@ class Routes extends Component {
         )}
         {/* Displays our Login component as a fallback */}
         {/* <Route component={Login} /> */}
-        <Route path="/404" component={NotFoundPage} />
-        <Redirect from="*" to="/404" />
+        <Switch>
+          <Route to="/404" component={NotFoundPage} />
+          <Redirect from="*" to="/404" />
+        </Switch>
       </Switch>
     )
   }
