@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {withRouter, Route, Switch} from 'react-router-dom'
+import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   Login,
@@ -12,7 +12,8 @@ import {
   CheckoutConfirmation,
   AllUsers,
   SingleUser,
-  Cart
+  Cart,
+  NotFoundPage
 } from './components'
 import {me} from './store'
 
@@ -47,7 +48,10 @@ class Routes extends Component {
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
+        {/* <Route component={Login} /> */}
+
+        <Route to="/404" component={NotFoundPage} />
+        <Redirect from="*" to="/404" />
       </Switch>
     )
   }

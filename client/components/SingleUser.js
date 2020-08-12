@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getSingleUserThunk} from '../store/user'
+import {getSingleUserThunk, makeAdminThunk} from '../store/user'
 
 class SingleUser extends React.Component {
   componentDidMount() {
@@ -26,6 +26,18 @@ class SingleUser extends React.Component {
           {' '}
           <strong>Email:</strong> {user.email}
         </div>
+        <div>
+          {!user.isAdmin ? (
+            <button
+              type="submit"
+              onClick={() => {
+                this.props.makeAdmin(user.id, user.isAdmin)
+              }}
+            >
+              Make an admin
+            </button>
+          ) : null}
+        </div>
       </div>
     )
   }
@@ -37,7 +49,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    getSingleUser: id => dispatch(getSingleUserThunk(id))
+    getSingleUser: id => dispatch(getSingleUserThunk(id)),
+    makeAdmin: (id, isAdmin) => dispatch(makeAdminThunk(id, isAdmin))
   }
 }
 

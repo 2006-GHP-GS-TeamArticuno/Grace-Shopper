@@ -26,7 +26,7 @@ class AllProducts extends React.Component {
           {this.props.products || this.props.products !== undefined
             ? this.props.products.map(product => {
                 return (
-                  <div className="column is-one-quarter">
+                  <div key={product.id} className="column is-one-quarter">
                     {product !== undefined ? (
                       <Product
                         key={product.id}
