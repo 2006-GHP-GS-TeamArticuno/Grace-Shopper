@@ -734,14 +734,18 @@ function (_React$Component) {
           className: "has-text-centered"
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
           className: "table"
-        }, this.getProducts(products)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        }, this.getProducts(products), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+          className: "level-right has-text-weight-semibold"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+          className: "level-item"
+        }, "Total order quantity: ", sum, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Total order price: $", (priceSum / 100).toFixed(2)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "button is-success",
           type: "submit",
           onClick: this.handleClick
         }, "Checkout"), this.state.isClicked ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Redirect"], {
           from: "/home",
           to: "/checkout"
-        }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Total order quantity:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, sum), "Total order price:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "$", (priceSum / 100).toFixed(2))));
+        }) : null);
       }
     }
   }]);

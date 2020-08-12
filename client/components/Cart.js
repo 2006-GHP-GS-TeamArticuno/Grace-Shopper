@@ -88,7 +88,18 @@ class Cart extends React.Component {
       return (
         <div className="has-text-centered">
           <img id="allBanner" src="CART.png" className="has-text-centered" />
-          <table className="table">{this.getProducts(products)}</table>
+          <table className="table">
+            {this.getProducts(products)}
+
+            <tr className="level-right has-text-weight-semibold">
+              <td className="level-item">
+                Total order quantity: {sum}
+                <br />
+                Total order price: ${(priceSum / 100).toFixed(2)}
+              </td>
+            </tr>
+          </table>
+
           <button
             className="button is-success"
             type="submit"
@@ -99,12 +110,6 @@ class Cart extends React.Component {
           {this.state.isClicked ? (
             <Redirect from="/home" to="/checkout" />
           ) : null}
-          <div>
-            Total order quantity:
-            <div>{sum}</div>
-            Total order price:
-            <div>${(priceSum / 100).toFixed(2)}</div>
-          </div>
         </div>
       )
     }
