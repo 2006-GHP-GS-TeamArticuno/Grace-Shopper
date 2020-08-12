@@ -76,12 +76,10 @@ class Cart extends React.Component {
               <button
                 type="submit"
                 onClick={() => {
-                  this.increment()
                   this.props.increaseQuantity(
-                    (product.orderDetail.quantity =
-                      product.orderDetail.quantity + 1),
                     product.id,
-                    product.price
+                    (product.orderDetail.quantity =
+                      product.orderDetail.quantity + 1)
                   )
                 }}
               >
@@ -93,10 +91,9 @@ class Cart extends React.Component {
                   {
                     product.orderDetail.quantity > 1
                       ? this.props.increaseQuantity(
-                          (product.orderDetail.quantity =
-                            product.orderDetail.quantity - 1),
                           product.id,
-                          product.price
+                          (product.orderDetail.quantity =
+                            product.orderDetail.quantity - 1)
                         )
                       : this.props.deleteProduct(product.id)
                   }
@@ -130,11 +127,15 @@ class Cart extends React.Component {
   }
 
   render() {
-    // const quantity = +document.getElementById('quantity')
+    console.log('CART', this.props)
     if (this.props.order[0] === undefined) {
       return <div> You don't have any items in your cart yet! </div>
     } else {
       const products = this.props.order[0].products
+      const sum = products.reduce((accum, curElement) => {
+        const quantity = curElement.orderDetail.quantity
+        return (accum = accum + quantity)
+      }, 0)
       return (
         <div className="has-text-centered">
           <img id="allBanner" src="CART.png" className="has-text-centered" />
@@ -151,7 +152,7 @@ class Cart extends React.Component {
           ) : null}
           <div>
             Total order quantity:
-            <div>{products.length}</div>
+            <div>{sum}</div>
           </div>
         </div>
       )
@@ -174,11 +175,8 @@ const mapDispatchToProps = dispatch => {
     addProduct: (productId, productPrice) =>
       dispatch(addProductThunk(productId, productPrice)),
     deleteProduct: productId => dispatch(deleteProductThunk(productId)),
-    decreaseProduct: productId => dispatch(decreaseProductThunk(productId)),
-    increaseQuantity: (quantity, id, price) =>
-      dispatch(increaseProductThunk(quantity, id, price))
-    // changeTotalQuantity: id => dispatch(changeQuantityThunk(id))
-    // changeQuantity: id => dispatch(changeQuantityThunk(id))
+    increaseQuantity: (id, quantity) =>
+      dispatch(increaseProductThunk(id, quantity))
   }
 }
 

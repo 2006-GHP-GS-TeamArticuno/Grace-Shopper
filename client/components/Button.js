@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-  deleteProductThunk,
-  decreaseProductThunk,
-  increaseProductThunk
-} from '../store/cart'
+import {deleteProductThunk, increaseProductThunk} from '../store/cart'
 import {connect} from 'react-redux'
 class Button extends React.Component {
   constructor(props) {
@@ -67,7 +63,6 @@ class Button extends React.Component {
 const mapDispatchToProps = dispatch => {
   return {
     deleteProduct: productId => dispatch(deleteProductThunk(productId)),
-    decreaseProduct: productId => dispatch(decreaseProductThunk(productId)),
     changeQuantity: (id, quantity) =>
       dispatch(increaseProductThunk(id, quantity))
   }

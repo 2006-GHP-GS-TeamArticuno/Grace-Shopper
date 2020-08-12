@@ -58,23 +58,21 @@ export const getCartThunk = () => {
   }
 }
 
-// export const addProductThunk = (productId, productPrice) => {
-//   return async dispatch => {
-//     try {
-//       const {data} = await axios.put('/api/cart', {productId, productPrice})
-//       dispatch(addProduct(data))
-//     } catch (error) {
-//       console.error(error)
-//     }
-//   }
-// }
-export const increaseProductThunk = (quantity, productId, productPrice) => {
+export const addProductThunk = (productId, productPrice) => {
   return async dispatch => {
     try {
-      const {data} = await axios.put(`/api/cart/${productId}`, {
-        quantity,
-        productId,
-        productPrice
+      const {data} = await axios.post('/api/cart', {productId, productPrice})
+      dispatch(addProduct(data))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+export const increaseProductThunk = (id, quantity) => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.put(`/api/cart/${id}`, {
+        quantity
       })
       console.log('the updated order', data)
       dispatch(changeQuantity(data))
@@ -89,19 +87,6 @@ export const deleteProductThunk = productId => {
       await axios.delete(`/api/cart/delete/${productId}`)
       const {data} = await axios.get('/api/cart')
       dispatch(deleteProduct(productId))
-      dispatch(getCart(data))
-    } catch (error) {
-      console.error(error)
-    }
-  }
-}
-
-export const decreaseProductThunk = id => {
-  return async dispatch => {
-    try {
-      await axios.delete(`/api/cart/decrease/${id}`)
-      const {data} = await axios.get('/api/cart')
-      dispatch(decreaseProduct(id))
       dispatch(getCart(data))
     } catch (error) {
       console.error(error)

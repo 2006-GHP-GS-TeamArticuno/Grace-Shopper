@@ -4,7 +4,11 @@ import {
   getSingleProductThunk,
   updateSingleProductThunk
 } from '../store/singleProduct'
-import {getCartThunk, increaseProductThunk} from '../store/cart'
+import {
+  getCartThunk,
+  increaseProductThunk,
+  addProductThunk
+} from '../store/cart'
 import Button from './Button'
 import EditProduct from './EditProduct'
 
@@ -15,6 +19,7 @@ class SingleProduct extends React.Component {
     this.props.getCart()
   }
   render() {
+    const id = this.props.product.id
     const product = this.props.product
     console.log('single product props', this.props)
     return (
@@ -27,7 +32,6 @@ class SingleProduct extends React.Component {
             editProduct={this.props.editProduct}
           />
         )}
-
         <div className="title" id="singleTitle">
           {product.name}
         </div>
@@ -52,16 +56,21 @@ class SingleProduct extends React.Component {
           type="submit"
           onClick={() => {
             {
-              // this.props.order[0].products.length
+              this.props.order[0].products.map(singleProduct => {
+                if (singleProduct.id === product.id) {
+                  this.props.increaseQuantity(
+                    product.id,
+                    (this.props.order[0].products[0].orderDetail.quantity =
+                      this.props.order[0].products[0].orderDetail.quantity + 1)
+                  )
+                }
+                return this.props.addProduct(product.id, product.price)
+              })
               //   ?
-              this.props.increaseQuantity(
-                (this.props.order[0].products[0].orderDetail.quantity =
-                  this.props.order[0].products[0].orderDetail.quantity + 1),
-                product.id,
-                product.price
-              )
-
-              // : this.props.addProduct(product.id, product.price)
+              // this.props.increaseQuantity(product.id,
+              //   this.props.order[0].products[0].orderDetail.quantity =
+              //     this.props.order[0].products[0].orderDetail.quantity + 1) :
+              //     this.props.addProduct(product.id, product.price)
             }
           }}
         >
@@ -80,12 +89,14 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
+    addProduct: (productId, productPrice) =>
+      dispatch(addProductThunk(productId, productPrice)),
     getSingleProduct: id => dispatch(getSingleProductThunk(id)),
     editProduct: (id, product) =>
       dispatch(updateSingleProductThunk(id, product)),
     getCart: () => dispatch(getCartThunk()),
-    increaseQuantity: (id, quantity, price) =>
-      dispatch(increaseProductThunk(id, quantity, price))
+    increaseQuantity: (id, quantity) =>
+      dispatch(increaseProductThunk(id, quantity))
   }
 }
 
