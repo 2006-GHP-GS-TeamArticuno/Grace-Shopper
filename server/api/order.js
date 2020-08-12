@@ -17,7 +17,6 @@ router.get('/', async (req, res, next) => {
       })
       if (findOrder) res.json(findOrder)
     } else if (!req.user) {
-      console.log(req.session.id)
       const findOrder = await Order.findAll({
         where: {
           sessionId: req.session.id,

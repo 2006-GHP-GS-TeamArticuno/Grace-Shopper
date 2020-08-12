@@ -521,7 +521,6 @@ function (_React$Component) {
       var _this$props = this.props,
           productId = _this$props.productId,
           productPrice = _this$props.productPrice;
-      console.log('button props are', this.props);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "button is-primary",
         type: "submit",
@@ -2360,8 +2359,7 @@ var addProductThunk = function addProductThunk(productId, productPrice) {
                 });
 
               case 3:
-                dispatch(addProduct(productId)); //do we need anything from addproduct
-
+                dispatch(addProduct(productId));
                 _context2.next = 6;
                 return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/cart');
 

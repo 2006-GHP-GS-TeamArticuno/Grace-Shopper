@@ -53,7 +53,7 @@ export const addProductThunk = (productId, productPrice) => {
   return async dispatch => {
     try {
       await axios.put('/api/cart', {productId, productPrice})
-      dispatch(addProduct(productId)) //do we need anything from addproduct
+      dispatch(addProduct(productId))
       const {data} = await axios.get('/api/cart')
       dispatch(getCart(data))
     } catch (error) {

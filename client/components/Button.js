@@ -27,7 +27,6 @@ class Button extends React.Component {
   }
   render() {
     const {productId, productPrice} = this.props
-    console.log('button props are', this.props)
 
     return (
       <div>
