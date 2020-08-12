@@ -5,28 +5,22 @@ const DELETE_PRODUCT = 'DELETE_PRODUCT'
 const ADD_PRODUCT = 'ADD_PRODUCT'
 const GET_CART = 'GET_CART'
 const DECREASE_PRODUCT = 'DECREASE_PRODUCT'
-const CHANGE_QUANTITY = 'CHANGE_QUANTITY'
 
 //INITIAL STATE
 const initialState = []
 
 //ACTION CREATOR
-const getCart = cart => {
+const getCart = order => {
   return {
     type: GET_CART,
-    cart
+    order
   }
 }
-const changeQuantity = product => {
-  return {
-    type: CHANGE_QUANTITY,
-    product
-  }
-}
-const addProduct = updatedOrder => {
+
+const addProduct = quantity => {
   return {
     type: ADD_PRODUCT,
-    updatedOrder
+    quantity
   }
 }
 
@@ -37,31 +31,17 @@ const deleteProduct = id => {
   }
 }
 
-const decreaseProduct = cart => {
+const decreaseProduct = order => {
   return {
     type: DECREASE_PRODUCT,
-    cart
+    order
   }
 }
 
-//THUNK CREATOR
-// export const changeQuantityThunk = id => {
-//   return async dispatch => {
-//     try {
-//       const {data} = await axios.get(`/api/cart/quantity/${id}`)
-//       console.log('data in changeQuantity', data)
-//       dispatch(changeQuantity(data))
-//     } catch (error) {
-//       console.error(error)
-//     }
-//   }
-// }
 export const getCartThunk = () => {
   return async dispatch => {
     try {
       const {data} = await axios.get('/api/cart')
-      //IDEA: send up the session Id -- if data includes the session id - set it as a key
-      //on local storage
       dispatch(getCart(data))
     } catch (error) {
       console.error(error)
@@ -72,23 +52,16 @@ export const getCartThunk = () => {
 export const addProductThunk = (productId, productPrice) => {
   return async dispatch => {
     try {
-      const {data} = await axios.post('/api/cart', {productId, productPrice})
-      dispatch(addProduct(data))
+      await axios.put('/api/cart', {productId, productPrice})
+      dispatch(addProduct(productId))
+      const {data} = await axios.get('/api/cart')
+      dispatch(getCart(data))
     } catch (error) {
       console.error(error)
     }
   }
 }
-export const increaseProductThunk = (id, quantity) => {
-  return async dispatch => {
-    try {
-      const {data} = await axios.put(`/api/cart/${id}`, {quantity})
-      dispatch(changeQuantity(data))
-    } catch (error) {
-      console.error(error)
-    }
-  }
-}
+
 export const deleteProductThunk = productId => {
   return async dispatch => {
     try {
@@ -105,7 +78,7 @@ export const deleteProductThunk = productId => {
 export const decreaseProductThunk = id => {
   return async dispatch => {
     try {
-      await axios.delete(`/api/cart/decrease/${id}`)
+      await axios.put(`/api/cart/decrease/${id}`)
       const {data} = await axios.get('/api/cart')
       dispatch(decreaseProduct(id))
       dispatch(getCart(data))
@@ -119,12 +92,12 @@ export const decreaseProductThunk = id => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CART:
-      return action.cart
+      return action.order
 
     case ADD_PRODUCT:
       return {
         ...state,
-        ...action.updatedOrder
+        ...action.quantity
       }
     case DELETE_PRODUCT:
     // return [...state].filter(product => product.id !== action.id)
@@ -132,11 +105,11 @@ export default function(state = initialState, action) {
     // return [...state].filter(product => product.id !== action.id)
     // case CHANGE_QUANTITY:
     //   return [...state, action.cart]
-    case CHANGE_QUANTITY:
-      return {
-        ...state,
-        ...action.product
-      }
+    // case CHANGE_QUANTITY:
+    //   return {
+    //     ...state,
+    //     ...action.product
+    //   }
     default:
       return state
   }

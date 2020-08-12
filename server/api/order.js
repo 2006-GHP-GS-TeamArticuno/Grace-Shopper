@@ -2,6 +2,7 @@ const router = require('express').Router()
 const {Order, orderDetail, Product} = require('../db/models')
 module.exports = router
 
+//this get route gets the cart
 router.get('/', async (req, res, next) => {
   try {
     if (req.user) {
@@ -16,7 +17,6 @@ router.get('/', async (req, res, next) => {
       })
       if (findOrder) res.json(findOrder)
     } else if (!req.user) {
-      console.log(req.session.id)
       const findOrder = await Order.findAll({
         where: {
           sessionId: req.session.id,
@@ -33,7 +33,8 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.put('/', async (req, res, next) => {
+//this put route is updating 'isPurchased' and is run when you click the checkout button
+router.put('/checkout', async (req, res, next) => {
   try {
     if (req.user) {
       const findOrder = await Order.findOne({
@@ -59,6 +60,7 @@ router.put('/', async (req, res, next) => {
   }
 })
 
+//this get route gets the quantity of a certain product
 router.get('/quantity/:productId', async (req, res, next) => {
   try {
     const findOrders = await orderDetail.findAll({
@@ -66,7 +68,7 @@ router.get('/quantity/:productId', async (req, res, next) => {
         productId: req.params.productId
       }
     })
-
+    //we are sending up a number in the database
     if (findOrders) res.json(findOrders.length)
     else res.send('You have not added any items to your cart yet!')
   } catch (error) {
@@ -75,7 +77,7 @@ router.get('/quantity/:productId', async (req, res, next) => {
 })
 
 ///ROUTE to ADD a product to the cart
-router.post('/', async (req, res, next) => {
+router.put('/', async (req, res, next) => {
   try {
     if (!req.user) {
       const [findOrder, created] = await Order.findOrCreate({
@@ -89,7 +91,19 @@ router.post('/', async (req, res, next) => {
       const orderId = findOrder.id
       const productId = req.body.productId
       const productPrice = req.body.productPrice
-      await orderDetail.create({productId, productPrice, orderId})
+
+      const findOrderDetail = await orderDetail.findOne({
+        where: {
+          orderId: orderId,
+          productId: productId
+        }
+      })
+      if (findOrderDetail) {
+        let newQuantity = findOrderDetail.quantity + 1
+        findOrderDetail.update({quantity: newQuantity})
+      } else {
+        await orderDetail.create({productId, productPrice, orderId})
+      }
       res.json(findOrder)
     } else {
       const [findOrder, created] = await Order.findOrCreate({
@@ -102,38 +116,27 @@ router.post('/', async (req, res, next) => {
       const orderId = findOrder.id
       const productId = req.body.productId
       const productPrice = req.body.productPrice
-      await orderDetail.create({productId, productPrice, orderId})
-      res.json(findOrder)
+
+      const findOrderDetail = await orderDetail.findOne({
+        where: {
+          orderId: orderId,
+          productId: productId
+        }
+      })
+      if (findOrderDetail) {
+        let newQuantity = findOrderDetail.quantity + 1
+        findOrderDetail.update({quantity: newQuantity})
+        res.json(findOrderDetail.quantity)
+      } else {
+        await orderDetail.create({productId, productPrice, orderId})
+        res.send('Thanks for adding to your cart!')
+      }
     }
   } catch (error) {
     next(error)
   }
 })
-router.put('/:id', async (req, res, next) => {
-  try {
-    const [findOrder, created] = await Order.findOrCreate({
-      where: {
-        userId: req.user.id,
-        isPurchased: false
-      },
-      include: {model: Product}
-    })
-    const orderId = findOrder.id
-    const productId = req.body.productId
-    const productPrice = req.body.productPrice
-    // const neededOrder = await orderDetail.findOne({
-    //   where: {
-    //     orderId: orderId,
-    //     productId: productId,
-    //     productPrice: productPrice
-    //   }
-    // })
-    // const updatedOrder = await neededOrder.update(req.body)
-    // res.json(updatedOrder)
-  } catch (error) {
-    console.error(error)
-  }
-})
+
 //this delete route deletes all of a certain product inside the cart
 router.delete('/delete/:productId', async (req, res, next) => {
   try {
@@ -149,15 +152,19 @@ router.delete('/delete/:productId', async (req, res, next) => {
 })
 
 //this delete route decreases the amount of a product inside the cart
-router.delete('/decrease/:productId', async (req, res, next) => {
+router.put('/decrease/:productId', async (req, res, next) => {
   try {
     const oneProduct = await orderDetail.findOne({
       where: {
         productId: req.params.productId
       }
     })
-    await oneProduct.destroy()
-
+    let newQuantity = oneProduct.quantity - 1
+    if (newQuantity >= 1) {
+      await oneProduct.update({quantity: newQuantity})
+    } else {
+      await oneProduct.destroy()
+    }
     res.send('deleted')
   } catch (error) {
     console.error(error)

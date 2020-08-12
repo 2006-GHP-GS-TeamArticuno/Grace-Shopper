@@ -3,13 +3,7 @@ import {connect} from 'react-redux'
 import Button from './Button'
 import {Redirect} from 'react-router-dom'
 import axios from 'axios'
-import {
-  getCartThunk,
-  addProductThunk,
-  deleteProductThunk,
-  decreaseProductThunk,
-  increaseProductThunk
-} from '../store/cart'
+import {getCartThunk} from '../store/cart'
 class Cart extends React.Component {
   constructor(props) {
     super(props)
@@ -19,8 +13,6 @@ class Cart extends React.Component {
       totalQuantity: 1
     }
     this.handleClick = this.handleClick.bind(this)
-    this.increment = this.increment.bind(this)
-    this.decrement = this.decrement.bind(this)
   }
 
   componentDidMount() {
@@ -28,7 +20,7 @@ class Cart extends React.Component {
   }
   handleClick = async () => {
     try {
-      await axios.put('api/cart', {isPurchased: true})
+      await axios.put('api/cart/checkout', {isPurchased: true})
       this.setState({
         isClicked: true
       })
@@ -36,19 +28,9 @@ class Cart extends React.Component {
       console.error(error)
     }
   }
-  increment() {
-    this.setState(prevState => ({
-      totalQuantity: prevState.totalQuantity + 1
-    }))
-  }
-  decrement() {
-    this.setState(prevState => ({
-      totalQuantity: prevState.totalQuantity - 1
-    }))
-  }
 
-  getProducts(productArray) {
-    return productArray.map(product => {
+  getProducts(products) {
+    return products.map(product => {
       return (
         <div key={product.id}>
           <tr className="level">
@@ -62,72 +44,47 @@ class Cart extends React.Component {
             </td>
 
             <td className="level-item">
-              Total Quantity: <div id="quantity">{product.quantity}</div>{' '}
+              Total Quantity:{' '}
+              <div id="quantity">{product.orderDetail.quantity}</div>{' '}
             </td>
             <td className="level-item">
               {' '}
               Price: {(product.price / 100).toFixed(2)}{' '}
             </td>
-
-            {/* </div> */}
-
-            {/* <div class = "level-right"> */}
             <td className="buttons are-small">
-              <button
-                type="submit"
-                onClick={() => {
-                  this.increment()
-                  this.props.changeQuantity(
-                    product.id,
-                    (product.quantity = product.quantity + 1)
-                  )
-                }}
-              >
-                +
-              </button>
-              <button
-                type="submit"
-                onClick={() => {
-                  this.props.changeQuantity(
-                    product.id,
-                    (product.quantity = product.quantity - 1)
-                  )
-                  this.decrement()
-                }}
-              >
-                -
-              </button>
-              <button
-                type="submit"
-                onClick={() => {
-                  this.props.deleteProduct(product.id)
-                }}
-              >
-                delete
-              </button>
-              {/* <Button productId={product.id} text="-" class="level-item" totalQuantity = {this.state.totalQuantity} />
               <Button
+                text="+"
                 productId={product.id}
                 productPrice={product.price}
-                text="+"
-                class="level-item"
-                totalQuantity = {this.state.totalQuantity}
               />
-              <Button productId={product.id} text="delete" class="level-item" /> */}
+              <Button
+                text="-"
+                productId={product.id}
+                productPrice={product.price}
+              />
+              <Button text="delete" productId={product.id} />
             </td>
           </tr>
-          {/* quantity.innerHTML = this.props.changeQuantity() */}
         </div>
       )
     })
   }
 
   render() {
-    // const quantity = +document.getElementById('quantity')
     if (this.props.order[0] === undefined) {
       return <div> You don't have any items in your cart yet! </div>
     } else {
       const products = this.props.order[0].products
+      const sum = products.reduce((accum, curElement) => {
+        const quantity = curElement.orderDetail.quantity
+        return (accum = accum + quantity)
+      }, 0)
+      const priceSum = products.reduce((accum, curElement) => {
+        const quantity = curElement.orderDetail.quantity
+        const price = curElement.orderDetail.productPrice * quantity
+        return accum + price
+      }, 0)
+
       return (
         <div className="has-text-centered">
           <img id="allBanner" src="CART.png" className="has-text-centered" />
@@ -142,6 +99,12 @@ class Cart extends React.Component {
           {this.state.isClicked ? (
             <Redirect from="/home" to="/checkout" />
           ) : null}
+          <div>
+            Total order quantity:
+            <div>{sum}</div>
+            Total order price:
+            <div>${(priceSum / 100).toFixed(2)}</div>
+          </div>
         </div>
       )
     }
@@ -152,20 +115,13 @@ class Cart extends React.Component {
 const mapStateToProps = state => {
   return {
     order: state.order,
-    updatedOrder: state.order
+    quantity: state.quantity
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getCart: () => dispatch(getCartThunk()),
-    addProduct: (productId, productPrice) =>
-      dispatch(addProductThunk(productId, productPrice)),
-    deleteProduct: productId => dispatch(deleteProductThunk(productId)),
-    decreaseProduct: productId => dispatch(decreaseProductThunk(productId)),
-    changeQuantity: (id, quantity) =>
-      dispatch(increaseProductThunk(id, quantity))
-    // changeQuantity: id => dispatch(changeQuantityThunk(id))
+    getCart: () => dispatch(getCartThunk())
   }
 }
 

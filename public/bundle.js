@@ -515,31 +515,26 @@ function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      // const cart = document.getElementById('cart')
       var _this$props = this.props,
           productId = _this$props.productId,
           productPrice = _this$props.productPrice;
-      console.log('button props are', this.props);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "button is-primary",
         type: "submit",
         onClick: function onClick() {
-          // this.props.addProduct(productId, productPrice)
           if (_this2.props.text === 'delete') {
             _this2.props.deleteProduct(productId);
           } else if (_this2.props.text === '+' || _this2.props.text === 'Add To Cart') {
             _this2.props.addProduct(productId, productPrice);
 
-            return _this2.increment(); // quantity.innerHTML = this.props.changeQuantity(productId)
+            return _this2.increment();
           } else if (_this2.props.text === '-') {
             _this2.props.decreaseProduct(productId);
 
             return _this2.decrement();
           } else {
             return undefined;
-          } // cart.innerHTML = this.state.count
-          // this.increment()
-
+          }
         }
       }, this.props.text));
     }
@@ -640,7 +635,7 @@ function (_React$Component) {
             case 0:
               _context.prev = 0;
               _context.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_4___default.a.put('api/cart', {
+              return axios__WEBPACK_IMPORTED_MODULE_4___default.a.put('api/cart/checkout', {
                 isPurchased: true
               });
 
@@ -671,8 +666,6 @@ function (_React$Component) {
       totalQuantity: 1
     };
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
-    _this.increment = _this.increment.bind(_assertThisInitialized(_this));
-    _this.decrement = _this.decrement.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -682,29 +675,9 @@ function (_React$Component) {
       this.props.getCart();
     }
   }, {
-    key: "increment",
-    value: function increment() {
-      this.setState(function (prevState) {
-        return {
-          totalQuantity: prevState.totalQuantity + 1
-        };
-      });
-    }
-  }, {
-    key: "decrement",
-    value: function decrement() {
-      this.setState(function (prevState) {
-        return {
-          totalQuantity: prevState.totalQuantity - 1
-        };
-      });
-    }
-  }, {
     key: "getProducts",
-    value: function getProducts(productArray) {
-      var _this2 = this;
-
-      return productArray.map(function (product) {
+    value: function getProducts(products) {
+      return products.map(function (product) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: product.id
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
@@ -717,42 +690,42 @@ function (_React$Component) {
           src: product.imageUrl
         }), ' '), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
           className: "level-item"
-        }, "Total Quantity: ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        }, "Total Quantity:", ' ', react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           id: "quantity"
-        }, product.quantity), ' '), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        }, product.orderDetail.quantity), ' '), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
           className: "level-item"
         }, ' ', "Price: ", (product.price / 100).toFixed(2), ' '), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
           className: "buttons are-small"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          type: "submit",
-          onClick: function onClick() {
-            _this2.increment();
-
-            _this2.props.changeQuantity(product.id, product.quantity = product.quantity + 1);
-          }
-        }, "+"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          type: "submit",
-          onClick: function onClick() {
-            _this2.props.changeQuantity(product.id, product.quantity = product.quantity - 1);
-
-            _this2.decrement();
-          }
-        }, "-"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          type: "submit",
-          onClick: function onClick() {
-            _this2.props.deleteProduct(product.id);
-          }
-        }, "delete"))));
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          text: "+",
+          productId: product.id,
+          productPrice: product.price
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          text: "-",
+          productId: product.id,
+          productPrice: product.price
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          text: "delete",
+          productId: product.id
+        }))));
       });
     }
   }, {
     key: "render",
     value: function render() {
-      // const quantity = +document.getElementById('quantity')
       if (this.props.order[0] === undefined) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " You don't have any items in your cart yet! ");
       } else {
         var products = this.props.order[0].products;
+        var sum = products.reduce(function (accum, curElement) {
+          var quantity = curElement.orderDetail.quantity;
+          return accum = accum + quantity;
+        }, 0);
+        var priceSum = products.reduce(function (accum, curElement) {
+          var quantity = curElement.orderDetail.quantity;
+          var price = curElement.orderDetail.productPrice * quantity;
+          return accum + price;
+        }, 0);
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "has-text-centered"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -768,7 +741,7 @@ function (_React$Component) {
         }, "Checkout"), this.state.isClicked ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Redirect"], {
           from: "/home",
           to: "/checkout"
-        }) : null);
+        }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Total order quantity:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, sum), "Total order price:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "$", (priceSum / 100).toFixed(2))));
       }
     }
   }]);
@@ -780,7 +753,7 @@ function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     order: state.order,
-    updatedOrder: state.order
+    quantity: state.quantity
   };
 };
 
@@ -788,20 +761,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     getCart: function getCart() {
       return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_5__["getCartThunk"])());
-    },
-    addProduct: function addProduct(productId, productPrice) {
-      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_5__["addProductThunk"])(productId, productPrice));
-    },
-    deleteProduct: function deleteProduct(productId) {
-      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_5__["deleteProductThunk"])(productId));
-    },
-    decreaseProduct: function decreaseProduct(productId) {
-      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_5__["decreaseProductThunk"])(productId));
-    },
-    changeQuantity: function changeQuantity(id, quantity) {
-      return dispatch(Object(_store_cart__WEBPACK_IMPORTED_MODULE_5__["increaseProductThunk"])(id, quantity));
-    } // changeQuantity: id => dispatch(changeQuantityThunk(id))
-
+    }
   };
 };
 
@@ -2202,14 +2162,13 @@ var getAllProductsThunk = function getAllProductsThunk() {
 /*!******************************!*\
   !*** ./client/store/cart.js ***!
   \******************************/
-/*! exports provided: getCartThunk, addProductThunk, increaseProductThunk, deleteProductThunk, decreaseProductThunk, default */
+/*! exports provided: getCartThunk, addProductThunk, deleteProductThunk, decreaseProductThunk, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCartThunk", function() { return getCartThunk; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addProductThunk", function() { return addProductThunk; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "increaseProductThunk", function() { return increaseProductThunk; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteProductThunk", function() { return deleteProductThunk; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decreaseProductThunk", function() { return decreaseProductThunk; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -2229,29 +2188,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var DELETE_PRODUCT = 'DELETE_PRODUCT';
 var ADD_PRODUCT = 'ADD_PRODUCT';
 var GET_CART = 'GET_CART';
-var DECREASE_PRODUCT = 'DECREASE_PRODUCT';
-var CHANGE_QUANTITY = 'CHANGE_QUANTITY'; //INITIAL STATE
+var DECREASE_PRODUCT = 'DECREASE_PRODUCT'; //INITIAL STATE
 
 var initialState = []; //ACTION CREATOR
 
-var getCart = function getCart(cart) {
+var getCart = function getCart(order) {
   return {
     type: GET_CART,
-    cart: cart
+    order: order
   };
 };
 
-var changeQuantity = function changeQuantity(product) {
-  return {
-    type: CHANGE_QUANTITY,
-    product: product
-  };
-};
-
-var addProduct = function addProduct(updatedOrder) {
+var addProduct = function addProduct(quantity) {
   return {
     type: ADD_PRODUCT,
-    updatedOrder: updatedOrder
+    quantity: quantity
   };
 };
 
@@ -2262,24 +2213,12 @@ var deleteProduct = function deleteProduct(id) {
   };
 };
 
-var decreaseProduct = function decreaseProduct(cart) {
+var decreaseProduct = function decreaseProduct(order) {
   return {
     type: DECREASE_PRODUCT,
-    cart: cart
+    order: order
   };
-}; //THUNK CREATOR
-// export const changeQuantityThunk = id => {
-//   return async dispatch => {
-//     try {
-//       const {data} = await axios.get(`/api/cart/quantity/${id}`)
-//       console.log('data in changeQuantity', data)
-//       dispatch(changeQuantity(data))
-//     } catch (error) {
-//       console.error(error)
-//     }
-//   }
-// }
-
+};
 
 var getCartThunk = function getCartThunk() {
   return (
@@ -2301,8 +2240,6 @@ var getCartThunk = function getCartThunk() {
               case 3:
                 _ref2 = _context.sent;
                 data = _ref2.data;
-                //IDEA: send up the session Id -- if data includes the session id - set it as a key
-                //on local storage
                 dispatch(getCart(data));
                 _context.next = 11;
                 break;
@@ -2341,29 +2278,34 @@ var addProductThunk = function addProductThunk(productId, productPrice) {
               case 0:
                 _context2.prev = 0;
                 _context2.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/cart', {
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('/api/cart', {
                   productId: productId,
                   productPrice: productPrice
                 });
 
               case 3:
+                dispatch(addProduct(productId));
+                _context2.next = 6;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/cart');
+
+              case 6:
                 _ref4 = _context2.sent;
                 data = _ref4.data;
-                dispatch(addProduct(data));
-                _context2.next = 11;
+                dispatch(getCart(data));
+                _context2.next = 14;
                 break;
 
-              case 8:
-                _context2.prev = 8;
+              case 11:
+                _context2.prev = 11;
                 _context2.t0 = _context2["catch"](0);
                 console.error(_context2.t0);
 
-              case 11:
+              case 14:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 8]]);
+        }, _callee2, null, [[0, 11]]);
       }));
 
       return function (_x2) {
@@ -2372,7 +2314,7 @@ var addProductThunk = function addProductThunk(productId, productPrice) {
     }()
   );
 };
-var increaseProductThunk = function increaseProductThunk(id, quantity) {
+var deleteProductThunk = function deleteProductThunk(productId) {
   return (
     /*#__PURE__*/
     function () {
@@ -2387,28 +2329,31 @@ var increaseProductThunk = function increaseProductThunk(id, quantity) {
               case 0:
                 _context3.prev = 0;
                 _context3.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/cart/".concat(id), {
-                  quantity: quantity
-                });
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/cart/delete/".concat(productId));
 
               case 3:
+                _context3.next = 5;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/cart');
+
+              case 5:
                 _ref6 = _context3.sent;
                 data = _ref6.data;
-                dispatch(changeQuantity(data));
-                _context3.next = 11;
+                dispatch(deleteProduct(productId));
+                dispatch(getCart(data));
+                _context3.next = 14;
                 break;
 
-              case 8:
-                _context3.prev = 8;
+              case 11:
+                _context3.prev = 11;
                 _context3.t0 = _context3["catch"](0);
                 console.error(_context3.t0);
 
-              case 11:
+              case 14:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[0, 8]]);
+        }, _callee3, null, [[0, 11]]);
       }));
 
       return function (_x3) {
@@ -2417,7 +2362,7 @@ var increaseProductThunk = function increaseProductThunk(id, quantity) {
     }()
   );
 };
-var deleteProductThunk = function deleteProductThunk(productId) {
+var decreaseProductThunk = function decreaseProductThunk(id) {
   return (
     /*#__PURE__*/
     function () {
@@ -2432,7 +2377,7 @@ var deleteProductThunk = function deleteProductThunk(productId) {
               case 0:
                 _context4.prev = 0;
                 _context4.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/cart/delete/".concat(productId));
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/cart/decrease/".concat(id));
 
               case 3:
                 _context4.next = 5;
@@ -2441,7 +2386,7 @@ var deleteProductThunk = function deleteProductThunk(productId) {
               case 5:
                 _ref8 = _context4.sent;
                 data = _ref8.data;
-                dispatch(deleteProduct(productId));
+                dispatch(decreaseProduct(id));
                 dispatch(getCart(data));
                 _context4.next = 14;
                 break;
@@ -2464,54 +2409,6 @@ var deleteProductThunk = function deleteProductThunk(productId) {
       };
     }()
   );
-};
-var decreaseProductThunk = function decreaseProductThunk(id) {
-  return (
-    /*#__PURE__*/
-    function () {
-      var _ref9 = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee5(dispatch) {
-        var _ref10, data;
-
-        return regeneratorRuntime.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                _context5.prev = 0;
-                _context5.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/cart/decrease/".concat(id));
-
-              case 3:
-                _context5.next = 5;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/cart');
-
-              case 5:
-                _ref10 = _context5.sent;
-                data = _ref10.data;
-                dispatch(decreaseProduct(id));
-                dispatch(getCart(data));
-                _context5.next = 14;
-                break;
-
-              case 11:
-                _context5.prev = 11;
-                _context5.t0 = _context5["catch"](0);
-                console.error(_context5.t0);
-
-              case 14:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5, null, [[0, 11]]);
-      }));
-
-      return function (_x5) {
-        return _ref9.apply(this, arguments);
-      };
-    }()
-  );
 }; //REDUCER
 
 /* harmony default export */ __webpack_exports__["default"] = (function () {
@@ -2520,19 +2417,21 @@ var decreaseProductThunk = function decreaseProductThunk(id) {
 
   switch (action.type) {
     case GET_CART:
-      return action.cart;
+      return action.order;
 
     case ADD_PRODUCT:
-      return _objectSpread({}, state, {}, action.updatedOrder);
+      return _objectSpread({}, state, {}, action.quantity);
 
     case DELETE_PRODUCT: // return [...state].filter(product => product.id !== action.id)
 
     case DECREASE_PRODUCT: // return [...state].filter(product => product.id !== action.id)
     // case CHANGE_QUANTITY:
     //   return [...state, action.cart]
-
-    case CHANGE_QUANTITY:
-      return _objectSpread({}, state, {}, action.product);
+    // case CHANGE_QUANTITY:
+    //   return {
+    //     ...state,
+    //     ...action.product
+    //   }
 
     default:
       return state;

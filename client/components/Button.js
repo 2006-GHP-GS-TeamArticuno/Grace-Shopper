@@ -26,9 +26,7 @@ class Button extends React.Component {
     }))
   }
   render() {
-    // const cart = document.getElementById('cart')
     const {productId, productPrice} = this.props
-    console.log('button props are', this.props)
 
     return (
       <div>
@@ -36,7 +34,6 @@ class Button extends React.Component {
           className="button is-primary"
           type="submit"
           onClick={() => {
-            // this.props.addProduct(productId, productPrice)
             if (this.props.text === 'delete') {
               this.props.deleteProduct(productId)
             } else if (
@@ -45,15 +42,12 @@ class Button extends React.Component {
             ) {
               this.props.addProduct(productId, productPrice)
               return this.increment()
-              // quantity.innerHTML = this.props.changeQuantity(productId)
             } else if (this.props.text === '-') {
               this.props.decreaseProduct(productId)
               return this.decrement()
             } else {
               return undefined
             }
-            // cart.innerHTML = this.state.count
-            // this.increment()
           }}
         >
           {this.props.text}
