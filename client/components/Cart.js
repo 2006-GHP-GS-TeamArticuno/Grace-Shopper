@@ -136,6 +136,11 @@ class Cart extends React.Component {
         const quantity = curElement.orderDetail.quantity
         return (accum = accum + quantity)
       }, 0)
+      const priceSum = products.reduce((accum, curElement) => {
+        const quantity = curElement.orderDetail.quantity
+        const price = curElement.orderDetail.productPrice * quantity
+        return accum + price
+      }, 0)
       return (
         <div className="has-text-centered">
           <img id="allBanner" src="CART.png" className="has-text-centered" />
@@ -153,6 +158,8 @@ class Cart extends React.Component {
           <div>
             Total order quantity:
             <div>{sum}</div>
+            Total order price:
+            <div>{priceSum}</div>
           </div>
         </div>
       )
