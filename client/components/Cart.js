@@ -71,8 +71,6 @@ class Cart extends React.Component {
   }
 
   render() {
-    console.log('what is this.props.quantity', this.props.quantity)
-    console.log('what is this.props', this.props)
     if (this.props.order[0] === undefined) {
       return <div> You don't have any items in your cart yet! </div>
     } else {
@@ -104,8 +102,8 @@ class Cart extends React.Component {
           <div>
             Total order quantity:
             <div>{sum}</div>
-            {/* Total order price: 
-            <div>${(priceSum / 100).toFixed}</div> */}
+            Total order price:
+            <div>${(priceSum / 100).toFixed(2)}</div>
           </div>
         </div>
       )

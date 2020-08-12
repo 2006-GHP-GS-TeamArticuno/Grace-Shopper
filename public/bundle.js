@@ -518,11 +518,9 @@ function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      // const cart = document.getElementById('cart')
       var _this$props = this.props,
           productId = _this$props.productId,
-          productPrice = _this$props.productPrice,
-          productQuantity = _this$props.productQuantity;
+          productPrice = _this$props.productPrice;
       console.log('button props are', this.props);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "button is-primary",
@@ -540,9 +538,7 @@ function (_React$Component) {
             return _this2.decrement();
           } else {
             return undefined;
-          } // cart.innerHTML = this.state.count
-          // this.increment()
-
+          }
         }
       }, this.props.text));
     }
@@ -721,9 +717,6 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log('what is this.props.quantity', this.props.quantity);
-      console.log('what is this.props', this.props);
-
       if (this.props.order[0] === undefined) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " You don't have any items in your cart yet! ");
       } else {
@@ -752,7 +745,7 @@ function (_React$Component) {
         }, "Checkout"), this.state.isClicked ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Redirect"], {
           from: "/home",
           to: "/checkout"
-        }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Total order quantity:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, sum)));
+        }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Total order quantity:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, sum), "Total order price:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "$", (priceSum / 100).toFixed(2))));
       }
     }
   }]);

@@ -127,11 +127,11 @@ router.put('/', async (req, res, next) => {
       if (findOrderDetail) {
         let newQuantity = findOrderDetail.quantity + 1
         findOrderDetail.update({quantity: newQuantity})
+        res.json(findOrderDetail.quantity)
       } else {
         await orderDetail.create({productId, productPrice, orderId})
+        res.send('Thanks for adding to your cart!')
       }
-      console.log(findOrderDetail)
-      res.json(findOrderDetail.quantity)
     }
   } catch (error) {
     next(error)
@@ -161,7 +161,11 @@ router.put('/decrease/:productId', async (req, res, next) => {
       }
     })
     let newQuantity = oneProduct.quantity - 1
-    await oneProduct.update({quantity: newQuantity})
+    if (newQuantity >= 1) {
+      await oneProduct.update({quantity: newQuantity})
+    } else {
+      await oneProduct.destroy()
+    }
     res.send('deleted')
   } catch (error) {
     console.error(error)
