@@ -1,5 +1,4 @@
 import React from 'react'
-import {connect} from 'react-redux'
 
 class CheckoutConfirmation extends React.Component {
   render() {
@@ -22,4 +21,4 @@ class CheckoutConfirmation extends React.Component {
   }
 }
 
-export default connect(null, null)(CheckoutConfirmation)
+export default CheckoutConfirmation

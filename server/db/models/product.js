@@ -41,20 +41,4 @@ const Product = db.define('product', {
   }
 })
 
-//is this right? Or before Validate?
-Product.beforeUpdate(function({quantity, inStock}) {
-  if (quantity > 0) {
-    inStock = true
-    //Anna: maybe this.inStock = true   ???
-  } else {
-    inStock = false
-    //Anna: maybe this.inStock =false   ???
-  }
-})
-
-// not firing, use components instead
-// Product.beforeSave( product => {
-//   product.price = product.price*100
-// })
-
 module.exports = Product

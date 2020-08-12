@@ -8,4 +8,4 @@ describe('Order model', () => {
   })
 
   describe('')
-}) //end describe Order Model
+})

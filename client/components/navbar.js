@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
-// import {user} from '../store/user'
+
 class Navbar extends React.Component {
   constructor() {
     super()
@@ -42,7 +42,6 @@ class Navbar extends React.Component {
                   className="cartImage"
                 />
               </Link>
-              {/* <Link to ="/login" onClick={this.handleClick}>Logout</Link> */}
             </div>
           ) : (
             <div>
@@ -67,9 +66,6 @@ class Navbar extends React.Component {
   }
 }
 
-/**
- * CONTAINER
- */
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id
@@ -84,9 +80,6 @@ const mapDispatch = dispatch => {
 
 export default connect(mapState, mapDispatch)(Navbar)
 
-/**
- * PROP TYPES
- */
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired

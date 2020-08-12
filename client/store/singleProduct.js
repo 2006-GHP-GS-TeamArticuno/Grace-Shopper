@@ -23,7 +23,6 @@ export const getSingleProductThunk = id => {
   return async dispatch => {
     try {
       const {data} = await axios.get(`/api/products/${id}`)
-      console.log('this is single product  data', data)
       dispatch(getSingleProduct(data))
     } catch (error) {
       console.log(error)
@@ -46,7 +45,6 @@ export const updateSingleProductThunk = (
         quantity,
         description
       )
-      console.log('the update prod data', data)
       dispatch(updateProduct(data))
     } catch (error) {
       console.log(error)
