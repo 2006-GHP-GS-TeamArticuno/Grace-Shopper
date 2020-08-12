@@ -56,16 +56,18 @@ class SingleProduct extends React.Component {
           type="submit"
           onClick={() => {
             {
-              this.props.order[0].products.map(singleProduct => {
-                if (singleProduct.id === product.id) {
-                  this.props.increaseQuantity(
-                    product.id,
-                    (this.props.order[0].products[0].orderDetail.quantity =
-                      this.props.order[0].products[0].orderDetail.quantity + 1)
-                  )
-                }
-                return this.props.addProduct(product.id, product.price)
-              })
+              this.props.order[0] &&
+                this.props.order[0].products.map(singleProduct => {
+                  if (singleProduct.id === product.id) {
+                    this.props.increaseQuantity(
+                      product.id,
+                      (this.props.order[0].products[0].orderDetail.quantity =
+                        this.props.order[0].products[0].orderDetail.quantity +
+                        1)
+                    )
+                  }
+                  return this.props.addProduct(product.id, product.price)
+                })
               //   ?
               // this.props.increaseQuantity(product.id,
               //   this.props.order[0].products[0].orderDetail.quantity =
