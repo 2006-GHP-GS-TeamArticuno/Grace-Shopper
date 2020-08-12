@@ -35,7 +35,7 @@ router.get('/', async (req, res, next) => {
 })
 
 //this put route is updating 'isPurchased' and is run when you click the checkout button
-router.put('/', async (req, res, next) => {
+router.put('/checkout', async (req, res, next) => {
   try {
     if (req.user) {
       const findOrder = await Order.findOne({
@@ -100,7 +100,8 @@ router.put('/', async (req, res, next) => {
         }
       })
       if (findOrderDetail) {
-        findOrderDetail.update({quantity: quantity + 1})
+        let newQuantity = findOrderDetail.quantity + 1
+        findOrderDetail.update({quantity: newQuantity})
       } else {
         await orderDetail.create({productId, productPrice, orderId})
       }
@@ -124,7 +125,8 @@ router.put('/', async (req, res, next) => {
         }
       })
       if (findOrderDetail) {
-        findOrderDetail.update({quantity: quantity + 1})
+        let newQuantity = findOrderDetail.quantity + 1
+        findOrderDetail.update({quantity: newQuantity})
       } else {
         await orderDetail.create({productId, productPrice, orderId})
       }
@@ -150,15 +152,15 @@ router.delete('/delete/:productId', async (req, res, next) => {
 })
 
 //this delete route decreases the amount of a product inside the cart
-router.delete('/decrease/:productId', async (req, res, next) => {
+router.put('/decrease/:productId', async (req, res, next) => {
   try {
     const oneProduct = await orderDetail.findOne({
       where: {
         productId: req.params.productId
       }
     })
-    await oneProduct.destroy()
-
+    let newQuantity = oneProduct.quantity - 1
+    await oneProduct.update({quantity: newQuantity})
     res.send('deleted')
   } catch (error) {
     console.error(error)

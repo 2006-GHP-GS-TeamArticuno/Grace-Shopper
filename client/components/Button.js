@@ -27,7 +27,7 @@ class Button extends React.Component {
   }
   render() {
     // const cart = document.getElementById('cart')
-    const {productId, productPrice} = this.props
+    const {productId, productPrice, productQuantity} = this.props
     console.log('button props are', this.props)
 
     return (

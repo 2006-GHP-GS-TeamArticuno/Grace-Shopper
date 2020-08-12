@@ -10,10 +10,10 @@ const DECREASE_PRODUCT = 'DECREASE_PRODUCT'
 const initialState = []
 
 //ACTION CREATOR
-const getCart = cart => {
+const getCart = order => {
   return {
     type: GET_CART,
-    cart
+    order
   }
 }
 
@@ -31,10 +31,10 @@ const deleteProduct = id => {
   }
 }
 
-const decreaseProduct = cart => {
+const decreaseProduct = order => {
   return {
     type: DECREASE_PRODUCT,
-    cart
+    order
   }
 }
 
@@ -76,7 +76,7 @@ export const deleteProductThunk = productId => {
 export const decreaseProductThunk = id => {
   return async dispatch => {
     try {
-      await axios.delete(`/api/cart/decrease/${id}`)
+      await axios.put(`/api/cart/decrease/${id}`)
       const {data} = await axios.get('/api/cart')
       dispatch(decreaseProduct(id))
       dispatch(getCart(data))
@@ -90,7 +90,7 @@ export const decreaseProductThunk = id => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CART:
-      return action.cart
+      return action.order
 
     case ADD_PRODUCT:
       return {

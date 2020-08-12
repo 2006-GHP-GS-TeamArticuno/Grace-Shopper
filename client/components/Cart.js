@@ -20,7 +20,7 @@ class Cart extends React.Component {
   }
   handleClick = async () => {
     try {
-      await axios.put('api/cart', {isPurchased: true})
+      await axios.put('api/cart/checkout', {isPurchased: true})
       this.setState({
         isClicked: true
       })
@@ -29,8 +29,9 @@ class Cart extends React.Component {
     }
   }
 
-  getProducts(productArray) {
-    return productArray.map(product => {
+  getProducts(products) {
+    // if (products.length > 0 || products !== undefined) {
+    return products.map(product => {
       return (
         <div key={product.id}>
           <tr className="level">
@@ -44,16 +45,13 @@ class Cart extends React.Component {
             </td>
 
             <td className="level-item">
-              Total Quantity: <div id="quantity">{product.quantity}</div>{' '}
+              Total Quantity:{' '}
+              <div id="quantity">{product.orderDetail.quantity}</div>{' '}
             </td>
             <td className="level-item">
               {' '}
               Price: {(product.price / 100).toFixed(2)}{' '}
             </td>
-
-            {/* </div> */}
-
-            {/* <div class = "level-right"> */}
             <td className="buttons are-small">
               <Button
                 text="+"
@@ -71,6 +69,9 @@ class Cart extends React.Component {
         </div>
       )
     })
+    // } else {
+    //   return null
+    // }
   }
 
   render() {
@@ -78,6 +79,7 @@ class Cart extends React.Component {
       return <div> You don't have any items in your cart yet! </div>
     } else {
       const products = this.props.order[0].products
+
       return (
         <div className="has-text-centered">
           <img id="allBanner" src="CART.png" className="has-text-centered" />

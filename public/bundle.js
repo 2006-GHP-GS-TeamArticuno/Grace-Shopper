@@ -521,7 +521,8 @@ function (_React$Component) {
       // const cart = document.getElementById('cart')
       var _this$props = this.props,
           productId = _this$props.productId,
-          productPrice = _this$props.productPrice;
+          productPrice = _this$props.productPrice,
+          productQuantity = _this$props.productQuantity;
       console.log('button props are', this.props);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "button is-primary",
@@ -642,7 +643,7 @@ function (_React$Component) {
             case 0:
               _context.prev = 0;
               _context.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_4___default.a.put('api/cart', {
+              return axios__WEBPACK_IMPORTED_MODULE_4___default.a.put('api/cart/checkout', {
                 isPurchased: true
               });
 
@@ -683,8 +684,9 @@ function (_React$Component) {
     }
   }, {
     key: "getProducts",
-    value: function getProducts(productArray) {
-      return productArray.map(function (product) {
+    value: function getProducts(products) {
+      // if (products.length > 0 || products !== undefined) {
+      return products.map(function (product) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: product.id
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
@@ -697,9 +699,9 @@ function (_React$Component) {
           src: product.imageUrl
         }), ' '), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
           className: "level-item"
-        }, "Total Quantity: ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        }, "Total Quantity:", ' ', react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           id: "quantity"
-        }, product.quantity), ' '), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        }, product.orderDetail.quantity), ' '), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
           className: "level-item"
         }, ' ', "Price: ", (product.price / 100).toFixed(2), ' '), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
           className: "buttons are-small"
@@ -715,7 +717,9 @@ function (_React$Component) {
           text: "delete",
           productId: product.id
         }))));
-      });
+      }); // } else {
+      //   return null
+      // }
     }
   }, {
     key: "render",
@@ -2262,10 +2266,10 @@ var DECREASE_PRODUCT = 'DECREASE_PRODUCT'; //INITIAL STATE
 
 var initialState = []; //ACTION CREATOR
 
-var getCart = function getCart(cart) {
+var getCart = function getCart(order) {
   return {
     type: GET_CART,
-    cart: cart
+    order: order
   };
 };
 
@@ -2283,10 +2287,10 @@ var deleteProduct = function deleteProduct(id) {
   };
 };
 
-var decreaseProduct = function decreaseProduct(cart) {
+var decreaseProduct = function decreaseProduct(order) {
   return {
     type: DECREASE_PRODUCT,
-    cart: cart
+    order: order
   };
 };
 
@@ -2442,7 +2446,7 @@ var decreaseProductThunk = function decreaseProductThunk(id) {
               case 0:
                 _context4.prev = 0;
                 _context4.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/cart/decrease/".concat(id));
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/cart/decrease/".concat(id));
 
               case 3:
                 _context4.next = 5;
@@ -2482,7 +2486,7 @@ var decreaseProductThunk = function decreaseProductThunk(id) {
 
   switch (action.type) {
     case GET_CART:
-      return action.cart;
+      return action.order;
 
     case ADD_PRODUCT:
       return _objectSpread({}, state, {}, action.updatedOrder);
