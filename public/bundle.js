@@ -685,7 +685,6 @@ function (_React$Component) {
   }, {
     key: "getProducts",
     value: function getProducts(products) {
-      // if (products.length > 0 || products !== undefined) {
       return products.map(function (product) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: product.id
@@ -717,17 +716,27 @@ function (_React$Component) {
           text: "delete",
           productId: product.id
         }))));
-      }); // } else {
-      //   return null
-      // }
+      });
     }
   }, {
     key: "render",
     value: function render() {
+      console.log('what is this.props.quantity', this.props.quantity);
+      console.log('what is this.props', this.props);
+
       if (this.props.order[0] === undefined) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " You don't have any items in your cart yet! ");
       } else {
         var products = this.props.order[0].products;
+        var sum = products.reduce(function (accum, curElement) {
+          var quantity = curElement.orderDetail.quantity;
+          return accum = accum + quantity;
+        }, 0);
+        var priceSum = products.reduce(function (accum, curElement) {
+          var quantity = curElement.orderDetail.quantity;
+          var price = curElement.orderDetail.productPrice * quantity;
+          return accum + price;
+        }, 0);
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "has-text-centered"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -743,7 +752,7 @@ function (_React$Component) {
         }, "Checkout"), this.state.isClicked ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Redirect"], {
           from: "/home",
           to: "/checkout"
-        }) : null);
+        }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Total order quantity:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, sum)));
       }
     }
   }]);
@@ -755,7 +764,7 @@ function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     order: state.order,
-    updatedOrder: state.order
+    quantity: state.quantity
   };
 };
 
@@ -2273,10 +2282,10 @@ var getCart = function getCart(order) {
   };
 };
 
-var addProduct = function addProduct(updatedOrder) {
+var addProduct = function addProduct(quantity) {
   return {
     type: ADD_PRODUCT,
-    updatedOrder: updatedOrder
+    quantity: quantity
   };
 };
 
@@ -2358,23 +2367,29 @@ var addProductThunk = function addProductThunk(productId, productPrice) {
                 });
 
               case 3:
+                dispatch(addProduct(productId)); //do we need anything from addproduct
+
+                _context2.next = 6;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/cart');
+
+              case 6:
                 _ref4 = _context2.sent;
                 data = _ref4.data;
-                dispatch(addProduct(data));
-                _context2.next = 11;
+                dispatch(getCart(data));
+                _context2.next = 14;
                 break;
 
-              case 8:
-                _context2.prev = 8;
+              case 11:
+                _context2.prev = 11;
                 _context2.t0 = _context2["catch"](0);
                 console.error(_context2.t0);
 
-              case 11:
+              case 14:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 8]]);
+        }, _callee2, null, [[0, 11]]);
       }));
 
       return function (_x2) {
@@ -2489,7 +2504,7 @@ var decreaseProductThunk = function decreaseProductThunk(id) {
       return action.order;
 
     case ADD_PRODUCT:
-      return _objectSpread({}, state, {}, action.updatedOrder);
+      return _objectSpread({}, state, {}, action.quantity);
 
     case DELETE_PRODUCT: // return [...state].filter(product => product.id !== action.id)
 

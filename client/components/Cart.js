@@ -30,7 +30,6 @@ class Cart extends React.Component {
   }
 
   getProducts(products) {
-    // if (products.length > 0 || products !== undefined) {
     return products.map(product => {
       return (
         <div key={product.id}>
@@ -69,16 +68,24 @@ class Cart extends React.Component {
         </div>
       )
     })
-    // } else {
-    //   return null
-    // }
   }
 
   render() {
+    console.log('what is this.props.quantity', this.props.quantity)
+    console.log('what is this.props', this.props)
     if (this.props.order[0] === undefined) {
       return <div> You don't have any items in your cart yet! </div>
     } else {
       const products = this.props.order[0].products
+      const sum = products.reduce((accum, curElement) => {
+        const quantity = curElement.orderDetail.quantity
+        return (accum = accum + quantity)
+      }, 0)
+      const priceSum = products.reduce((accum, curElement) => {
+        const quantity = curElement.orderDetail.quantity
+        const price = curElement.orderDetail.productPrice * quantity
+        return accum + price
+      }, 0)
 
       return (
         <div className="has-text-centered">
@@ -94,6 +101,12 @@ class Cart extends React.Component {
           {this.state.isClicked ? (
             <Redirect from="/home" to="/checkout" />
           ) : null}
+          <div>
+            Total order quantity:
+            <div>{sum}</div>
+            {/* Total order price: 
+            <div>${(priceSum / 100).toFixed}</div> */}
+          </div>
         </div>
       )
     }
@@ -104,7 +117,7 @@ class Cart extends React.Component {
 const mapStateToProps = state => {
   return {
     order: state.order,
-    updatedOrder: state.order
+    quantity: state.quantity
   }
 }
 

@@ -130,7 +130,8 @@ router.put('/', async (req, res, next) => {
       } else {
         await orderDetail.create({productId, productPrice, orderId})
       }
-      res.json(findOrder)
+      console.log(findOrderDetail)
+      res.json(findOrderDetail.quantity)
     }
   } catch (error) {
     next(error)

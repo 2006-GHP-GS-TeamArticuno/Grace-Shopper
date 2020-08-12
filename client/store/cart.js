@@ -17,10 +17,10 @@ const getCart = order => {
   }
 }
 
-const addProduct = updatedOrder => {
+const addProduct = quantity => {
   return {
     type: ADD_PRODUCT,
-    updatedOrder
+    quantity
   }
 }
 
@@ -52,8 +52,10 @@ export const getCartThunk = () => {
 export const addProductThunk = (productId, productPrice) => {
   return async dispatch => {
     try {
-      const {data} = await axios.put('/api/cart', {productId, productPrice})
-      dispatch(addProduct(data))
+      await axios.put('/api/cart', {productId, productPrice})
+      dispatch(addProduct(productId)) //do we need anything from addproduct
+      const {data} = await axios.get('/api/cart')
+      dispatch(getCart(data))
     } catch (error) {
       console.error(error)
     }
@@ -95,7 +97,7 @@ export default function(state = initialState, action) {
     case ADD_PRODUCT:
       return {
         ...state,
-        ...action.updatedOrder
+        ...action.quantity
       }
     case DELETE_PRODUCT:
     // return [...state].filter(product => product.id !== action.id)
