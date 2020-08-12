@@ -23,7 +23,7 @@ get those changes from now on by entering:
 
 
 ## Team
-[Ariel Ng](https://github.com/arng0123)
-[Biligma Oyola](https://github.com/sandylykova)
-[Hanna Rzheutskaya](https://github.com/hanna-96)
-[Megan Leaf](https://github.com/meganbleaf)
+* [Ariel Ng](https://github.com/arng0123)
+* [Biligma Oyola](https://github.com/sandylykova)
+* [Hanna Rzheutskaya](https://github.com/hanna-96)
+* [Megan Leaf](https://github.com/meganbleaf)
